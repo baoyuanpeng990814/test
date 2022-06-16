@@ -26,16 +26,16 @@
 					<span>培训</span>
 				</div>
 				<div class="menu-item" @click="go('examhome')">
-					<img src="../../images/icon/icon_kaoshi.png">
+					<img src="../../images/icon/icon_jingsai.png">
 					</img>
-					<span>考试</span>
+					<span>季赛</span>
 				</div>
 				<!-- ContestIndex -->
         <!-- @click="go('contestindex')" -->
 				<div class="menu-item" >
-					<img src="../../images/icon/icon_jingsai.png">
+					<img src="../../images/icon/icon_kaoshi.png">
 					</img>
-					<span>竞赛</span>
+					<span>调查</span>
 				</div>
 				<!-- <div class="menu-item" @click="go('InvestigationHome')">
 					<img src="../../images/icon/icon_questionary.png">

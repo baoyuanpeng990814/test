@@ -9,7 +9,7 @@
 							<div class="font-292828-09 ">{{d.examName}}</div>
 							<span class="font-A9ADAD-0-9 margint-0-5">答题时间:{{d.timingStartTime }} 分钟</span>
 							<span class="font-A9ADAD-0-9 margint-0-5">结束时间:{{d.failureTime | splitTime}}</span>
-							<div class="btn-go" @click="goPurchase(d)">参加考试</div>
+							<div class="btn-go" @click="goPurchase(d)">参加竞赛</div>
 						</div>
 
 					</div>
@@ -113,7 +113,12 @@
 			},
 			goExam() {
 				/*  */
-				/*  if (this.datadetail.count >= this.datadetail.exam.examSubmit) {            this.$message.error("您已经完成了此考试")            clearInterval(this.timer)            this.timeout = true            this.$router.push('/ExamFinder')          } */
+				/*  if (this.datadetail.count >= this.datadetail.exam.examSubmit) {
+            this.$message.error("您已经完成了此考试")
+            clearInterval(this.timer)
+            this.timeout = true
+            this.$router.push('/ExamFinder')
+          } */
 				/* 判断还有答题次数吗 */
 				if (this.currentdata.count >= this.currentdata.examFrequency) {
 					this.snackbar = true
