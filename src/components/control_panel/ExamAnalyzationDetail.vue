@@ -522,6 +522,7 @@ export default {
           tempA[i].optionContent = tempA[i].optionContent.replace(/&nbsp;/ig, '')
           // tempA[i].optionNum === 'A' ? tempA[i].optionNum = '对' : tempA[i].optionNum = '错'
         }
+        console.log(that.transQuestions[key].examineAnswer, 'that.transQuestions[key].examineAnswer')
       }
     },
     // 试卷跳转
