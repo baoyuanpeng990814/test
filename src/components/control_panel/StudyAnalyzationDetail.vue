@@ -18,18 +18,18 @@
             </el-col>
           </el-row>
         </div>
-        <div class="detail_lines">
+        <div class="detail_lines detail1_lines">
           <el-container>
             <el-main v-if="showExaminfo">
-              <el-row>
-                <el-col :span="4">
+              <el-row  label-position="left">
+                <el-col :span="2">
                   基本信息
                 </el-col>
                 <el-col :span="20">
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="4">
+                <el-col :span="2">
                   课程名称
                 </el-col>
                 <el-col :span="20">
@@ -37,7 +37,7 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="4">
+                <el-col :span="2">
                   标准课时
                 </el-col>
                 <el-col :span="20">
@@ -45,7 +45,7 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="4">
+                <el-col :span="2">
                   主办单位
                 </el-col>
                 <el-col :span="20">
@@ -53,7 +53,7 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="4">
+                <el-col :span="2">
                   简介
                 </el-col>
                 <el-col :span="20">

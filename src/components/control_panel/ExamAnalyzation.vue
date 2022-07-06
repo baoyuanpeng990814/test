@@ -23,11 +23,12 @@
               </el-form-item>
             </el-col>
           </el-form>
-          <el-button @click="searchAll()">查询全部列表</el-button>
-          <el-button @click="exportExcel()">点击导出当前列表的excel</el-button>
+          
         </el-row>
         <el-row class="buttons">
           <el-col :span="24" :offset="0">
+          <el-button @click="searchAll()" type="primary">查询全部列表</el-button>
+          <el-button @click="exportExcel()" type="primary">点击导出当前列表的excel</el-button>
             <el-button icon="el-icon-search" @click="searchData" type="primary">查询</el-button>
             <el-button icon="el-icon-refresh-right" @click="reset" type="primary">重置</el-button>
           </el-col>
@@ -73,8 +74,8 @@
 
 <script>
   // 引入导出Excel表格依赖
-  import FileSaver from "file-saver";
-  import XLSX from "xlsx";
+  import FileSaver from 'file-saver'
+  import XLSX from 'xlsx'
   export default {
     data() {
       return {
@@ -96,9 +97,8 @@
           query: val
         })
       },
-      //定义导出Excel表格事件
+      // 定义导出Excel表格事件
       exportExcel() {
-
         /* 从表生成工作簿对象 */
         let wb = XLSX.utils.table_to_book(document.querySelector('#out-table'))
         /* 获取二进制字符串作为输出 */
@@ -109,14 +109,14 @@
         })
         try {
           FileSaver.saveAs(
-            //Blob 对象表示一个不可变、原始数据的类文件对象。
-            //Blob 表示的不一定是JavaScript原生格式的数据。
-            //File 接口基于Blob，继承了 blob 的功能并将其扩展使其支持用户系统上的文件。
-            //返回一个新创建的 Blob 对象，其内容由参数中给定的数组串联组成。
+            // Blob 对象表示一个不可变、原始数据的类文件对象。
+            // Blob 表示的不一定是JavaScript原生格式的数据。
+            // File 接口基于Blob，继承了 blob 的功能并将其扩展使其支持用户系统上的文件。
+            // 返回一个新创建的 Blob 对象，其内容由参数中给定的数组串联组成。
             new Blob([wbout], {
               type: 'application/octet-stream'
             }),
-            //设置导出文件名称
+            // 设置导出文件名称
             '考试列表.xlsx'
           )
         } catch (e) {
@@ -134,9 +134,9 @@
       searchData() {
         this.getDataList()
       },
-      searchAll(){
-        this.queryInfo.rows = this.total;
-        this.getDataList();
+      searchAll() {
+        this.queryInfo.rows = this.total
+        this.getDataList()
       },
       handleSizeChange(newSize) {
         this.queryInfo.rows = newSize
@@ -150,7 +150,7 @@
       async getDataList() {
         const {
           data: res
-        } = await this.$http.post("/manager/lStatistic/examList", this.queryInfo)
+        } = await this.$http.post('/manager/lStatistic/examList', this.queryInfo)
         if (res.state !== 200) {
           this.tableData = []
           this.total = 0

@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/themelist' }">主题管理</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/themelist' }">学习主题</el-breadcrumb-item>
       <el-breadcrumb-item :to="{ path: '/themecreate' }">创建主题</el-breadcrumb-item>
     </el-breadcrumb>
 
@@ -37,7 +37,6 @@
                 </el-form-item>
               </el-col>
             </el-row>
-
 
             <el-row>
               <el-col :span="24">
@@ -127,10 +126,10 @@
         tq: {},
         organizations: [],
         themedetail: {
-          themeName: "",
-          parentNode: "0",
-          themeState: "1",
-          description: ""
+          themeName: '',
+          parentNode: '0',
+          themeState: '1',
+          description: ''
         },
         rules: {
           themeName: [{
@@ -150,7 +149,7 @@
       async submitCreation() {
         const {
           data: res
-        } = await this.$http.post("/manager/theme/add", this.themedetail)
+        } = await this.$http.post('/manager/theme/add', this.themedetail)
         if (res.state !== 200) {
           return this.$message.error(res.msg)
         } else {
@@ -165,7 +164,7 @@
         param.organizationId = 0
         const {
           data: res
-        } = await this.$http.post("/manager/org/list", param)
+        } = await this.$http.post('/manager/org/list', param)
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
@@ -182,15 +181,12 @@
           this.organizationDialog = false
           this.themedetail.createOrg = row.organizationId
         }
-
       },
       // 监听rows改变的事件
       handleSizeChange(newSize) {
         this.drow = newSize
         if (this.theacherDialog) this.getTeacherList()
-        //elseif (this.theacherDisalog) this.getTeacherList()
-
-
+        // elseif (this.theacherDisalog) this.getTeacherList()
       },
       // 监听页码值改变的事件
       handleCurrentChange(newPage) {

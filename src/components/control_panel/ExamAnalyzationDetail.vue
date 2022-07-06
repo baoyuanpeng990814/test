@@ -9,7 +9,7 @@
         >考试统计详情</el-breadcrumb-item
       >
     </el-breadcrumb>
-    <div class="card_detail">
+    <div class="card_detail card1detail">
       <el-card>
         <div slot="header" class="clearfix">
           <el-row>
@@ -26,51 +26,51 @@
             </el-col>
           </el-row>
         </div>
-        <div class="detail_lines">
+        <div class="detail_lines detail1_lines">
           <el-container>
-            <el-main v-if="showExaminfo">
-              <el-row>
-                <el-col :span="4"> 基本信息 </el-col>
-                <el-col :span="20"> </el-col>
+            <el-main v-if="showExaminfo" >
+              <el-row   label-position="left" >
+                <el-col :span="2"> 基本信息 </el-col>
+                <el-col :span="20"   label-position="left" > </el-col>
               </el-row>
-              <el-row>
-                <el-col :span="4"> 试卷名称 </el-col>
-                <el-col :span="20">
+              <el-row >
+                <el-col :span="2"> 试卷名称 </el-col>
+                <el-col :span="20"   label-position="left" >
                   {{ examInfo.examName }}
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="4"> 主办单位 </el-col>
+                <el-col :span="2"> 主办单位 </el-col>
                 <el-col :span="20">
                   {{ examInfo.organizationName }}
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="4"> 负责人 </el-col>
+                <el-col :span="2"> 负责人 </el-col>
                 <el-col :span="20">
                   {{ examInfo.createUser }}
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="4"> 发布时间 </el-col>
+                <el-col :span="2"> 发布时间 </el-col>
                 <el-col :span="20">
                   {{ examInfo.createTime | transfermDate }}
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="4"> 失效时间 </el-col>
+                <el-col :span="2"> 失效时间 </el-col>
                 <el-col :span="20">
                   {{ examInfo.failureTime | transfermDate }}
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="4"> 归档方式 </el-col>
+                <el-col :span="2"> 归档方式 </el-col>
                 <el-col :span="20">
                   {{ examInfo.examFile | transfermExamFile }}
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="4"> 计时选项 </el-col>
+                <el-col :span="2"> 计时选项 </el-col>
                 <el-col :span="20">
                   <div v-if="examInfo.timingType == '1'">
                     考试时长：{{ examInfo.timingStartTime }}
@@ -83,27 +83,44 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="4"> 归档方式 </el-col>
+                <el-col :span="2"> 归档方式 </el-col>
                 <el-col :span="20">
                   {{ examInfo.achievementType | transfermAchievementType }}
                 </el-col>
               </el-row>
 
               <el-row>
-                <el-col :span="4"> 出题方式 </el-col>
+                <el-col :span="2"> 出题方式 </el-col>
                 <el-col :span="20">
                   {{ examInfo.assignTopic | transfermAssignTopic }}
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="4"> 分数设置 </el-col>
+                <el-col :span="2"> 分数设置 </el-col>
                 <el-col :span="20">
                   {{ examInfo.fractionType | transfermFractionType }}
                 </el-col>
               </el-row>
             </el-main>
 
-            <el-main v-if="showStatistic">
+            <el-main v-if="showStatistic" class="table-tongji">
+              <div class="table-left ">
+            
+                  <el-table
+                    height=" calc(100vh - 350px) "
+                    ref="multipleTable"
+                    :data="datatable"
+                    tooltip-effect="dark"
+                    style="width: 100%"
+                  >
+                    <el-table-column prop="score" label="分数段" width="70">
+                    </el-table-column>
+                    <el-table-column prop="num" label="人数" width="60">
+                    </el-table-column>
+                  </el-table>
+                
+              </div>
+
               <div class="statistic_table">
                 <table>
                   <tr>
@@ -123,23 +140,6 @@
                     <td>{{ this.chartData.minScores }}</td>
                   </tr>
                 </table>
-              </div>
-
-              <div class="statistic_div">
-                <div>
-                  <el-table
-                    height=" calc(100vh - 350px) "
-                    ref="multipleTable"
-                    :data="datatable"
-                    tooltip-effect="dark"
-                    style="width: 100%"
-                  >
-                    <el-table-column prop="score" label="分数段" width="70">
-                    </el-table-column>
-                    <el-table-column prop="num" label="人数" width="60">
-                    </el-table-column>
-                  </el-table>
-                </div>
                 <div>
                   <ExamState :data="option"></ExamState>
                 </div>
@@ -762,7 +762,7 @@ export default {
   color: #333;
   text-align: center;
 }
-.showPaper .el-main {
+.showPaper .el-main,.el-aside {
   color: #333;
   text-align: center;
   height: calc(100% - 60px);
@@ -834,5 +834,13 @@ export default {
   margin: auto;
   width: 100%;
   height: 100%;
+}
+
+.table-tongji{
+display: flex;
+
+}
+.table-tongji .table-left {
+width:20%
 }
 </style>

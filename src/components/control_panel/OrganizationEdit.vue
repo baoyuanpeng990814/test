@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/organizationlist' }">组织机构</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/organizationlist' }">机构管理</el-breadcrumb-item>
       <el-breadcrumb-item :to="{ path: '/organizationedit' }">编辑机构</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="card_detail">
@@ -72,7 +72,6 @@
 
   </div>
 
-
 </template>
 
 <script>
@@ -93,13 +92,13 @@
           }],
           organizationPhone: [{
             pattern: /^-?\d+\.?\d*$/,
-            message: "电话号不正确",
+            message: '电话号不正确',
             trigger: 'blur'
           }, {
             required: true,
             message: '机构电话不能为空',
             trigger: 'blur'
-          }],
+          }]
         }
       }
     },
@@ -113,11 +112,10 @@
       async modifyorganization() {
         const {
           data: res
-        } = await this.$http.post("/manager/org/edit", this.organizationdetail)
+        } = await this.$http.post('/manager/org/edit', this.organizationdetail)
         if (res.state !== 200) {
           return this.$message.error(res.msg)
         } else {
-
           this.$message.success('修改成功')
           this.$router.go(-1)
         }

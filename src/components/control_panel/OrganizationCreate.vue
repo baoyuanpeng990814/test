@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/organizationlist' }">组织机构</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/organizationlist' }">机构管理</el-breadcrumb-item>
       <el-breadcrumb-item :to="{ path: '/organizationcreate' }">创建机构</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="card_detail">
@@ -71,8 +71,6 @@
     </div>
   </div>
 
-
-
 </template>
 
 <script>
@@ -80,19 +78,19 @@
     data() {
       return {
         organizationdetail: {
-          organizationCode: "",
-          organizationName: "",
-          organizatiomPhone: "",
-          discreption: "",
-          organizationType: "1",
-          parentNode: "0"
+          organizationCode: '',
+          organizationName: '',
+          organizatiomPhone: '',
+          discreption: '',
+          organizationType: '1',
+          parentNode: '0'
         },
         rules: {
-          /*organizationCode: [{
+          /* organizationCode: [{
             required: true,
             message: '机构编码不能为空',
             trigger: 'blur'
-          }],*/
+          }], */
           organizationName: [{
             required: true,
             message: '机构名不能为空',
@@ -100,13 +98,13 @@
           }],
           organizationPhone: [{
             pattern: /^-?\d+\.?\d*$/,
-            message: "电话号不正确",
+            message: '电话号不正确',
             trigger: 'blur'
           }, {
             required: true,
             message: '机构电话不能为空',
             trigger: 'blur'
-          }],
+          }]
         }
       }
     },
@@ -118,7 +116,7 @@
       async submitCreation() {
         const {
           data: res
-        } = await this.$http.post("/manager/org/add", this.organizationdetail)
+        } = await this.$http.post('/manager/org/add', this.organizationdetail)
         if (res.state !== 200) {
           return this.$message.error(res.msg)
         } else {

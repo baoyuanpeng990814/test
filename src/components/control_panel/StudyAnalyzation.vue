@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/studyanalyzation' }">学习统计</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/studyanalyzation' }">学习监控</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card class="list_card">
       <div slot="header" class="clearfix">
@@ -23,13 +23,14 @@
               </el-form-item>
             </el-col>
             <!-- -->
-            <el-button @click="searchAll()">查询全部列表</el-button>
-            <el-button @click="exportExcel">点击导出当前列表的excel</el-button>
 
           </el-form>
-        </el-row>
+        </el-row>     
+      
         <el-row class="buttons">
           <el-col :span="24" :offset="0">
+            <el-button @click="searchAll()">查询全部列表</el-button>
+            <el-button @click="exportExcel">点击导出当前列表的excel</el-button>
             <el-button icon="el-icon-search" @click="searchData" type="primary">查询</el-button>
             <el-button icon="el-icon-refresh-right" @click="reset" type="primary">重置</el-button>
           </el-col>

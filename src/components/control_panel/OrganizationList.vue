@@ -2,8 +2,8 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/organizationlist' }">组织机构</el-breadcrumb-item>
-
+      <!-- <el-breadcrumb-item :to="{ path: '/organizationlist' }">组织机构</el-breadcrumb-item> -->
+<el-breadcrumb-item :to="{ path: '/organizationlist' }">机构管理</el-breadcrumb-item>
     </el-breadcrumb>
 
     <el-card class="list_card">
@@ -13,7 +13,7 @@
 
           <el-form class="demo-ruleForm login_form" label-width="auto">
             <el-col :span="5">
-              <el-form-item label="机构名称">
+              <el-form-item label="机构名称" style="margin-right:10px">
                 <el-input v-model="queryInfo.organizationName" placeholder="机构名称"></el-input>
               </el-form-item>
             </el-col>
@@ -35,8 +35,6 @@
             <el-button icon="el-icon-plus" @click="addOrganization" type="primary">添加</el-button>
           </el-col>
 
-
-
         </el-row>
       </div>
       <div>
@@ -54,9 +52,9 @@
               <el-table-column prop="organizationType" label="状态" width="60">
                 <template slot-scope="scope">{{ scope.row.organizationType |transfermState }}</template>
               </el-table-column>
-              <el-table-column prop="organizationCode" label="编码" width="120">
+              <el-table-column prop="organizationCode" label="编码" width="160">
               </el-table-column>
-              <el-table-column prop="organizationName" label="机构名称" width="120">
+              <el-table-column prop="organizationName" label="机构名称" width="220">
               </el-table-column>
 
               <el-table-column prop="updateTime" label="最后修改时间" width="120">
@@ -77,9 +75,7 @@
         </el-container>
       </div>
 
-
     </el-card>
-
 
     <el-dialog title="" :visible.sync="dialogVisible" width="30%">
       <span>确定要删除：{{supposeDelete.organizationName}}</span>
@@ -96,7 +92,7 @@
     data() {
       return {
         supposeDelete: {
-          userName: ""
+          userName: ''
         },
         dialogVisible: false,
         multipleSelection: [],
@@ -108,14 +104,14 @@
         treedata: [],
         queryInfo: {
           organizationId: 0,
-          organizationCode: "",
-          organizationName: "",
+          organizationCode: '',
+          organizationName: '',
           page: 1,
           rows: 10
         },
         tableData: [],
         total: 0,
-        currentNode:0
+        currentNode: 0
       }
     },
     created() {
@@ -132,7 +128,7 @@
       async getOrganizationTree() {
         const {
           data: res
-        } = await this.$http.post("/manager/org/tree")
+        } = await this.$http.post('/manager/org/tree')
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
@@ -140,10 +136,9 @@
         }
       },
       async getOrganizationList() {
-
         const {
           data: res
-        } = await this.$http.post("/manager/org/list", this.queryInfo)
+        } = await this.$http.post('/manager/org/list', this.queryInfo)
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
@@ -152,14 +147,14 @@
         }
       },
       reset() {
-        this.queryInfo.organizationCode = ""
-        this.queryInfo.organizationName = ""
+        this.queryInfo.organizationCode = ''
+        this.queryInfo.organizationName = ''
         this.getOrganizationList()
       },
       async RemoveOrganization() {
         const {
           data: res
-        } = await this.$http.post("/manager/org/del",{organizationId:this.supposeDelete.organizationId})
+        } = await this.$http.post('/manager/org/del', { organizationId: this.supposeDelete.organizationId })
 
         if (res.state !== 200) {
           return this.$message.error('操作失败！')
@@ -167,13 +162,11 @@
           this.getOrganizationList()
           this.supposeDelete = {}
           return this.$message.success('操作成功！')
-
         }
       },
       confirmDelete() {
         this.dialogVisible = false
         this.RemoveOrganization()
-
       },
       editDetail(row) {
         this.$router.push({
@@ -190,21 +183,20 @@
       addOrganization() {
         this.$router.push({
           path: '/organizationcreate',
-          query:{
-            parent:this.currentNode,
+          query: {
+            parent: this.currentNode
 
           }
         })
       },
 
       handleSelectionChange(val) {
-        this.multipleSelection = val;
+        this.multipleSelection = val
       },
       // 监听rows改变的事件
       handleSizeChange(newSize) {
         this.queryInfo.rows = newSize
         this.getOrganizationList()
-
       },
       // 监听页码值改变的事件
       handleCurrentChange(newPage) {
@@ -218,9 +210,9 @@
           return date.split('T')[0]
         }
       },
-      transfermState: function(state){
-        if(state=="1") return "启用"
-        else return "禁用"
+      transfermState: function(state) {
+        if (state == '1') return '启用'
+        else return '禁用'
       }
     }
   }

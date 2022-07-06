@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/rolelist' }">角色菜单</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/rolelist' }">角色管理</el-breadcrumb-item>
       <el-breadcrumb-item :to="{ path: '/rolecreate' }">创建角色</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="card_detail">
@@ -35,7 +35,6 @@
               </el-col>
             </el-row>
 
-
             <el-row>
               <el-col :span="24">
                 <el-form-item label="排序" prop="seq">
@@ -59,7 +58,6 @@
               </el-col>
             </el-row>
 
-
             <el-row>
               <el-col :span="20" :offset="4">
                 <el-button type="primary" @click="submitCreation()">提交</el-button>
@@ -73,7 +71,6 @@
     </div>
   </div>
 
-
 </template>
 
 <script>
@@ -81,38 +78,37 @@
     data() {
       return {
         rights: [],
-        currentRights: "",
+        currentRights: '',
         defaultProps: {
           children: 'chilLItem',
           label: 'menuName'
         },
         treedata: [],
         roledetail: {
-          roleName:"",
-          state:1,
-          seq:1,
-          roleDescription:"",
-          roleItem:""
+          roleName: '',
+          state: 1,
+          seq: 1,
+          roleDescription: '',
+          roleItem: ''
         },
         rules: {
           roleName: [{
             required: true,
             message: '名称不能为空',
             trigger: 'blur'
-          }],
+          }]
 
         }
       }
     },
     created() {
-
       this.getFunctionTree()
     },
     methods: {
       async submitCreation() {
         const {
           data: res
-        } = await this.$http.post("/manager/role/add", this.roledetail)
+        } = await this.$http.post('/manager/role/add', this.roledetail)
         if (res.state !== 200) {
           return this.$message.error(res.msg)
         } else {
@@ -121,33 +117,32 @@
         }
       },
       handleCheckChange(data, checked, indeterminate) {
-        //console.log(data, checked, indeterminate);
+        // console.log(data, checked, indeterminate);
         var res = this.$refs.rightsTree.getCheckedNodes()
         this.rights = res
 
-        var rawRights = ""
+        var rawRights = ''
         for (var i = 0; i < this.rights.length; i++) {
-          rawRights += this.rights[i].menuId + ","
+          rawRights += this.rights[i].menuId + ','
         }
         this.roledetail.roleItem = rawRights
-
       },
 
       async getFunctionTree() {
         const {
           data: res
-        } = await this.$http.post("/manager/item/tree")
+        } = await this.$http.post('/manager/item/tree')
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
           this.treedata = res.data
 
-          var rawRights = this.roledetail.roleItem.split(",")
+          var rawRights = this.roledetail.roleItem.split(',')
           for (var i = 0; i < rawRights.length; i++) {
             this.rights.push(parseInt(rawRights[i]))
           }
 
-          this.$refs.rightsTree.setCheckedKeys(this.rights);
+          this.$refs.rightsTree.setCheckedKeys(this.rights)
         }
       }
     },

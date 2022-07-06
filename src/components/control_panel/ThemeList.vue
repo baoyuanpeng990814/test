@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/themelist' }">主题管理</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/themelist' }">学习主题</el-breadcrumb-item>
 
     </el-breadcrumb>
     <el-card class="list_card">
@@ -24,11 +24,8 @@
             <el-button icon="el-icon-plus" @click="addTheme" type="primary">添加</el-button>
           </el-col>
 
-
-
         </el-row>
       </div>
-
 
       <div>
         <el-container>
@@ -62,12 +59,9 @@
           </el-main>
         </el-container>
 
-
       </div>
 
-
     </el-card>
-
 
     <el-dialog title="" :visible.sync="dialogVisible" width="30%">
       <span>确定要删除：{{supposeDelete.themeName}}</span>
@@ -87,7 +81,7 @@
           children: 'chilLOrganization',
           label: 'themeName'
         },
-        currentNode: "",
+        currentNode: '',
         treedata: [],
         supposeDelete: {},
         dialogVisible: false,
@@ -127,40 +121,35 @@
         this.getThemeList()
       },
       async getThemeList() {
-
         const {
           data: res
-        } = await this.$http.post("/manager/theme/list", this.queryInfo)
+        } = await this.$http.post('/manager/theme/list', this.queryInfo)
         if (res.state !== 200) {
           this.tableData = []
-          //return this.$message.error('数据获取失败！')
+          // return this.$message.error('数据获取失败！')
         } else {
-
           this.tableData = res.data
           this.total = res.count
         }
       },
       async getThemeTree() {
-
         const {
           data: res
-        } = await this.$http.post("/manager/theme/list", {
-          parentNode: "0",
-          page: "1",
-          rows: "99"
+        } = await this.$http.post('/manager/theme/list', {
+          parentNode: '0',
+          page: '1',
+          rows: '99'
         })
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
-
           this.treedata = res.data
-
         }
       },
       async RemoveRole() {
         const {
           data: res
-        } = await this.$http.post("/manager/theme/del", {
+        } = await this.$http.post('/manager/theme/del', {
           themeId: this.supposeDelete.themeId
         })
         if (res.state !== 200) {
@@ -169,13 +158,11 @@
           this.getThemeList()
           this.supposeDelete = {}
           return this.$message.success('操作成功！')
-
         }
       },
       confirmDelete() {
         this.dialogVisible = false
         this.RemoveRole()
-
       },
       editDetail(row) {
         this.$router.push({
@@ -199,13 +186,12 @@
       },
 
       handleSelectionChange(val) {
-        this.multipleSelection = val;
+        this.multipleSelection = val
       },
       // 监听rows改变的事件
       handleSizeChange(newSize) {
         this.queryInfo.rows = newSize
         this.getThemeList()
-
       },
       // 监听页码值改变的事件
       handleCurrentChange(newPage) {
@@ -215,9 +201,9 @@
     },
     filters: {
       transfermState: function(state) {
-        if (state == "1") return "启用"
-        else if (state == 1) return "启用"
-        else return "禁用"
+        if (state == '1') return '启用'
+        else if (state == 1) return '启用'
+        else return '禁用'
       }
     }
   }

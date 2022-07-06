@@ -29,8 +29,6 @@
             <el-button icon="el-icon-plus" @click="addData" type="primary">添加</el-button>
           </el-col>
 
-
-
         </el-row>
       </div>
       <div>
@@ -44,7 +42,7 @@
           </el-table-column>
           <el-table-column prop="questionsTypeFraction" label="分数" width="120">
           </el-table-column>
-          <el-table-column prop="description" label="说明" width="120">
+          <el-table-column prop="description" label="说明" width="500">
           </el-table-column>
           <el-table-column fixed="right" label="操作" width="120">
             <template slot-scope="scope">
@@ -59,7 +57,6 @@
         :page-size="queryInfo.rows" layout="total,  prev, pager, next, jumper" :total="total">
       </el-pagination>
     </el-card>
-
 
     <el-dialog title="" :visible.sync="dialogVisible" width="30%">
       <span>确定要删除：{{supposeDelete.questionsTypeName}}</span>
@@ -111,14 +108,12 @@
         this.getTableData()
       },
       async getTableData() {
-
         const {
           data: res
-        } = await this.$http.post("/manager/qtyp/list", this.queryInfo)
+        } = await this.$http.post('/manager/qtyp/list', this.queryInfo)
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
-
           this.tableData = res.data
           this.total = res.count
           console.log(res.data)
@@ -127,7 +122,7 @@
       async RemoveData() {
         const {
           data: res
-        } = await this.$http.post("/manager/qtyp/del", {
+        } = await this.$http.post('/manager/qtyp/del', {
           questionsTypeId: this.supposeDelete.questionsTypeId
         })
         if (res.state !== 200) {
@@ -136,13 +131,11 @@
           this.getTableData()
           this.supposeDelete = {}
           return this.$message.success('操作成功！')
-
         }
       },
       confirmDelete() {
         this.dialogVisible = false
         this.RemoveData()
-
       },
       editDetail(row) {
         this.$router.push({
@@ -163,13 +156,12 @@
       },
 
       handleSelectionChange(val) {
-        this.multipleSelection = val;
+        this.multipleSelection = val
       },
       // 监听rows改变的事件
       handleSizeChange(newSize) {
         this.queryInfo.rows = newSize
         this.getTableData()
-
       },
       // 监听页码值改变的事件
       handleCurrentChange(newPage) {
@@ -180,13 +172,14 @@
     filters: {
       transfermState: function(state) {
         console.log(state)
-        if (state == "1") return "启用"
-        else if (state == 1) return "启用"
-        else return "禁用"
+        if (state == '1') return '启用'
+        else if (state == 1) return '启用'
+        else return '禁用'
       }
     }
   }
 </script>
 
 <style scoped>
+
 </style>
