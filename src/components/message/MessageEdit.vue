@@ -2,15 +2,15 @@
 	<div id="app">
 		<!-- 面包屑导航 -->
 		<el-breadcrumb separator-class="el-icon-arrow-right">
-			<el-breadcrumb-item :to="{ path: '/messagelist' }">新闻管理</el-breadcrumb-item>
-			<el-breadcrumb-item :to="{ path: '/messageedit' }">新闻编辑</el-breadcrumb-item>
+			<el-breadcrumb-item :to="{ path: '/messagelist' }">消息管理</el-breadcrumb-item>
+			<el-breadcrumb-item>消息编辑</el-breadcrumb-item>
 		</el-breadcrumb>
 
 		<div class="card_detail">
 			<el-card>
 				<div slot="header" class="clearfix">
 					<el-row>
-						<el-col :span="20">编辑新闻</el-col>
+						<el-col :span="20">编辑消息</el-col>
 						<el-col :span="4">
 							<el-button icon="el-icon-arrow-left" @click="$router.go(-1)">返回</el-button>
 						</el-col>
@@ -85,12 +85,12 @@
 				showOd: false,
 				showOp: false,
 				twin: {
-					organizationName: ""
+					organizationName: ''
 				},
 				messagedetail: {
-					messageContent: "",
-					messageObject: "1",
-					messageType: "", //类型 1系统通知 2重要通知 3考试通知 4竞赛通知
+					messageContent: '',
+					messageObject: '1',
+					messageType: '' // 类型 1系统通知 2重要通知 3考试通知 4竞赛通知
 
 				},
 				rules: {
@@ -101,17 +101,16 @@
 					}],
 					messageObject: [{
 						required: true,
-						message: "通知对象不能为空",
+						message: '通知对象不能为空',
 						trigger: 'blur'
 					}],
 					messageType: [{
 						required: true,
 						message: '类型不能为空',
 						trigger: 'blur'
-					}],
+					}]
 
 				}
-
 
 			}
 		},
@@ -119,7 +118,6 @@
 			this.messagedetail = this.$route.query.row
 			console.log(this.$route.query.row)
 			this.twin.organizationName = this.$route.query.row.messageObject
-
 		},
 		methods: {
 			getOd(val) {
@@ -132,16 +130,14 @@
 			async modifymessage() {
 				const {
 					data: res
-				} = await this.$http.post("/manager/message/edit", this.messagedetail)
+				} = await this.$http.post('/manager/message/edit', this.messagedetail)
 				if (res.state !== 200) {
 					return this.$message.error(res.msg)
 				} else {
-
 					this.$message.success('修改成功')
 					this.$router.go(-1)
 				}
-			},
-
+			}
 
 			/* handleSuccess (res) {
 			        // 获取富文本组件实例

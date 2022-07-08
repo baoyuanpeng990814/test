@@ -2,7 +2,7 @@
 	<div id="app">
 		<!-- 面包屑导航 -->
 		<el-breadcrumb separator-class="el-icon-arrow-right">
-			<el-breadcrumb-item :to="{ path: '/newslist' }">新闻管理</el-breadcrumb-item>
+			<el-breadcrumb-item >赛事报道</el-breadcrumb-item>
 		</el-breadcrumb>
 		<el-card class="list_card">
 			<div slot="header" class="clearfix">
@@ -81,7 +81,7 @@
 				},
 				treedata: [],
 				supposeDelete: {
-					newsId: ""
+					newsId: ''
 				},
 				dialogVisible: false,
 				queryInfo: {
@@ -104,19 +104,18 @@
 		},
 		created() {
 			this.getNewsList()
-
 		},
 		methods: {
 
 			handleNodeClick(data) {
 				this.queryInfo.organizationId = data.organizationId
-				//this.currentNode = data.organizationId
+				// this.currentNode = data.organizationId
 				this.getNewsList()
 			},
 			async getOrganizationTree() {
 				const {
 					data: res
-				} = await this.$http.post("/manager/org/tree")
+				} = await this.$http.post('/manager/org/tree')
 				if (res.state !== 200) {
 					return this.$message.error('数据获取失败！')
 				} else {
@@ -124,11 +123,11 @@
 				}
 			},
 			reset() {
-				this.queryInfo.name = ""
-				this.queryInfo.username = ""
-				this.queryInfo.gender = ""
-				this.queryInfo.stutes = ""
-				this.queryInfo.mobile = ""
+				this.queryInfo.name = ''
+				this.queryInfo.username = ''
+				this.queryInfo.gender = ''
+				this.queryInfo.stutes = ''
+				this.queryInfo.mobile = ''
 				this.getNewsList()
 			},
 			searchNews() {
@@ -137,9 +136,9 @@
 			async getNewsList() {
 				const {
 					data: res
-				} = await this.$http.post("/manager/cnew/list", this.queryInfo)
+				} = await this.$http.post('/manager/cnew/list', this.queryInfo)
 				if (res.state !== 200) {
-					//return this.$message.error('数据获取失败！')
+					// return this.$message.error('数据获取失败！')
 					this.tableData = []
 				} else {
 					this.tableData = res.data
@@ -149,8 +148,8 @@
 			async RemoveNews() {
 				const {
 					data: res
-				} = await this.$http.post("/manager/cnew/del", {
-					competitionNewId	: this.supposeDelete.competitionNewId
+				} = await this.$http.post('/manager/cnew/del', {
+					competitionNewId: this.supposeDelete.competitionNewId
 				})
 				if (res.state !== 200) {
 					return this.$message.error('操作失败！')
@@ -181,7 +180,7 @@
 				})
 			},
 			deleteNews(row) {
-				console.log("du")
+				console.log('du')
 				this.supposeDelete = row
 				this.dialogVisible = true
 			},
@@ -191,7 +190,7 @@
 				})
 			},
 			handleSelectionChange(val) {
-				this.multipleSelection = val;
+				this.multipleSelection = val
 			},
 			// 监听rows改变的事件
 			handleSizeChange(newSize) {
@@ -206,11 +205,10 @@
 		},
 		filters: {
 			transfermState: function(state) {
-				if (state == "0") {
-					return "未发布"
-
+				if (state == '0') {
+					return '未发布'
 				} else {
-					return "已发布"
+					return '已发布'
 				}
 			},
 			truncateDate: function(date) {

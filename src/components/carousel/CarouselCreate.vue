@@ -3,7 +3,7 @@
 		<!-- 面包屑导航 -->
 		<el-breadcrumb separator-class="el-icon-arrow-right">
 			<el-breadcrumb-item :to="{ path: '/carousellist' }">轮播图管理</el-breadcrumb-item>
-			<el-breadcrumb-item :to="{ path: '/carouselcreate' }">创建轮播图</el-breadcrumb-item>
+			<el-breadcrumb-item >创建轮播图</el-breadcrumb-item>
 		</el-breadcrumb>
 		<div class="card_detail">
 			<el-card>
@@ -32,7 +32,7 @@
                     <el-upload :on-success="handleAvatarSuccess" class=" mt15 avatar-uploader" :action="uploadUrl"
                       :show-file-list="false">
                       <img v-if="carouseldetail.picturesUrl" :src="carouseldetail.picturesUrl" class="avatar">
-                      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                      <i v-else class="el-icon-plus avatar-uploader-icon" style="display:flex;justify-content: center;align-items: center;"></i>
                     </el-upload>
                   </el-form-item>
 
@@ -52,7 +52,6 @@
 										</el-form-item>
 									</el-col>
 								</el-row>
-
 
 								<el-row>
 									<el-col :span="24">
@@ -82,14 +81,14 @@
 			return {
 				showOp: false,
 				twin: {
-					organizationName: ""
+					organizationName: ''
 				},
-        uploadUrl: this.$serverURL + "common/uploadCover",
+        uploadUrl: this.$serverURL + 'common/uploadCover',
 				carouseldetail: {
-					jumpUrl: "",
-					picturesUrl: "",
-					rotateSeq: "1",
-					rotateTop: "1",
+					jumpUrl: '',
+					picturesUrl: '',
+					rotateSeq: '1',
+					rotateTop: '1'
 
 				},
 				rules: {
@@ -100,14 +99,14 @@
 					}], */
 					picturesUrl: [{
 						required: true,
-						message: "图片路径不能为空",
+						message: '图片路径不能为空',
 						trigger: 'blur'
 					}],
 					rotateSeq: [{
 						required: true,
 						message: '排序不能为空',
 						trigger: 'blur'
-					}],
+					}]
 
 				}
 			}
@@ -123,7 +122,7 @@
 			async createcarousel() {
 				const {
 					data: res
-				} = await this.$http.post("/manager/rotate/add", this.carouseldetail)
+				} = await this.$http.post('/manager/rotate/add', this.carouseldetail)
 				if (res.state !== 200) {
 					return this.$message.error(res.msg)
 				} else {

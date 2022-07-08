@@ -174,7 +174,10 @@
 		}
 	}
 </script>
-<style>
+<style scoped>
+/deep/.el-form-item__label{
+  text-align: left;
+}
 	.ivu-upload {
 		display: none;
 	}

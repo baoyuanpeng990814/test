@@ -2,8 +2,8 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/contestlist' }">竞赛管理</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/contesttypelist' }">添加分类</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/contesttypelist' }">竞赛分类管理</el-breadcrumb-item>
+      <el-breadcrumb-item>添加分类</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="card_detail">
       <el-card>
@@ -41,7 +41,6 @@
                   </el-col>
                 </el-row>
 
-
                 <el-row>
                   <el-col :span="20" :offset="4">
                     <el-button type="primary" @click="submitCreation">提交</el-button>
@@ -59,8 +58,6 @@
 
   </div>
 
-
-
 </template>
 
 <script>
@@ -73,16 +70,16 @@
       return {
         showOd: false,
         twin: {
-          organizationName: ""
+          organizationName: ''
         },
-        uploadUrl: this.$serverURL + "common/uploadCover",
+        uploadUrl: this.$serverURL + 'common/uploadCover',
         dataDetail: {
-          competitionSortName: "",
-          description: "",
+          competitionSortName: '',
+          description: '',
           organizationId: 2,
-          state: "1",
+          state: '1',
           parentNode: 0,
-          competitionSortCover : ""
+          competitionSortCover: ''
         },
         rules: {
           competitionSortName: [{
@@ -97,9 +94,9 @@
       this.dataDetail.parentNode = this.$route.query.parent
     },
     methods: {
-      /* 封面路径显示*/
+      /* 封面路径显示 */
       handleAvatarSuccess(res, file) {
-        console.log("上传")
+        console.log('上传')
         this.dataDetail.competitionSortCover = res.url
       },
       getOd(val) {
@@ -109,7 +106,7 @@
       async submitCreation() {
         const {
           data: res
-        } = await this.$http.post("/manager/competitionSort/add", this.dataDetail)
+        } = await this.$http.post('/manager/competitionSort/add', this.dataDetail)
         if (res.state !== 200) {
           return this.$message.error(res.msg)
         } else {

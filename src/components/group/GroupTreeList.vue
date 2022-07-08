@@ -88,7 +88,7 @@
       <el-button @click="addUserArray()"  size="medium" icon="el-icon-plus" style="margin-left: 200px;">批量添加</el-button>
       <el-container>
         <!-- 查询树 -->
-        <el-aside class="list_tree" style="width: fit-content;">
+        <el-aside class="list_tree" >
           <el-tree :expand-on-click-node="false" :default-expand-all="true" :data="orgTreedata" :props="defaultProps"
             @node-click="handleNodeClick">
           </el-tree>

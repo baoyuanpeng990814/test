@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/questioncategorylist' }">考题分类</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/questioncategorylist' }">试题分类</el-breadcrumb-item>
     </el-breadcrumb>
 
     <el-card class="list_card">
@@ -27,13 +27,11 @@
             <el-button icon="el-icon-plus" @click="addData" type="primary">添加</el-button>
           </el-col>
 
-
-
         </el-row>
       </div>
       <div>
         <el-container>
-          <el-aside class="list_tree" style="width: fit-content;">
+          <el-aside class="list_tree" >
             <el-tree :expand-on-click-node="false" :default-expand-all="true" :data="treedata" :props="defaultProps"
               @node-click="handleNodeClick"></el-tree>
           </el-aside>
@@ -47,9 +45,9 @@
               <el-table-column prop="state" label="状态" width="60">
                 <template slot-scope="scope">{{ scope.row.state |transfermState }}</template>
               </el-table-column>
-              <el-table-column prop="questionsSortName" label="分类名称" width="150">
+              <el-table-column prop="questionsSortName" label="分类名称" width="100">
               </el-table-column>
-              <el-table-column prop="description" label="描述" width="150">
+              <el-table-column prop="description" label="描述" width="200" :show-overflow-tooltip="true">
               </el-table-column>
 
               <el-table-column fixed="right" label="操作" width="120">
@@ -67,9 +65,7 @@
         </el-container>
       </div>
 
-
     </el-card>
-
 
     <el-dialog title="" :visible.sync="dialogVisible" width="30%">
       <span>确定要删除：{{supposeDelete.questionsSortName}}</span>
@@ -117,7 +113,7 @@
       async getDataTree() {
         const {
           data: res
-        } = await this.$http.post("/manager/qsort/tree")
+        } = await this.$http.post('/manager/qsort/tree')
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
@@ -125,10 +121,9 @@
         }
       },
       async getDataList() {
-
         const {
           data: res
-        } = await this.$http.post("/manager/qsort/list", this.queryInfo)
+        } = await this.$http.post('/manager/qsort/list', this.queryInfo)
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
@@ -146,7 +141,7 @@
       async RemoveData() {
         const {
           data: res
-        } = await this.$http.post("/manager/qsort/del", {
+        } = await this.$http.post('/manager/qsort/del', {
           questionsSortId: this.supposeDelete.questionsSortId
         })
 
@@ -156,13 +151,11 @@
           this.getDataList()
           this.supposeDelete = {}
           return this.$message.success('操作成功！')
-
         }
       },
       confirmDelete() {
         this.dialogVisible = false
         this.RemoveData()
-
       },
       editDetail(row) {
         this.$router.push({
@@ -180,20 +173,19 @@
         this.$router.push({
           path: '/questioncategorycreate',
           query: {
-            parent: this.currentNode,
+            parent: this.currentNode
 
           }
         })
       },
 
       handleSelectionChange(val) {
-        this.multipleSelection = val;
+        this.multipleSelection = val
       },
       // 监听rows改变的事件
       handleSizeChange(newSize) {
         this.queryInfo.rows = newSize
         this.getDataList()
-
       },
       // 监听页码值改变的事件
       handleCurrentChange(newPage) {
@@ -208,8 +200,8 @@
         }
       },
       transfermState: function(state) {
-        if (state == "1") return "启用"
-        else return "禁用"
+        if (state == '1') return '启用'
+        else return '禁用'
       }
     }
   }

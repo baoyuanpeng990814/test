@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/questioncategorylist' }">考题分类</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/questioncategorylist' }">试题分类</el-breadcrumb-item>
       <el-breadcrumb-item :to="{ path: '/questioncategorycreate' }">创建分类</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="card_detail">
@@ -68,10 +68,7 @@
     <OrganizationPanel :show="showOp" @choose="(e) => datadetail.organizationId = e.organizationId" @turnOff="opSwitch">
     </OrganizationPanel>
 
-
   </div>
-
-
 
 </template>
 
@@ -85,10 +82,10 @@
       return {
         showOp: false,
         datadetail: {
-          questionsSortName: "",
-          organizationId: "2",
-          description: "",
-          state: "1"
+          questionsSortName: '',
+          organizationId: '2',
+          description: '',
+          state: '1'
         },
         rules: {
           questionsSortName: [{
@@ -119,7 +116,7 @@
       async submitCreation() {
         const {
           data: res
-        } = await this.$http.post("/manager/qsort/add", this.datadetail)
+        } = await this.$http.post('/manager/qsort/add', this.datadetail)
         if (res.state !== 200) {
           return this.$message.error(res.msg)
         } else {

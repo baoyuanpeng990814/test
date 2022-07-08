@@ -2,8 +2,8 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/questionlist' }">考题管理</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/questioncreate' }">创建考题</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/questionlist' }">试题管理</el-breadcrumb-item>
+      <el-breadcrumb-item >编辑试题</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="card_detail">
       <el-card>
@@ -75,7 +75,6 @@
                   </el-col>
                 </el-row>
 
-
                 <el-row>
                   <el-col :span="24">
                     <el-form-item label="试题内容" prop="questionsContent">
@@ -103,7 +102,6 @@
                     <quill-editor ref="text" v-model="datadetail.lOptionList[o-1].optionContent"
                       class="myQuillEditor" />
 
-
                   </el-col>
                 </el-row>
 
@@ -115,17 +113,12 @@
                   </el-col>
                 </el-row>
 
-
-
-
                 <el-row>
                   <el-col :span="20" :offset="4">
                     <el-button type="primary" @click="submitCreation()">修改</el-button>
 
                   </el-col>
                 </el-row>
-
-
 
               </el-form>
             </el-main>
@@ -136,8 +129,6 @@
     <QuestionPanel :show="showQp" @choose="chooseQd" @turnOff="(e) => showQp = e"></QuestionPanel>
     <QuestionCategoryPanel :show="showQc" @choose="chooseQc" @turnOff="(e) => showQc = e"></QuestionCategoryPanel>
   </div>
-
-
 
 </template>
 
@@ -159,23 +150,23 @@
         showQp: false,
         showQc: false,
         twin: {
-          questionsType: " ",
-          questionsSort: " "
+          questionsType: ' ',
+          questionsSort: ' '
         },
         datadetail: {
-          knowledge: "",
+          knowledge: '',
           questionsFraction: 1,
-          questionsDifficulty: "1",
+          questionsDifficulty: '1',
           questionsSeq: 1,
           questionsType: null,
           questionsSortId: null,
-          questionsContent: "",
+          questionsContent: '',
           lOptionList: [{
-            optionNum: "A",
-            optionContent: "",
+            optionNum: 'A',
+            optionContent: ''
           }],
-          questionsExplain: "",
-          questionsAnswer: ""
+          questionsExplain: '',
+          questionsAnswer: ''
         },
         rules: {
           knowledge: [{
@@ -205,13 +196,13 @@
       this.datadetail = this.$route.query.row
       this.twin.questionsType = this.datadetail.questionsTypeName
       this.twin.questionsSort = this.datadetail.questionsSortName
-      var as =this.datadetail.questionsAnswer+""
-      for(var i = 0; i< this.datadetail.lOptionList.length;i++){
-          var litter = (i + 1 + 9).toString(36).toUpperCase()  //把数字转化成字母
-        if(as.indexOf(litter)>-1){
+      var as = this.datadetail.questionsAnswer + ''
+      for (var i = 0; i < this.datadetail.lOptionList.length; i++) {
+          var litter = (i + 1 + 9).toString(36).toUpperCase() // 把数字转化成字母
+        if (as.indexOf(litter) > -1) {
           this.answers[i] = true
-          as.replace(litter,"")
-        }else{
+          as.replace(litter, '')
+        } else {
           this.answers[i] = false
         }
       }
@@ -224,31 +215,26 @@
       chooseQd(val) {
         this.datadetail.questionsType = val.questionsTypeId
         this.twin.questionsType = val.questionsTypeName
-
       },
       async submitCreation() {
-        this.datadetail.questionsAnswer = ""
+        this.datadetail.questionsAnswer = ''
         for (var i = 0; i < this.answers.length; i++) {
-          if(this.answers[i]){
-
-            this.datadetail.questionsAnswer += (i + 1 + 9).toString(36).toUpperCase()+","
+          if (this.answers[i]) {
+            this.datadetail.questionsAnswer += (i + 1 + 9).toString(36).toUpperCase() + ','
           }
-
         }
-        this.datadetail.questionsAnswer = this.datadetail.questionsAnswer.substring(0,this.datadetail.questionsAnswer.length-1)
-        //console.log(this.datadetail.questionsAnswer)
-        //return false
+        this.datadetail.questionsAnswer = this.datadetail.questionsAnswer.substring(0, this.datadetail.questionsAnswer.length - 1)
+        // console.log(this.datadetail.questionsAnswer)
+        // return false
         const {
           data: res
-        } = await this.$http.post("/manager/questions/edit", this.datadetail)
+        } = await this.$http.post('/manager/questions/edit', this.datadetail)
         if (res.state !== 200) {
           return this.$message.error(res.msg)
         } else {
           this.$message.success('创建成功')
 
           this.$router.push('/questionlist')
-
-
         }
       }
     },
@@ -259,7 +245,7 @@
         for (var i = 0; i < val; i++) {
           this.datadetail.lOptionList[i] = {
             optionNum: (i + 1 + 9).toString(36).toUpperCase(),
-            optionContent: ""
+            optionContent: ''
           }
           this.answers[i] = false
         }

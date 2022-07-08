@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/questionlist' }">考题管理</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/questionlist' }">试题管理</el-breadcrumb-item>
 
     </el-breadcrumb>
     <el-card class="list_card">
@@ -57,24 +57,24 @@
         <el-container>
 
           <!-- 查询树 -->
-          <el-aside class="list_tree" style="width: fit-content;">
+          <el-aside class="list_tree" >
             <el-tree :expand-on-click-node="false" :default-expand-all="true" :data="treedata" :props="defaultProps"
               @node-click="handleNodeClick"></el-tree>
           </el-aside>
           <el-main class="list_body">
 
             <el-table height=" calc(100vh - 380px) " ref="multipleTable" :data="tableData" tooltip-effect="dark"
-              style="width: 100%" @selection-change="handleSelectionChange">
+              style="width: 100%" @selection-change="handleSelectionChange" >
               <el-table-column type="selection" width="55">
               </el-table-column>
               <el-table-column prop="questionsId" label="序号" width="60">
               </el-table-column>
-              <el-table-column prop="knowledge" label="知识点" width="120">
+              <el-table-column prop="knowledge" label="知识点" width="100">
               </el-table-column>
-              <el-table-column prop="questionsDifficulty" label="难度" width="100">
+              <el-table-column prop="questionsDifficulty" label="难度" width="80">
                 <template slot-scope="scope">{{ scope.row.questionsDifficulty | transfermDifficulty }}</template>
               </el-table-column>
-              <el-table-column prop="questionsContent" label="试题内容" width="200">
+              <el-table-column prop="questionsContent" label="试题内容" width="400" :show-overflow-tooltip="true">
               </el-table-column>
               <el-table-column fixed="right" label="操作" width="120">
                 <template slot-scope="scope">
@@ -295,4 +295,7 @@
 </script>
 
 <style scoped>
+ .el-table__body, .el-table__footer, .el-table__header{
+  width: auto!important;
+ }
 </style>

@@ -42,7 +42,7 @@
       </div>
       <div>
         <el-container>
-          <el-aside class="list_tree"  style="width: fit-content;">
+          <el-aside class="list_tree"  >
             <el-tree  :expand-on-click-node="false" :default-expand-all="true" :data="treedata" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
           </el-aside>
           <el-main  class="list_body">

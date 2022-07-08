@@ -29,7 +29,7 @@
       <div>
         <el-container>
           <!-- 查询树 类别： 母婴护理 职业道德 法律知识 服务礼仪等-->
-          <el-aside class="list_tree" style="width: fit-content;">
+          <el-aside class="list_tree" >
             <el-tree :default-expand-all="true" :data="treedata" :props="defaultProps" @node-click="handleNodeClick"
               :expand-on-click-node="false">
             </el-tree>

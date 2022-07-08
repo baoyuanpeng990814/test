@@ -2,8 +2,8 @@
 	<div id="app">
 		<!-- 面包屑导航 -->
 		<el-breadcrumb separator-class="el-icon-arrow-right">
-			<el-breadcrumb-item :to="{ path: '/carousellist' }">新闻管理</el-breadcrumb-item>
-			<el-breadcrumb-item :to="{ path: '/carouselcreate' }">创建新闻</el-breadcrumb-item>
+			<el-breadcrumb-item :to="{ path: '/newslist' }">新闻管理</el-breadcrumb-item>
+			<el-breadcrumb-item >创建新闻</el-breadcrumb-item>
 		</el-breadcrumb>
 		<div class="card_detail">
 			<el-card>

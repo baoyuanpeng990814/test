@@ -44,9 +44,8 @@
               </el-table-column>
               <el-table-column prop="picturesUrl" label="图片路径" width="120">
                 <template slot-scope="scope">
-                  <img style="max-width:200px;height:100px; " :src="scope.row.picturesUrl">
+                  <img style="width:100px;height:auto; " :src="scope.row.picturesUrl">
                 </template>
-
 
               </el-table-column>
 
@@ -92,7 +91,7 @@
         },
         treedata: [],
         supposeDelete: {
-          carouselId: ""
+          carouselId: ''
         },
         dialogVisible: false,
         queryInfo: {
@@ -121,13 +120,13 @@
 
       handleNodeClick(data) {
         this.queryInfo.organizationId = data.organizationId
-        //this.currentNode = data.organizationId
+        // this.currentNode = data.organizationId
         this.getcarouselList()
       },
       async getOrganizationTree() {
         const {
           data: res
-        } = await this.$http.post("/manager/org/tree")
+        } = await this.$http.post('/manager/org/tree')
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
@@ -135,11 +134,11 @@
         }
       },
       reset() {
-        this.queryInfo.name = ""
-        this.queryInfo.username = ""
-        this.queryInfo.gender = ""
-        this.queryInfo.stutes = ""
-        this.queryInfo.mobile = ""
+        this.queryInfo.name = ''
+        this.queryInfo.username = ''
+        this.queryInfo.gender = ''
+        this.queryInfo.stutes = ''
+        this.queryInfo.mobile = ''
         this.getcarouselList()
       },
       searchcarousel() {
@@ -148,9 +147,9 @@
       async getcarouselList() {
         const {
           data: res
-        } = await this.$http.post("/manager/rotate/list", this.queryInfo)
+        } = await this.$http.post('/manager/rotate/list', this.queryInfo)
         if (res.state !== 200) {
-          //return this.$message.error('数据获取失败！')
+          // return this.$message.error('数据获取失败！')
           this.tableData = []
         } else {
           this.tableData = res.data
@@ -160,7 +159,7 @@
       async Removecarousel() {
         const {
           data: res
-        } = await this.$http.post("/manager/rotate/del", {
+        } = await this.$http.post('/manager/rotate/del', {
           rotateId: this.supposeDelete.rotateId
         })
         if (res.state !== 200) {
@@ -192,7 +191,7 @@
         })
       },
       deletecarousel(row) {
-        console.log("du")
+        console.log('du')
         this.supposeDelete = row
         this.dialogVisible = true
       },
@@ -202,7 +201,7 @@
         })
       },
       handleSelectionChange(val) {
-        this.multipleSelection = val;
+        this.multipleSelection = val
       },
       // 监听rows改变的事件
       handleSizeChange(carouselize) {
@@ -217,11 +216,10 @@
     },
     filters: {
       transfermState: function(state) {
-        if (state == "0") {
-          return "未发布"
-
+        if (state == '0') {
+          return '未发布'
         } else {
-          return "已发布"
+          return '已发布'
         }
       },
       truncateDate: function(date) {

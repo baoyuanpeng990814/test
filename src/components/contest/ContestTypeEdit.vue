@@ -2,14 +2,14 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/contestlist' }">竞赛管理</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/contesttypelist' }">添加分类</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/contesttypelist' }">竞赛分类管理</el-breadcrumb-item>
+      <el-breadcrumb-item >编辑分类</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="card_detail">
       <el-card>
         <div slot="header" class="clearfix">
           <el-row>
-            <el-col :span="20">添加分类</el-col>
+            <el-col :span="20">编辑分类</el-col>
             <el-col :span="4">
               <el-button icon="el-icon-arrow-left" @click="$router.go(-1)">返回</el-button>
             </el-col>
@@ -58,8 +58,6 @@
 
   </div>
 
-
-
 </template>
 
 <script>
@@ -71,15 +69,15 @@
     data() {
       return {
         showOd: false,
-        twin:{organizationName:""},
+        twin: { organizationName: '' },
         dataDetail: {
-          competitionSortName: "",
-          description: "",
+          competitionSortName: '',
+          description: '',
           organizationId: 2,
-          state: "1",
+          state: '1',
           parentNode: 0
         },
-        uploadUrl: this.$serverURL + "common/uploadCover",
+        uploadUrl: this.$serverURL + 'common/uploadCover',
         rules: {
           competitionSortName: [{
             required: true,
@@ -95,19 +93,19 @@
       this.twin.organizationName = this.dataDetail.organizationName
     },
     methods: {
-      /* 封面路径显示*/
+      /* 封面路径显示 */
       handleAvatarSuccess(res, file) {
-        console.log("上传")
+        console.log('上传')
         this.dataDetail.competitionSortCover = res.url
       },
-      getOd(val){
+      getOd(val) {
         this.dataDetail.organizationId = val.organizationId
         this.twin.organizationName = val.organizationName
       },
       async submitEdit() {
         const {
           data: res
-        } = await this.$http.post("/manager/competitionSort/edit", this.dataDetail)
+        } = await this.$http.post('/manager/competitionSort/edit', this.dataDetail)
         if (res.state !== 200) {
           return this.$message.error(res.msg)
         } else {
@@ -123,11 +121,10 @@
         param.organizationId = this.dataDetail.organizationId
         const {
           data: res
-        } = await this.$http.post("/manager/org/list", param)
+        } = await this.$http.post('/manager/org/list', param)
         if (res.state !== 200) {
           return this.$message.error(res.msg)
         } else {
-
           this.dataDetail.organizationName = res.organizationName
           this.twin.organizationName = res.organizationName
         }
