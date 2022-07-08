@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/questionarylist' }">问卷管理</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/questionarylist' }">问卷调查</el-breadcrumb-item>
       <el-breadcrumb-item :to="{ path: '/questionarycreate' }">编辑问卷</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="card_detail">
@@ -57,7 +57,6 @@
                   </el-col>
                 </el-row>
 
-
                 <el-row>
                   <el-col :span="24">
                     <el-form-item label="次数限制" prop="examFrequency">
@@ -92,7 +91,6 @@
                   </el-col>
                 </el-row>
 
-
                 <el-row>
                   <el-col :span="20" :offset="4">
                     <el-button type="primary" @click="submitCreation()">提交</el-button>
@@ -122,60 +120,49 @@
         showId: false,
         showOd: false,
         twin: {
-          organizationName: ""
+          organizationName: ''
         },
         dataDetail: {},
         rules: {},
-        uploadUrl: this.$serverURL + "common/uploadCover"
+        uploadUrl: this.$serverURL + 'common/uploadCover'
       }
     },
     created() {
       if (this.$route.query.row == null) {
         this.dataDetail.examineSortId = this.$route.query.parent
-        this.dataDetail.examineState = "0"
+        this.dataDetail.examineState = '0'
         this.dataDetail.lExamineQuestions = []
       } else {
-
         this.dataDetail = this.$route.query.row
-        //console.log(this.dataDetail)
+        // console.log(this.dataDetail)
         this.twin.organizationName = this.dataDetail.organizationName
-
       }
-
-
     },
     methods: {
       async submitCreation() {
-
-        if (this.dataDetail.examineId != null && this.dataDetail.examineId != "" && this.dataDetail.examineId != 0) {
+        if (this.dataDetail.examineId != null && this.dataDetail.examineId != '' && this.dataDetail.examineId != 0) {
           const {
             data: res
-          } = await this.$http.post("/manager/examine/edit", this.dataDetail)
+          } = await this.$http.post('/manager/examine/edit', this.dataDetail)
           if (res.state !== 200) {
             return this.$message.error(res.msg)
           } else {
-
             this.$forceUpdate()
             return this.$message.success('修改成功')
           }
-
         } else {
           const {
             data: res
-          } = await this.$http.post("/manager/examine/add", this.dataDetail)
+          } = await this.$http.post('/manager/examine/add', this.dataDetail)
           if (res.state !== 200) {
             return this.$message.error(res.msg)
           } else {
             this.$message.success('创建成功')
             this.dataDetail.examineId = res.data
             this.$forceUpdate()
-            //this.$router.go(-1)
+            // this.$router.go(-1)
           }
         }
-
-
-
-
       },
       getOd(val) {
         this.dataDetail.organizationId = val.organizationId

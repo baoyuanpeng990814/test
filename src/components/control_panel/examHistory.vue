@@ -3,7 +3,7 @@
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/examlist' }"
-        >考题管理</el-breadcrumb-item
+        >考试归档</el-breadcrumb-item
       >
     </el-breadcrumb>
     <el-card class="list_card">

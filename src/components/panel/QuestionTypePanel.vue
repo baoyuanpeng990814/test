@@ -30,19 +30,18 @@
             </template>
           </el-table-column>
         </el-table>
-        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="[1, 2, 5, 8]"
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="[10]"
           :page-size="drow" layout="total, sizes, prev, pager, next" :total="dtotal">
         </el-pagination>
       </div>
     </el-card>
   </el-dialog>
 
-
 </template>
 
 <script>
   export default {
-    //问题分类选择框
+    // 问题分类选择框
     name: 'QuestionTypePanel',
     props: {
       show: Boolean
@@ -50,7 +49,7 @@
     data() {
       return {
         dpage: 1,
-        drow: 5,
+        drow: 10,
         dtotal: 0,
         tq: {},
         data: [],
@@ -73,7 +72,7 @@
         param.organizationId = 0
         const {
           data: res
-        } = await this.$http.post("/manager/qtyp/list", param)
+        } = await this.$http.post('/manager/qtyp/list', param)
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
@@ -88,8 +87,6 @@
       handleSizeChange(newSize) {
         this.drow = newSize
         this.getDataList()
-
-
       },
       // 监听页码值改变的事件
       handleCurrentChange(newPage) {
@@ -99,7 +96,7 @@
     },
     watch: {
       showDialog: function(val) {
-        //console.log()
+        // console.log()
         if (val == false) this.$emit('turnOff', false)
       },
       show: function(val) {

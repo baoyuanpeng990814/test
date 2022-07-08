@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/questionarylist' }">问卷管理</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/questionarylist' }">问卷调查</el-breadcrumb-item>
       <el-breadcrumb-item :to="{ path: '/questionarysortedit' }">编辑问卷分类</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="card_detail">
@@ -51,8 +51,6 @@
 
   </div>
 
-
-
 </template>
 
 <script>
@@ -62,8 +60,8 @@
     data() {
       return {
         datadetail: {
-          examineSortName: "",
-          state: "1"
+          examineSortName: '',
+          state: '1'
         },
         rules: {
           examineSortName: [{
@@ -81,7 +79,7 @@
       async submitCreation() {
         const {
           data: res
-        } = await this.$http.post("/manager/examineSort/edit", this.datadetail)
+        } = await this.$http.post('/manager/examineSort/edit', this.datadetail)
         if (res.state !== 200) {
           return this.$message.error(res.msg)
         } else {

@@ -43,11 +43,11 @@ Vue.use(VueQuillEditor)
 
 Vue.prototype.$jquery = jq// 导入jquery
 // 正式地址
-Vue.prototype.$serverURL = 'http://121.89.192.110:8088/'
-axios.defaults.baseURL = 'http://121.89.192.110:8088/'
+// Vue.prototype.$serverURL = 'http://121.89.192.110:8088/'
+// axios.defaults.baseURL = 'http://121.89.192.110:8088/'
 // 测试地址
-// Vue.prototype.$serverURL = 'http://121.89.192.110:8089/'
-// axios.defaults.baseURL = 'http://121.89.192.110:8089/'
+Vue.prototype.$serverURL = 'http://121.89.192.110:8089/'
+axios.defaults.baseURL = 'http://121.89.192.110:8089/'
 
 axios.interceptors.request.use(config => {
   // console.log(config)

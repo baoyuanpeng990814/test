@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/graduationlist' }">结业申请列表</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/graduationlist' }">结业管理</el-breadcrumb-item>
       <el-breadcrumb-item :to="{ path: '/graduationconfirm' }">结业审核</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="card_detail">
@@ -15,11 +15,11 @@
             </el-col>
           </el-row>
         </div>
-        <div class="detail_lines">
+        <div class="detail_lines detail1_lines">
           <el-container>
             <el-main>
               <el-row>
-                <el-col :span="4">
+                <el-col :span="2">
                   课程名
                 </el-col>
                 <el-col :span="20">
@@ -27,7 +27,7 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="4">
+                <el-col :span="2">
                   申请人
                 </el-col>
                 <el-col :span="20">
@@ -35,7 +35,7 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="4">
+                <el-col :span="2">
                   章节状态
                 </el-col>
                 <el-col :span="20">
@@ -43,7 +43,7 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="4">
+                <el-col :span="2">
                   &nbsp;
                 </el-col>
                 <el-col :span="20">
@@ -64,7 +64,7 @@
   export default {
     data() {
       return {
-        courseId: "",
+        courseId: '',
         listDetail: {},
         dataDetail: {},
         userinfo: {},
@@ -99,7 +99,7 @@
             containLabel: true
 
           }
-        },
+        }
 
       }
     },
@@ -112,23 +112,22 @@
       async allow() {
         const {
           data: res
-        } = await this.$http.get("/manager/graduation/passed?id=" + this.dataDetail.lChapters[0].lLearn.enrollId)
+        } = await this.$http.get('/manager/graduation/passed?id=' + this.dataDetail.lChapters[0].lLearn.enrollId)
         if (res.state !== 200) {
-          //return this.$message.error('数据获取失败！')
+          // return this.$message.error('数据获取失败！')
           this.$message.error(res.msg)
         } else {
           this.$message.success(res.msg)
-          this.$router.go("-1")
+          this.$router.go('-1')
         }
       },
       async getData() {
-
         const {
           data: res
-        } = await this.$http.get("/manager/graduation/courseInfo?id=" + this.listDetail.courseId +
-          "&userId=" + this.userinfo.userId)
+        } = await this.$http.get('/manager/graduation/courseInfo?id=' + this.listDetail.courseId +
+          '&userId=' + this.userinfo.userId)
         if (res.state !== 200) {
-          //return this.$message.error('数据获取失败！')
+          // return this.$message.error('数据获取失败！')
         } else {
           this.dataDetail = res.data
           this.option.yAxis.data = []
@@ -139,7 +138,7 @@
             this.option.series[1].data.push(this.dataDetail.lChapters[i].lCourseware.coursewareHours * 60 * 60)
           }
 
-          this.chart = this.$echarts.init(document.getElementById("barchart"))
+          this.chart = this.$echarts.init(document.getElementById('barchart'))
           this.chart.setOption(this.option)
         }
       }

@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/questionarylist' }">问卷管理</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/questionarylist' }">问卷调查</el-breadcrumb-item>
 
     </el-breadcrumb>
     <el-card class="list_card">
@@ -82,7 +82,6 @@
           </el-main>
         </el-container>
 
-
       </div>
 
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="[1, 2, 5, 8]"
@@ -97,7 +96,6 @@
         <el-button type="primary" @click="confirmDeleteNode">确 定</el-button>
       </span>
     </el-dialog>
-
 
     <el-dialog title="" :visible.sync="dialogVisible" width="30%">
       <span>确定要删除吗？</span>
@@ -121,7 +119,7 @@
       return {
         delNode: false,
         showQp: false,
-        typeName: "",
+        typeName: '',
         supposeDelete: {},
         dialogVisible: false,
         queryInfo: {
@@ -151,27 +149,25 @@
     created() {
       this.getTableData()
       this.getDataTree()
-
     },
     methods: {
       publish(val) {
-        //this.multipleSelection
+        // this.multipleSelection
         for (var i = 0; i < this.multipleSelection.length; i++) {
-          //if (this.multipleSelection[i].releaseState == "0") {
-          this.relaseQuestionary(this.multipleSelection[i],val)
-          //}
+          // if (this.multipleSelection[i].releaseState == "0") {
+          this.relaseQuestionary(this.multipleSelection[i], val)
+          // }
         }
-        //this.releaseExam(this.multipleSelection[0])
+        // this.releaseExam(this.multipleSelection[0])
       },
-      async relaseQuestionary(e,val){
+      async relaseQuestionary(e, val) {
        const {
            data: res
-         } = await this.$http.get("/manager/examine/release?examineState="+val+"&id="+e.examineId)
+         } = await this.$http.get('/manager/examine/release?examineState=' + val + '&id=' + e.examineId)
          if (res.state !== 200) {
-           //return this.$message.error('数据获取失败！')
+           // return this.$message.error('数据获取失败！')
          } else {
           return this.$message.success('操作成功！')
-
          }
        },
       editNode() {
@@ -189,19 +185,17 @@
             parent: this.currentNode.examineSortId
           }
         })
-
       },
       async confirmDeleteNode() {
           const {
             data: res
-          } = await this.$http.post("/manager/examineSort/del", {
+          } = await this.$http.post('/manager/examineSort/del', {
             examineSortId: this.currentNode.examineSortId
           })
 
           if (res.state !== 200) {
             return this.$message.error('操作失败！')
           } else {
-
             this.currentNode = {
               examSortId: 0
             }
@@ -210,11 +204,9 @@
             this.getDataTree()
             this.delNode = true
             return this.$message.success('操作成功！')
-
           }
-        }
-
-        ,
+        },
+        
       uploadQuestions() {
         this.$router.push({
           path: '/uploadquestion',
@@ -224,10 +216,10 @@
         })
       },
       handleNodeClick(data) {
-        //this.queryInfo.parentNode = data.questionsSortId
+        // this.queryInfo.parentNode = data.questionsSortId
         this.currentNode = data
-        //this.getTableData()
-        //this.getDataTree()
+        // this.getTableData()
+        // this.getDataTree()
       },
       choose(val) {
         this.typeName = val.questionsTypeName
@@ -244,15 +236,13 @@
         this.getTableData()
       },
       async getTableData() {
-
         const {
           data: res
-        } = await this.$http.post("/manager/examine/list", this.queryInfo)
+        } = await this.$http.post('/manager/examine/list', this.queryInfo)
         if (res.state !== 200) {
-          //return this.$message.error('数据获取失败！')
+          // return this.$message.error('数据获取失败！')
           this.tableData = []
         } else {
-
           this.tableData = res.data
           this.total = res.count
         }
@@ -260,7 +250,7 @@
       async getDataTree() {
         const {
           data: res
-        } = await this.$http.post("/manager/examineSort/tree")
+        } = await this.$http.post('/manager/examineSort/tree')
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
@@ -271,7 +261,7 @@
       async RemoveData() {
         const {
           data: res
-        } = await this.$http.post("/manager/examine/del", {
+        } = await this.$http.post('/manager/examine/del', {
           examineId: this.supposeDelete.examineId
         })
         if (res.state !== 200) {
@@ -280,13 +270,11 @@
           this.getTableData()
           this.supposeDelete = {}
           return this.$message.success('操作成功！')
-
         }
       },
       confirmDelete() {
         this.dialogVisible = false
         this.RemoveData()
-
       },
       editDetail(row) {
         this.$router.push({
@@ -304,20 +292,19 @@
         this.$router.push({
           path: '/questionarycreate',
           query: {
-            parent: this.currentNode.examineSortId,
+            parent: this.currentNode.examineSortId
 
           }
         })
       },
 
       handleSelectionChange(val) {
-        this.multipleSelection = val;
+        this.multipleSelection = val
       },
       // 监听rows改变的事件
       handleSizeChange(newSize) {
         this.queryInfo.rows = newSize
         this.getTableData()
-
       },
       // 监听页码值改变的事件
       handleCurrentChange(newPage) {
@@ -327,16 +314,16 @@
     },
     filters: {
       transfermState: function(state) {
-        if (state == "1") return "启用"
-        else if (state == 1) return "启用"
-        else return "禁用"
+        if (state == '1') return '启用'
+        else if (state == 1) return '启用'
+        else return '禁用'
       },
       transfermDifficulty: function(diff) {
-        if (diff == "1") return "容易"
-        else if (diff == "2") return "较易"
-        else if (diff == "3") return "一般"
-        else if (diff == "4") return "较难"
-        else if (diff == "5") return "非常难"
+        if (diff == '1') return '容易'
+        else if (diff == '2') return '较易'
+        else if (diff == '3') return '一般'
+        else if (diff == '4') return '较难'
+        else if (diff == '5') return '非常难'
       }
     }
   }

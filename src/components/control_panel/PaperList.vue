@@ -3,17 +3,13 @@
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/paperlist' }"
-        >课程列表</el-breadcrumb-item
+        >课程管理</el-breadcrumb-item
       >
     </el-breadcrumb>
     <el-card class="list_card">
       <div slot="header" class="clearfix">
         <el-row class="buttons">
-          <el-col :span="2" :offset="0">
-            <el-button icon="el-icon-plus" @click="addPaper" type="primary"
-              >添加</el-button
-            >
-          </el-col>
+          
           <el-switch
             v-model="timeUse"
             active-color="#13ce66"
@@ -64,10 +60,17 @@
             >
             </el-option>
           </el-select>
+         
+        </el-row>
+        <el-row>
+          <el-col :span="2" :offset="0">
+            <el-button icon="el-icon-plus" @click="addPaper" type="primary"
+              >添加</el-button
+            >
+          </el-col>
           <el-col :span="2" :offset="0">
             <el-button @click="reset()" type="primary">重置</el-button>
           </el-col>
-         
         </el-row>
       </div>
       <div>
@@ -93,16 +96,16 @@
               <el-table-column type="selection" width="55"> </el-table-column>
               <el-table-column prop="courseId" label="序号" width="50">
               </el-table-column>
-              <el-table-column prop="courseName" label="课程名称" width="150">
+              <el-table-column prop="courseName" label="课程名称" width="260">
               </el-table-column>
-              <el-table-column prop="classHours" label="学时" width="150">
+              <el-table-column prop="classHours" label="学时" width="80">
               </el-table-column>
               <el-table-column prop="courseType" label="课程类别" width="100">
                 <template slot-scope="scope">{{
                   scope.row.courseType | transfermCompulsory
                 }}</template>
               </el-table-column>
-              <el-table-column prop="teacherName" label="主讲人" width="150">
+              <el-table-column prop="teacherName" label="主讲人" width="120">
               </el-table-column>
               <el-table-column
                 prop="courseFailTime"
@@ -116,7 +119,7 @@
               <el-table-column
                 prop="releaseStutes"
                 label="发布状态"
-                width="100"
+                width="80"
               >
                 <template slot-scope="scope">{{
                   scope.row.releaseStutes | transfermState

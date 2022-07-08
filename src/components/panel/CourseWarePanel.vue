@@ -38,7 +38,6 @@
               <el-table-column prop="coursewareNme" label="课件路径" width="200">
               </el-table-column>
 
-
               <el-table-column fixed="right" label="操作" width="50">
                 <template slot-scope="scope">
                   <el-button @click="choose(scope.row)" type="text" size="small">确定</el-button>
@@ -46,7 +45,7 @@
               </el-table-column>
             </el-table>
             <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-              :page-sizes="[1, 2, 5, 8]" :page-size="drow" layout="total, sizes, prev, pager, next" :total="dtotal">
+              :page-sizes="[10]" :page-size="drow" layout="total, sizes, prev, pager, next" :total="dtotal">
             </el-pagination>
           </el-main>
         </el-container>
@@ -54,10 +53,9 @@
     </el-card>
   </el-dialog>
 
-
 </template>
 
-<script> //课件选择框
+<script> // 课件选择框
   export default {
     name: 'CourseWarePanel',
     props: {
@@ -65,8 +63,8 @@
     },
     data() {
       return {
-        dpage: 1,
-        drow: 5,
+        dpage: 11,
+        drow: 10,
         dtotal: 0,
         tq: {},
         tableData: [],
@@ -75,14 +73,13 @@
           children: 'chilCoursewareType',
           label: 'coursewareTypeName'
         },
-        treedata: [],
+        treedata: []
       }
     },
     created() {
       this.showDialog = this.show
       this.getDataList()
       this.getCourseTree()
-
     },
     methods: {
       handleNodeClick(data) {
@@ -96,7 +93,7 @@
       async getCourseTree() {
         const {
           data: res
-        } = await this.$http.post("/manager/ctyp/tree")
+        } = await this.$http.post('/manager/ctyp/tree')
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
@@ -109,10 +106,10 @@
         param.rows = this.drow
         const {
           data: res
-        } = await this.$http.post("/manager/courseware/list", param)
+        } = await this.$http.post('/manager/courseware/list', param)
         if (res.state !== 200) {
           this.tableData = []
-          //return this.$message.error('数据获取失败！')
+          // return this.$message.error('数据获取失败！')
         } else {
           this.dtotal = res.count
           this.tableData = res.data
@@ -125,8 +122,6 @@
       handleSizeChange(newSize) {
         this.drow = newSize
         this.getDataList()
-
-
       },
       // 监听页码值改变的事件
       handleCurrentChange(newPage) {
@@ -136,7 +131,7 @@
     },
     watch: {
       showDialog: function(val) {
-        //console.log()
+        // console.log()
         if (val == false) this.$emit('turnOff', false)
       },
       show: function(val) {

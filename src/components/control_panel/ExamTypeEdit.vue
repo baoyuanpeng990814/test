@@ -2,8 +2,8 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/examlist' }">考试管理</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/examtypelist' }">添加分类</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/examtypelist' }">考试分类管理</el-breadcrumb-item>
+      <el-breadcrumb-item >编辑分类</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="card_detail">
       <el-card>
@@ -74,8 +74,6 @@
 
   </div>
 
-
-
 </template>
 
 <script>
@@ -87,12 +85,12 @@
     data() {
       return {
         showOd: false,
-        twin:{organizationName:""},
+        twin: { organizationName: '' },
         datadetail: {
-          examSortName: "",
-          description: "",
+          examSortName: '',
+          description: '',
           organizationId: 2,
-          state: "1",
+          state: '1',
           parentNode: 0
         },
         rules: {
@@ -110,14 +108,14 @@
       this.twin.organizationName = this.datadetail.organizationName
     },
     methods: {
-      getOd(val){
+      getOd(val) {
         this.datadetail.organizationId = val.organizationId
         this.twin.organizationName = val.organizationName
       },
       async submitEdit() {
         const {
           data: res
-        } = await this.$http.post("/manager/esort/edit", this.datadetail)
+        } = await this.$http.post('/manager/esort/edit', this.datadetail)
         if (res.state !== 200) {
           return this.$message.error(res.msg)
         } else {
@@ -133,11 +131,10 @@
         param.organizationId = this.datadetail.organizationId
         const {
           data: res
-        } = await this.$http.post("/manager/org/list", param)
+        } = await this.$http.post('/manager/org/list', param)
         if (res.state !== 200) {
           return this.$message.error(res.msg)
         } else {
-
           this.datadetail.organizationName = res.organizationName
           this.twin.organizationName = res.organizationName
         }

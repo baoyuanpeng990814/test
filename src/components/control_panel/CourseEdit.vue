@@ -59,8 +59,6 @@
 
                 <!--  机构    -->
 
-
-
                 <!--  讲师    -->
                 <el-row>
                   <el-col :span="24">
@@ -120,7 +118,6 @@
                 </el-dialog>
                 <!--  讲师    -->
 
-
                 <!--  分类    -->
                 <el-row>
                   <el-col :span="24">
@@ -137,7 +134,6 @@
                   </el-card>
                 </el-dialog>
                 <!--  分类    -->
-
 
                 <el-row>
                   <el-col :span="24">
@@ -156,7 +152,6 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-
 
                 <el-row>
                   <el-col :span="24">
@@ -183,12 +178,11 @@
     </OrganizationPanel>
   </div>
 
-
 </template>
 
 <script>
   import OrganizationPanel from '../panel/OrganizationPanel.vue'
-  var token = window.sessionStorage.getItem("token")
+  var token = window.sessionStorage.getItem('token')
 
   export default {
     components: {
@@ -196,10 +190,10 @@
     },
     data() {
       return {
-        showOp:false,
+        showOp: false,
 
         dpage: 1,
-        drow: 5,
+        drow: 10,
         dtotal: 0,
         theacherDialog: false,
         organizationDialog: false,
@@ -221,12 +215,12 @@
           }],
           coursewareName: [{
             required: true,
-            message: "不能为空",
+            message: '不能为空',
             trigger: 'blur'
           }],
           coursewareType: [{
             required: true,
-            message: "不能为空",
+            message: '不能为空',
             trigger: 'blur'
           }],
           coursewareHours: [{
@@ -236,10 +230,10 @@
           }],
           coursewareName: [{
             required: true,
-            message: "不能为空",
+            message: '不能为空',
             trigger: 'blur'
           }],
-          /*organizationId: [{
+          /* organizationId: [{
             required: true,
             message: "不能为空",
             trigger: 'blur'
@@ -253,43 +247,49 @@
             required: true,
             message: "不能为空",
             trigger: 'blur'
-          }],*/
+          }], */
           resourcesLink: [{
             required: true,
-            message: "不能为空",
+            message: '不能为空',
             trigger: 'blur'
           }],
           stutes: [{
             required: true,
-            message: "不能为空",
+            message: '不能为空',
             trigger: 'blur'
           }]
         },
-        uploadUrl: "",
+        uploadUrl: '',
         files: [],
         myheader: {
           token: token
         }
       }
     },
+          watch: {
+    theacherDialog() {
+      if (this.theacherDialog) {
+        this.getTeacherList()
+      }
+      }
+  },
     created() {
       this.getOrganizationList()
-      this.getTeacherList()
+      // this.getTeacherList()
       this.getTypeList()
       this.coursedetail = this.$route.query.row
-      this.uploadUrl = this.$serverURL + "manager/questions/uploadQuestionExcel"
+      this.uploadUrl = this.$serverURL + 'manager/questions/uploadQuestionExcel'
       this.coursedetail.coursewareTypeId_num = parseInt(this.coursedetail.coursewareTypeId)
     },
     methods: {
-      choseOrganization(e){
+      choseOrganization(e) {
         this.coursedetail.organizationId = e.organizationId
         this.coursedetail.organizationName = e.organizationName
-
       },
       handleAvatarSuccess(res, file) {
         this.files.push(file)
         console.log(res)
-        //coursedetail.resourcesLink
+        // coursedetail.resourcesLink
         this.$message.success('上传成功')
       },
       modifyDetail() {
@@ -298,11 +298,10 @@
       async modifyfunction() {
         const {
           data: res
-        } = await this.$http.post("/manager/courseware/edit", this.coursedetail)
+        } = await this.$http.post('/manager/courseware/edit', this.coursedetail)
         if (res.state !== 200) {
           return this.$message.error(res.msg)
         } else {
-
           this.$message.success('修改成功')
           this.$router.go(-1)
         }
@@ -314,11 +313,12 @@
 
         const {
           data: res
-        } = await this.$http.post("/manager/teacher/list", param)
+        } = await this.$http.post('/manager/teacher/list', param)
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
           this.dtotal = res.count
+          console.log(this.dtotal, '总数')
           this.teachers = res.data
         }
       },
@@ -329,7 +329,7 @@
         param.organizationId = 0
         const {
           data: res
-        } = await this.$http.post("/manager/org/list", param)
+        } = await this.$http.post('/manager/org/list', param)
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
@@ -340,7 +340,7 @@
       async getTypeList() {
         const {
           data: res
-        } = await this.$http.post("/manager/ctyp/tree", {
+        } = await this.$http.post('/manager/ctyp/tree', {
           page: this.dpage,
           rows: this.drow
         })
@@ -367,23 +367,19 @@
           this.coursedetail.organizationName = row.organizationName
           this.coursedetail.organizationId = row.organizationId
         }
-
       },
       handleNodeClick(data) {
-
         this.typeDialog = false
         this.coursedetail.coursewareTypeId = data.coursewareTypeId
         this.coursedetail.coursewareTypeName = data.coursewareTypeName
 
-        //console.log(this.coursedetail.coursecoursewareTypeId)
+        // console.log(this.coursedetail.coursecoursewareTypeId)
       },
       // 监听rows改变的事件
       handleSizeChange(newSize) {
         this.drow = newSize
         if (this.theacherDialog) this.getTeacherList()
-        //elseif (this.theacherDisalog) this.getTeacherList()
-
-
+        // elseif (this.theacherDisalog) this.getTeacherList()
       },
       // 监听页码值改变的事件
       handleCurrentChange(newPage) {
@@ -396,12 +392,12 @@
         return date.split('T')[0]
       },
       transfermSex: function(sex) {
-        if (sex == "1") return "男"
-        else return "女"
+        if (sex == '1') return '男'
+        else return '女'
       },
       transfermType: function(type) {
-        if (type == "1") return "内部"
-        else return "外部"
+        if (type == '1') return '内部'
+        else return '外部'
       }
     }
   }

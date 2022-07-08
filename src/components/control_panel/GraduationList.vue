@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/graduationlist' }">结业申请列表</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/graduationlist' }">结业管理</el-breadcrumb-item>
 
     </el-breadcrumb>
 
@@ -24,7 +24,6 @@
             <el-button icon="el-icon-search" @click="queryCourse" type="primary">查询</el-button>
 
             <el-button icon="el-icon-refresh-right" @click="reset" type="primary">重置</el-button>
-
 
           </el-col>
         </el-row>
@@ -57,7 +56,6 @@
               <el-table-column prop="courseThemeName" label="课程主题" width="120">
               </el-table-column>
 
-
               <el-table-column fixed="right" label="操作" width="120">
                 <template slot-scope="scope">
                   <el-button @click="editDetail(scope.row)" type="text" size="small">审核</el-button>
@@ -75,10 +73,7 @@
 
       </div>
 
-
-
     </el-card>
-
 
     <el-dialog title="" :visible.sync="dialogVisible" width="30%">
       <span>确定要删除：{{supposeDelete.coursewareNme}}</span>
@@ -104,7 +99,7 @@
           }
         ],
         supposeDelete: {
-          userName: ""
+          userName: ''
         },
         dialogVisible: false,
         multipleSelection: [],
@@ -120,24 +115,23 @@
         },
         tableData: [],
         total: 0,
-        currentNode: 0,
+        currentNode: 0
       }
     },
     created() {
       this.getDataTree()
       this.getDataList()
-
     },
     methods: {
       handleNodeClick(data) {
-        //this.queryInfo.parentId = data.parentId
+        // this.queryInfo.parentId = data.parentId
         this.queryInfo.courseSortId = data.courseSortId
         this.getDataList()
       },
       async getDataTree() {
         const {
           data: res
-        } = await this.$http.post("/manager/csort/tree")
+        } = await this.$http.post('/manager/csort/tree')
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
@@ -148,13 +142,12 @@
         this.getDataList()
       },
       async getDataList() {
-
         const {
           data: res
-        } = await this.$http.post("/manager/graduation/list", this.queryInfo)
+        } = await this.$http.post('/manager/graduation/list', this.queryInfo)
         if (res.state !== 200) {
           this.tableData = []
-          //return this.$message.error('数据获取失败！')
+          // return this.$message.error('数据获取失败！')
         } else {
           this.total = res.count
           this.tableData = res.data
@@ -170,14 +163,13 @@
       async RemoveCourse() {
         const {
           data: res
-        } = await this.$http.post("/manager/courseware/del", {
+        } = await this.$http.post('/manager/courseware/del', {
           coursewareId: this.supposeDelete.coursewareId
         })
 
         if (res.state !== 200) {
           return this.$message.error('操作失败！')
         } else {
-
           this.supposeDelete = {}
           var temp = this.queryInfo
           this.queryInfo = {}
@@ -187,13 +179,11 @@
           this.getDataTree()
           this.getDataList()
           return this.$message.success('操作成功！')
-
         }
       },
       confirmDelete() {
         this.dialogVisible = false
         this.RemoveCourse()
-
       },
       editDetail(row) {
         this.$router.push({
@@ -216,13 +206,12 @@
         })
       },
       handleSelectionChange(val) {
-        this.multipleSelection = val;
+        this.multipleSelection = val
       },
       // 监听rows改变的事件
       handleSizeChange(newSize) {
         this.queryInfo.rows = newSize
         this.getDataList()
-
       },
       // 监听页码值改变的事件
       handleCurrentChange(newPage) {
@@ -237,14 +226,14 @@
         }
       },
       transfermState: function(state) {
-        if (state == "1") return "启用"
-        else return "禁用"
+        if (state == '1') return '启用'
+        else return '禁用'
       },
       transfermType: function(type) {
-        if (type == "1") return "讲义"
-        else if (type == "2") return "文档"
-        else if (type == "2") return "视频"
-        else return "标准"
+        if (type == '1') return '讲义'
+        else if (type == '2') return '文档'
+        else if (type == '2') return '视频'
+        else return '标准'
       }
     }
   }

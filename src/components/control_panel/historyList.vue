@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/paperlist' }">学习归档</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/Historylist' }">学习归档</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card class="list_card">
       <div slot="header" class="clearfix">

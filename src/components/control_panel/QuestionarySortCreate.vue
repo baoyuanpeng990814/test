@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/questionarylist' }">问卷管理</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/questionarylist' }">问卷调查</el-breadcrumb-item>
       <el-breadcrumb-item :to="{ path: '/questionarysortedit' }">添加问卷分类</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="card_detail">
@@ -49,10 +49,7 @@
       </el-card>
     </div>
 
-
   </div>
-
-
 
 </template>
 
@@ -62,12 +59,12 @@
     data() {
       return {
         showOd: false,
-        twin:{organizationName:""},
+        twin: { organizationName: '' },
         datadetail: {
-          examSortName: "",
-          description: "",
+          examSortName: '',
+          description: '',
           organizationId: 2,
-          state: "1",
+          state: '1',
           parentNode: 0
         },
         rules: {
@@ -80,18 +77,17 @@
       }
     },
     created() {
-      if(this.$route.query.parent==null){
+      if (this.$route.query.parent == null) {
         this.datadetail.parentNode = 0
-      }else{
+      } else {
         this.datadetail.parentNode = this.$route.query.parent
       }
-
     },
     methods: {
       async submitCreation() {
         const {
           data: res
-        } = await this.$http.post("/manager/examineSort/add", this.datadetail)
+        } = await this.$http.post('/manager/examineSort/add', this.datadetail)
         if (res.state !== 200) {
           return this.$message.error(res.msg)
         } else {

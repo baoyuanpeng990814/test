@@ -2,10 +2,9 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/studyanalyzation' }">学习统计</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/studyanalyzation' }">问卷统计</el-breadcrumb-item>
 
     </el-breadcrumb>
-
 
     <el-card class="list_card">
       <div slot="header" class="clearfix">
@@ -71,32 +70,29 @@
         },
         total: 0
       }
-
     },
     created() {
       this.getDataList()
     },
     methods: {
       findDetail(row) {
-        //console.log(row)
+        // console.log(row)
         this.$router.push({
-          path:'/questionaryanalyzationdetail',
-          query:row
+          path: '/questionaryanalyzationdetail',
+          query: row
         })
       },
       handleSelectionChange(val) {},
       async getDataList() {
         const {
           data: res
-        } = await this.$http.post("/manager/lStatistic/examineList", this.queryInfo)
+        } = await this.$http.post('/manager/lStatistic/examineList', this.queryInfo)
         if (res.state !== 200) {
           this.tableData = []
           this.total = 0
         } else {
           this.tableData = res.data
           this.total = res.count
-
-
         }
       },
       searchData() {
@@ -112,7 +108,6 @@
       handleSizeChange(newSize) {
         this.queryInfo.rows = newSize
         this.getDataList()
-
       },
       handleCurrentChange(newPage) {
         this.queryInfo.page = newPage
@@ -122,15 +117,15 @@
     },
     filters: {
       transformType(val) {
-        if (val == "1") return "必修"
-        else return "选修"
+        if (val == '1') return '必修'
+        else return '选修'
       },
       transformDate(val) {
         if (val == null) return val
         return val.split('T')[0]
       },
       transfermDecimal(val) {
-        return (parseInt(val) * 100) + "%"
+        return (parseInt(val) * 100) + '%'
       }
     }
   }

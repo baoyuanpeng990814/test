@@ -2,7 +2,8 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/examlist' }">考题分类管理</el-breadcrumb-item>
+       <!-- :to="{ path: '/examlist' }" -->
+      <el-breadcrumb-item>考试分类管理</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card class="list_card">
       <div slot="header" class="clearfix">
@@ -64,7 +65,6 @@
 
                 <template slot-scope="scope">{{ scope.row. state | transfermUseState }}</template>
               </el-table-column>
-
 
               <el-table-column fixed="right" label="操作">
                 <template slot-scope="scope">
@@ -128,28 +128,27 @@
       this.getDataList()
     },
     methods: {
-      /* 生成考试习题*/
+      /* 生成考试习题 */
       publish() {
         console.log(this.multipleSelection)
         for (var i = 0; i < this.multipleSelection.length; i++) {
-          //if (this.multipleSelection[i].releaseState == "0") {
+          // if (this.multipleSelection[i].releaseState == "0") {
           this.releaseExam(this.multipleSelection[i])
-          //}
+          // }
         }
-        //this.releaseExam(this.multipleSelection[0])
+        // this.releaseExam(this.multipleSelection[0])
       },
 
       async confirmDeleteNode() {
         const {
           data: res
-        } = await this.$http.post("/manager/esort/del", {
+        } = await this.$http.post('/manager/esort/del', {
           examSortId: this.currentNode.examSortId
         })
 
         if (res.state !== 200) {
           return this.$message.error('操作失败！')
         } else {
-
           this.currentNode = {
             examSortId: 0
           }
@@ -187,18 +186,18 @@
       async getDataTree() {
         const {
           data: res
-        } = await this.$http.get("/manager/esort/tree?id=" + 0)
+        } = await this.$http.get('/manager/esort/tree?id=' + 0)
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
           this.treedata = res.data
-          console.log(this.treedata);
+          console.log(this.treedata)
         }
       },
       async getDataList() {
         const {
           data: res
-        } = await this.$http.post("/manager/esort/list", this.queryInfo)
+        } = await this.$http.post('/manager/esort/list', this.queryInfo)
         if (res.state !== 200) {
           this.total = 0
           this.tableData = []
@@ -217,7 +216,7 @@
       async RemoveData() {
         const {
           data: res
-        } = await this.$http.post("/manager/esort/del", {
+        } = await this.$http.post('/manager/esort/del', {
           examSortId: this.supposeDelete.examSortId
         })
 
@@ -249,13 +248,13 @@
         this.$router.push({
           path: '/examtypecreate',
           query: {
-            parent: this.currentNode.examSortId,
+            parent: this.currentNode.examSortId
           }
         })
       },
 
       handleSelectionChange(val) {
-        this.multipleSelection = val;
+        this.multipleSelection = val
       },
       // 监听rows改变的事件
       handleSizeChange(newSize) {
@@ -275,9 +274,9 @@
         }
       },
       transfermUseState: function(state) {
-        if (state == "1") return "启用"
-        else return "未启用"
-      },
+        if (state == '1') return '启用'
+        else return '未启用'
+      }
 
     }
   }

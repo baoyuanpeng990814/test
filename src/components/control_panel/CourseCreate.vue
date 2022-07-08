@@ -58,8 +58,6 @@
                 </el-row>
                 <!--  机构    -->
 
-
-
                 <!--  讲师    -->
                 <el-row>
                   <el-col :span="24">
@@ -111,13 +109,13 @@
                         </el-table-column>
                       </el-table>
                       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                        :page-sizes="[1, 2, 5, 8]" :page-size="drow" layout="total, prev, pager, next" :total="dtotal">
+                      :hide-on-single-page="false"
+                         :page-size="drow" layout="total, prev, pager, next" :total="this.dtotal">
                       </el-pagination>
                     </div>
                   </el-card>
                 </el-dialog>
                 <!--  讲师    -->
-
 
                 <!--  分类    -->
                 <el-row>
@@ -135,9 +133,6 @@
                   </el-card>
                 </el-dialog>
                 <!--  分类    -->
-
-
-
 
                 <el-row>
                   <el-col :span="24">
@@ -171,13 +166,11 @@
     </OrganizationPanel>
   </div>
 
-
-
 </template>
 
 <script>
   import OrganizationPanel from '../panel/OrganizationPanel.vue'
-  var token = window.sessionStorage.getItem("token")
+  var token = window.sessionStorage.getItem('token')
 
   export default {
     components: {
@@ -188,8 +181,8 @@
         showOp: false,
 
         dpage: 1,
-        drow: 5,
-        dtotal: 0,
+        drow: 10,
+        dtotal: null,
         theacherDialog: false,
         organizationDialog: false,
         typeDialog: false,
@@ -202,15 +195,15 @@
         organizations: [],
         types: [],
         coursedetail: {
-          coursewareName: "",
-          coursewareType: "",
-          coursewareHours: "",
-          organizationId: "",
-          teacherId: "",
-          teacherName: "",
-          coursewareTypeId: "",
-          resourcesLink: "",
-          stutes: "1"
+          coursewareName: '',
+          coursewareType: '',
+          coursewareHours: '',
+          organizationId: '',
+          teacherId: '',
+          teacherName: '',
+          coursewareTypeId: '',
+          resourcesLink: '',
+          stutes: '1'
         },
         rules: {
           coursewareId: [{
@@ -220,12 +213,12 @@
           }],
           coursewareName: [{
             required: true,
-            message: "不能为空",
+            message: '不能为空',
             trigger: 'blur'
           }],
           coursewareType: [{
             required: true,
-            message: "不能为空",
+            message: '不能为空',
             trigger: 'blur'
           }],
           coursewareHours: [{
@@ -235,10 +228,10 @@
           }],
           coursewareName: [{
             required: true,
-            message: "不能为空",
+            message: '不能为空',
             trigger: 'blur'
           }],
-          /*organizationId: [{
+          /* organizationId: [{
             required: true,
             message: "不能为空",
             trigger: 'blur'
@@ -252,15 +245,15 @@
             required: true,
             message: "不能为空",
             trigger: 'blur'
-          }],*/
+          }], */
           resourcesLink: [{
             required: true,
-            message: "不能为空",
+            message: '不能为空',
             trigger: 'blur'
           }],
           stutes: [{
             required: true,
-            message: "不能为空",
+            message: '不能为空',
             trigger: 'blur'
           }]
         }
@@ -268,22 +261,29 @@
     },
     created() {
       this.getOrganizationList()
-      this.getTeacherList()
+      // this.getTeacherList()
       this.getTypeList()
 
-      //this.coursedetail.parentId = this.$route.query.parent
-      //console.log(this.$route.query.parent)
+      // this.coursedetail.parentId = this.$route.query.parent
+      // console.log(this.$route.query.parent)
     },
+    watch: {
+    theacherDialog() {
+      if (this.theacherDialog) {
+        this.getTeacherList()
+      }
+      }
+  },
+
     methods: {
       choseOrganization(e) {
         this.coursedetail.organizationId = e.organizationId
         this.coursedetail.organizationName = e.organizationName
-
       },
       async submitCreation() {
         const {
           data: res
-        } = await this.$http.post("/manager/courseware/add", this.coursedetail)
+        } = await this.$http.post('/manager/courseware/add', this.coursedetail)
         if (res.state !== 200) {
           return this.$message.error(res.msg)
         } else {
@@ -298,11 +298,13 @@
 
         const {
           data: res
-        } = await this.$http.post("/manager/teacher/list", param)
+        } = await this.$http.post('/manager/teacher/list', param)
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
+          res.count = parseInt(res.count)
           this.dtotal = res.count
+          console.log(res.count, 'res.count')
           this.teachers = res.data
         }
       },
@@ -313,7 +315,7 @@
         param.organizationId = 0
         const {
           data: res
-        } = await this.$http.post("/manager/org/list", param)
+        } = await this.$http.post('/manager/org/list', param)
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
@@ -324,7 +326,7 @@
       async getTypeList() {
         const {
           data: res
-        } = await this.$http.post("/manager/ctyp/tree", {
+        } = await this.$http.post('/manager/ctyp/tree', {
           page: this.dpage,
           rows: this.drow
         })
@@ -351,10 +353,8 @@
           this.organizationDialog = false
           this.coursedetail.organizationId = row.organizationId
         }
-
       },
       handleNodeClick(data) {
-
         this.typeDialog = false
         this.coursedetail.coursewareTypeId = data.coursewareTypeId
         console.log(this.coursedetail.coursecoursewareTypeId)
@@ -363,12 +363,11 @@
       handleSizeChange(newSize) {
         this.drow = newSize
         if (this.theacherDialog) this.getTeacherList()
-        //elseif (this.theacherDisalog) this.getTeacherList()
-
-
+        // elseif (this.theacherDisalog) this.getTeacherList()
       },
       // 监听页码值改变的事件
       handleCurrentChange(newPage) {
+        console.log(newPage, '监听页码值改变')
         this.dpage = newPage
         if (this.theacherDialog) this.getTeacherList()
       }
@@ -376,8 +375,17 @@
     filters: {
       truncateDate: function(date) {
         return date.split('T')[0]
+      },
+      transfermSex: function(sex) {
+        if (sex == '1') return '男'
+        else return '女'
+      },
+      transfermType: function(type) {
+        if (type == '1') return '内部'
+        else return '外部'
       }
     }
+  
   }
 </script>
 

@@ -24,10 +24,9 @@
                 <el-upload :on-success="handleAvatarSuccess" class=" mt15 avatar-uploader" :action="uploadUrl"
                   :show-file-list="false">
                   <img v-if="picturesUrl" :src="picturesUrl" class="avatar">
-                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                  <i v-else class="el-icon-plus avatar-uploader-icon"  style="display:flex;justify-content: center;align-items: center;"></i>
                 </el-upload>
               </el-row>
-
 
 							<el-form :model="newsdetail" :rules="rules" ref="newsdetail" label-width="100px"
 								class="demo-ruleForm login_form">
@@ -100,16 +99,16 @@
 			return {
 				showOp: false,
 				twin: {
-					organizationName: ""
+					organizationName: ''
 				},
-        uploadUrl: this.$serverURL + "common/uploadCover",
-        picturesUrl : "",
+        uploadUrl: this.$serverURL + 'common/uploadCover',
+        picturesUrl: '',
 
 				newsdetail: {
-          newTitle: "",
-          newText : "",
-          newCover : "",
-          createUser : ""
+          newTitle: '',
+          newText: '',
+          newCover: '',
+          createUser: ''
         },
 				rules: {
 					newTitle: [{
@@ -131,7 +130,7 @@
 						required: true,
 						message: '作者不能为空',
 						trigger: 'blur'
-					}],
+					}]
 				}
 			}
 		},
@@ -143,7 +142,7 @@
 			async createcarousel() {
 				const {
 					data: res
-				} = await this.$http.post("/manager/new/add", this.newsdetail)
+				} = await this.$http.post('/manager/new/add', this.newsdetail)
 				if (res.state !== 200) {
 					return this.$message.error(res.msg)
 				} else {
@@ -153,7 +152,7 @@
 			},
       handleAvatarSuccess(res, file) {
         this.picturesUrl = res.url
-      },
+      }
       
 		},
 		filters: {

@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/paperlist' }">课程分类</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/paperlist' }">课程管理</el-breadcrumb-item>
       <el-breadcrumb-item :to="{ path: '/paperedit' }">编辑课程</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="card_detail">
@@ -81,7 +81,6 @@
                   </el-col>
                 </el-row>
 
-
                 <!--  分类    -->
                 <el-row>
                   <el-col :span="24">
@@ -91,7 +90,6 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-
 
                 <el-dialog title="所属分类" :visible.sync="typeDialog" class="protrusion">
                   <el-card class="box-card">
@@ -193,7 +191,7 @@
                         </el-table-column>
                       </el-table>
                       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                        :page-sizes="[1, 2, 5, 8]" :page-size="drow" layout="total, prev, pager, next" :total="dtotal">
+                        :page-sizes="[10]" :page-size="drow" layout="total, prev, pager, next" :total="dtotal">
                       </el-pagination>
                     </div>
                   </el-card>
@@ -207,7 +205,6 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-
 
                 <el-row>
                   <el-col :span="24">
@@ -227,8 +224,6 @@
                   </el-col>
                 </el-row>
 
-
-
                 <el-row>
                   <el-col :span="24">
                     <el-form-item label="简介" prop="description">
@@ -236,7 +231,6 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-
 
                 <el-row>
                   <el-col :span="24">
@@ -263,14 +257,6 @@
                   </el-col>
                 </el-row>
 
-
-
-
-
-
-
-
-
                 <el-row>
                   <el-col :span="20" :offset="4">
                     <el-button type="primary" @click="modifyDetail()">修改</el-button>
@@ -281,16 +267,11 @@
             </el-main>
           </el-container>
 
-
-
         </div>
       </el-card>
     </div>
 
-
     <el-container class="mt20">
-
-
 
       <el-dialog title="章节" :visible.sync="chapterDialog" :fullscreen="true" class="protrusion">
         <el-button type="primary" @click="insertChapter()">新建章节</el-button>
@@ -345,8 +326,6 @@
         </ul>
       </el-dialog>
 
-
-
       <el-dialog title="" :visible.sync="delDialog" width="30%">
         <span>确定要删除：{{supposeDelete.chapterName}}</span>
         <span slot="footer" class="dialog-footer">
@@ -364,8 +343,6 @@
     <GroupPanel :show="showOd" @choose="getOd" @turnOff="(e) => showOd=e"></GroupPanel>
   </div>
 
-
-
 </template>
 
 <script>
@@ -381,18 +358,18 @@
     data() {
       return {
         orgTarget: false,
-        uploadUrl: this.$serverURL + "common/uploadCover",
+        uploadUrl: this.$serverURL + 'common/uploadCover',
         showOp: false,
         showOd: false,
         twin: {
-          groupingName: "",
-          teacherName: "",
-          courseSortName: "",
-          courseThemeName : ""
+          groupingName: '',
+          teacherName: '',
+          courseSortName: '',
+          courseThemeName: ''
         },
         lCourseTarget: {
-          courseTargetType: "",
-          courseTarget: "",
+          courseTargetType: '',
+          courseTarget: ''
         },
         showCWp: false,
         supposeDelete: {},
@@ -403,14 +380,14 @@
         courses: [],
         currentCourses: {},
 
-        dpage: 1, //分页，应用于选择框
-        drow: 10, //分页，应用于选择框
-        dtotal: 0, //分页，应用于选择框
+        dpage: 1, // 分页，应用于选择框
+        drow: 10, // 分页，应用于选择框
+        dtotal: 0, // 分页，应用于选择框
         theacherDialog: false,
         organizationDialog: false,
         typeDialog: false,
         themeDialog: false,
-        tq: {}, //查询条件，应用于选择框
+        tq: {}, // 查询条件，应用于选择框
         defaultProps: {
           children: 'chilLCourseSort',
           label: 'courseSortName'
@@ -476,24 +453,31 @@
         }
       }
     },
+      watch: {
+    theacherDialog() {
+      if (this.theacherDialog) {
+        this.getTeacherList()
+      }
+      }
+  },
     created() {
-      /* 从列表传输过来的数字接收*/
+      /* 从列表传输过来的数字接收 */
       this.paperdetail = this.$route.query.row
-      if(this.paperdetail.lCourseTarget){
+      if (this.paperdetail.lCourseTarget) {
         this.lCourseTarget = this.paperdetail.lCourseTarget
         this.twin.courseCompanyName = this.paperdetail.lCourseTarget.courseTarget
          this.twin.groupingName = this.paperdetail.lCourseTarget.courseTarget
       }
-      this.twin.teacherName = this.$route.query.row.teacherName;
-      this.twin.courseSortName = this.$route.query.row.courseSortName;
-      this.twin.courseThemeName = this.$route.query.row.courseThemeName;
+      this.twin.teacherName = this.$route.query.row.teacherName
+      this.twin.courseSortName = this.$route.query.row.courseSortName
+      this.twin.courseThemeName = this.$route.query.row.courseThemeName
       this.getProgramList()
 
       this.getOrganizationList()
-      this.getTeacherList()
+      // this.getTeacherList()
       this.getTypeList()
       this.getThemeList()
-      //console.log(this.paperdetail)
+      // console.log(this.paperdetail)
     },
     methods: {
       handleAvatarSuccess(res, file) {
@@ -502,11 +486,10 @@
       getOd(val) {
         this.lCourseTarget.courseTarget = val.groupingId.toString()
         this.twin.groupingName = val.groupingName
-
       },
       choseOrganization(e) {
-        console.log(this.orgTarget, "22222222")
-        /* orgTarget判断当前是否是发布对象调用*/
+        console.log(this.orgTarget, '22222222')
+        /* orgTarget判断当前是否是发布对象调用 */
         if (this.orgTarget) {
           this.lCourseTarget.courseTarget = e.organizationId
           this.twin.courseCompanyName = e.organizationName
@@ -514,7 +497,6 @@
           this.paperdetail.courseCompany = e.organizationId
           this.paperdetail.courseCompanyName = e.organizationName
         }
-
       },
       choseCourseWare(e) {
         this.courseDialog = false
@@ -522,11 +504,11 @@
         this.currentCourses.coursewareId = e.coursewareId
       },
 
-      async confirmDelete() { //删除章节
+      async confirmDelete() { // 删除章节
         this.delDialog = false
         const {
           data: res
-        } = await this.$http.post("manager/chapter/del", {
+        } = await this.$http.post('manager/chapter/del', {
           chapterId: this.supposeDelete.chapterId
         })
         if (res.state !== 200) {
@@ -537,12 +519,10 @@
         }
       },
       async updateChapter(c) {
-
-
         if (c.chapterId == null) {
           const {
             data: res
-          } = await this.$http.post("manager/chapter/add", c)
+          } = await this.$http.post('manager/chapter/add', c)
           if (res.state !== 200) {
             return this.$message.error(res.msg)
           } else {
@@ -552,36 +532,34 @@
         } else {
           const {
             data: res
-          } = await this.$http.post("manager/chapter/edit", c)
+          } = await this.$http.post('manager/chapter/edit', c)
           if (res.state !== 200) {
             return this.$message.error(res.msg)
           } else {
             return this.$message.success(res.msg)
           }
         }
-
       },
-      insertChapter(c) { //新章节
+      insertChapter(c) { // 新章节
         if (c == null) {
           c = {}
           c.chapterId = 0
         }
         var newChapter = {
-          chapterName: "",
+          chapterName: '',
           chapterItem: c.chapterId,
           chapterSeq: 1,
           chapterType: 3,
           courseId: this.paperdetail.courseId,
           learnType: 1,
-          pageStutes: "0",
-          controlStutes: "0",
-          loadStutes: "0",
-          coursewareId: ""
+          pageStutes: '0',
+          controlStutes: '0',
+          loadStutes: '0',
+          coursewareId: ''
         }
         if (c.chapterId == 0) {
-
           this.chapters.push(newChapter)
-          //console.log(this.chapters)
+          // console.log(this.chapters)
         } else {
           c.lChilLChapter.push(newChapter)
         }
@@ -602,7 +580,7 @@
         param.rows = this.drow
         const {
           data: res
-        } = await this.$http.post("manager/courseware/list", param)
+        } = await this.$http.post('manager/courseware/list', param)
         if (res.state !== 200) {
           return this.$message.error(res.msg)
         } else {
@@ -613,13 +591,12 @@
       async getChapterTree() {
         const {
           data: res
-        } = await this.$http.post("/manager/chapter/tree", {
+        } = await this.$http.post('/manager/chapter/tree', {
           courseId: this.paperdetail.courseId
         })
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
-
           this.chapters = res.data
         }
       },
@@ -634,14 +611,13 @@
         this.currentCourses.coursewareId = row.coursewareId
       },
 
-
       modifyDetail() {
         this.modifyorganization()
       },
       async getProgramList() {
         const {
           data: res
-        } = await this.$http.post("manager/csort/list", {
+        } = await this.$http.post('manager/csort/list', {
           page: 1,
           rows: 100
         })
@@ -652,22 +628,20 @@
         }
       },
       async modifyorganization() {
-        /* 如果是专题培训类型则把发布对象添加到lCourseTarget里面*/
+        /* 如果是专题培训类型则把发布对象添加到lCourseTarget里面 */
         /* lCourseTarget对象
               参数名	            必选	    类型	    说明
               courseTarget	    是	    string	发布人
-              courseTargetType	是	    string	发布对象分类 0机构1分组*/
-        if(this.paperdetail.courseType == "2"){
-          this.paperdetail.lCourseTarget = this.lCourseTarget;
-
+              courseTargetType	是	    string	发布对象分类 0机构1分组 */
+        if (this.paperdetail.courseType == '2') {
+          this.paperdetail.lCourseTarget = this.lCourseTarget
         }
         const {
           data: res
-        } = await this.$http.post("/manager/course/edit", this.paperdetail)
+        } = await this.$http.post('/manager/course/edit', this.paperdetail)
         if (res.state !== 200) {
           return this.$message.error(res.msg)
         } else {
-
           this.$message.success('修改成功')
           this.$router.go(-1)
         }
@@ -679,7 +653,7 @@
 
         const {
           data: res
-        } = await this.$http.post("/manager/teacher/list", param)
+        } = await this.$http.post('/manager/teacher/list', param)
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
@@ -694,7 +668,7 @@
         param.organizationId = 0
         const {
           data: res
-        } = await this.$http.post("/manager/org/list", param)
+        } = await this.$http.post('/manager/org/list', param)
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
@@ -705,7 +679,7 @@
       async getThemeList() {
         const {
           data: res
-        } = await this.$http.post("/manager/theme/list", {
+        } = await this.$http.post('/manager/theme/list', {
           page: this.dpage,
           rows: this.drow
         })
@@ -719,7 +693,7 @@
       async getTypeList() {
         const {
           data: res
-        } = await this.$http.post("/manager/csort/tree", {
+        } = await this.$http.post('/manager/csort/tree', {
           page: this.dpage,
           rows: this.drow
         })
@@ -738,17 +712,16 @@
         this.getTypeList()
       },
       choose(row) {
-        if (this.theacherDialog) { //如果讲师选择框打开这获取讲师的职
+        if (this.theacherDialog) { // 如果讲师选择框打开这获取讲师的职
           this.theacherDialog = false
           this.paperdetail.teacher = row.teacherId
           this.paperdetail.teacherName = row.teacherName
           this.twin.teacherName = row.teacherName
-        } else if (this.organizationDialog) { //公司
+        } else if (this.organizationDialog) { // 公司
           this.organizationDialog = false
           this.paperdetail.courseCompany = row.organizationId
           this.paperdetail.courseCompanyName = row.organizationName
-
-        } else if (this.themeDialog) { //课程主题
+        } else if (this.themeDialog) { // 课程主题
           this.themeDialog = false
           this.paperdetail.courseTheme = row.themeId
           this.paperdetail.courseThemeName = row.themeName
@@ -758,12 +731,11 @@
         console.log(this.twin)
       },
       handleNodeClick(data) {
-
         this.typeDialog = false
         this.paperdetail.courseSortId = data.courseSortId
         this.paperdetail.courseSortName = data.courseSortName
         this.twin.courseSortName = data.courseSortName
-        console.log(data,"febn")
+        console.log(data, 'febn')
         console.log(this.twin)
       },
       // 监听rows改变的事件
@@ -780,19 +752,28 @@
       }
     },
     filters: {
+      truncateDate: function(date) {
+        return date.split('T')[0]
+      },
+      transfermSex: function(sex) {
+        if (sex == '1') return '男'
+        else return '女'
+      },
+      transfermType: function(type) {
+        if (type == '1') return '内部'
+        else return '外部'
+      },
       transfermBoolen: function(val) {
-        if (val == "1") {
+        if (val == '1') {
           return true
         } else {
           return false
         }
       },
-      truncateDate: function(date) {
-        return date.split('T')[0]
-      },
+    
       transfermState: function(state) {
-        if (state == "1") return "启用"
-        else return "禁用"
+        if (state == '1') return '启用'
+        else return '禁用'
       }
     }
   }
@@ -824,5 +805,12 @@
     width: 178px;
     height: 178px;
     display: block;
+  }
+  .el-dialog__body{
+    margin:30px;
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+  }
+  .el-dialog{
+    width: 65% !important;
   }
 </style>

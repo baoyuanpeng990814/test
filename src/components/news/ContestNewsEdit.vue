@@ -25,7 +25,7 @@
                 <el-upload :on-success="handleAvatarSuccess" class=" mt15 avatar-uploader" :action="uploadUrl"
                   :show-file-list="false">
                   <img v-if="picturesUrl" :src="picturesUrl" class="avatar">
-                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                  <i v-else class="el-icon-plus avatar-uploader-icon" style="display:flex;justify-content: center;align-items: center;"></i>
                 </el-upload>
               </el-row>
               <el-form :model="newsdetail" :rules="rules" ref="newsdetail" label-width="100px"
@@ -137,7 +137,7 @@
 			return {
 				showOp: false,
 				twin: {
-					serviceName: ""
+					serviceName: ''
 				},
         dialogVisible: false,
         queryInfo: {
@@ -157,8 +157,8 @@
           label: 'organizationName'
         },
         dialogUserList: false,
-        uploadUrl: this.$serverURL + "common/uploadCover",
-        picturesUrl : "",
+        uploadUrl: this.$serverURL + 'common/uploadCover',
+        picturesUrl: '',
         tableData: [],
         orgTreedata: [],
         multipleSelection: [],
@@ -166,12 +166,12 @@
         userTableData: [],
         userTotal: 0,
 				newsdetail: {
-          competitionId: "",
-          competitionSeq : 0, //排序
-          competitionSort: "", // 服务类型
-          competitionState : 0, // 上架状态
-          competitionUser : "",// 新闻用户
-          content : "", //内容
+          competitionId: '',
+          competitionSeq: 0, // 排序
+          competitionSort: '', // 服务类型
+          competitionState: 0, // 上架状态
+          competitionUser: '', // 新闻用户
+          content: '' // 内容
         },
 				rules: {
 					competitionUser: [{
@@ -193,7 +193,7 @@
 						required: true,
 						message: '作者不能为空',
 						trigger: 'blur'
-					}],
+					}]
 				}
 			}
 		},
@@ -214,11 +214,10 @@
       async modifynews() {
         const {
           data: res
-        } = await this.$http.post("/manager/cnew/edit", this.newsdetail)
+        } = await this.$http.post('/manager/cnew/edit', this.newsdetail)
         if (res.state !== 200) {
           return this.$message.error(res.msg)
         } else {
-
           this.$message.success('修改成功')
           this.$router.go(-1)
         }
@@ -229,7 +228,7 @@
         // 如果上传成功
         if (res) {
           // 获取光标所在位置
-          let length = quill.getSelection().index;
+          let length = quill.getSelection().index
           // 插入图片，res为服务器返回的图片链接地址
           quill.insertEmbed(length, 'image', res)
           // 调整光标到最后
@@ -253,7 +252,6 @@
         } else {
           this.orgTreedata = res.data
           /* */
-
         }
       },
       async getUserList() {
@@ -261,7 +259,7 @@
           data: res
         } = await this.$http.post('/manager/user/list', this.queryInfo2)
         if (res.state !== 200) {
-          //return this.$message.error('数据获取失败！')
+          // return this.$message.error('数据获取失败！')
           this.userTableData = []
         } else {
           this.userTableData = res.data
@@ -271,18 +269,17 @@
       handleAvatarSuccess(res, file) {
         this.picturesUrl = res.url
       },
-      /* 查询userid*/
+      /* 查询userid */
       handleNodeClick(data) {
         this.queryInfo2.organizationId = data.organizationId
-        //this.currentNode = data.organizationId
+        // this.currentNode = data.organizationId
         this.getUserList()
       },
 
-      /* 取出列表的id*/
+      /* 取出列表的id */
       addUserId(data) {
-        this.newsdetail.competitionUser = data.userId;
-        this.dialogUserList = false;
-
+        this.newsdetail.competitionUser = data.userId
+        this.dialogUserList = false
       },
 
       // 监听rows改变的事件
@@ -295,9 +292,12 @@
         this.queryInfo.page = newPage
         this.getGrouprList()
       },
+      handleSelectionChange(val) {
+        this.multipleSelection = val
+      },
       // 监听rows改变的事件
       handleSelectionChange2(val) {
-        this.multipleSelection = val;
+        this.multipleSelection = val
       },
       handleSizeChange2(groupize) {
         this.queryInfo2.rows = groupize

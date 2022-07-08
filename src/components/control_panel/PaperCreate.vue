@@ -2,7 +2,7 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/paperlist' }">课程分类</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/paperlist' }">课程管理</el-breadcrumb-item>
       <el-breadcrumb-item :to="{ path: '/papercreate' }">创建课程</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="card_detail">
@@ -80,7 +80,6 @@
                   </el-col>
                 </el-row>
 
-
                 <!--  分类    -->
                 <el-row>
                   <el-col :span="24">
@@ -90,7 +89,6 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-
 
                 <el-dialog title="所属分类" :visible.sync="typeDialog" class="protrusion">
                   <el-card class="box-card">
@@ -192,7 +190,7 @@
                         </el-table-column>
                       </el-table>
                       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                        :page-sizes="[1, 2, 5, 8]" :page-size="drow" layout="total, prev, pager, next" :total="dtotal">
+                        :page-sizes="[10]" :page-size="drow" layout="total, prev, pager, next" :total="dtotal">
                       </el-pagination>
                     </div>
                   </el-card>
@@ -206,7 +204,6 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-
 
                 <el-row>
                   <el-col :span="24">
@@ -226,8 +223,6 @@
                   </el-col>
                 </el-row>
 
-
-
                 <el-row>
                   <el-col :span="24">
                     <el-form-item label="简介" prop="description">
@@ -235,7 +230,6 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
-
 
                 <el-row>
                   <el-col :span="24">
@@ -262,14 +256,6 @@
                   </el-col>
                 </el-row>
 
-
-
-
-
-
-
-
-
                 <el-row>
                   <el-col :span="20" :offset="4">
                     <el-button type="primary" @click="modifyDetail()">添加</el-button>
@@ -291,8 +277,6 @@
     <GroupPanel :show="showOd" @choose="getOd" @turnOff="(e) => showOd=e"></GroupPanel>
   </div>
 
-
-
 </template>
 
 <script>
@@ -307,18 +291,18 @@
     data() {
       return {
         orgTarget: false,
-        uploadUrl: this.$serverURL + "common/uploadCover",
+        uploadUrl: this.$serverURL + 'common/uploadCover',
         showOp: false,
         showOd: false,
         twin: {
-          groupingName: ""
+          groupingName: ''
         },
         lCourseTarget: {
-          courseTargetType: "",
-          courseTarget: "",
+          courseTargetType: '',
+          courseTarget: ''
         },
         dpage: 1,
-        drow: 5,
+        drow: 10,
         dtotal: 0,
         theacherDialog: false,
         organizationDialog: false,
@@ -336,19 +320,19 @@
         themes: [],
         programlist: [],
         paperdetail: {
-          courseName: "",
-          courseType: "",
-          courseSortId: "",
-          courseCompany: "",
-          courseTheme: "",
-          courseFailTime: "",
-          courseCover: "",
-          recommendStutes: "",
-          description: "",
-          releaseStutes: "",
-          releaseTime: "",
-          teacher: "",
-          classHours: ""
+          courseName: '',
+          courseType: '',
+          courseSortId: '',
+          courseCompany: '',
+          courseTheme: '',
+          courseFailTime: '',
+          courseCover: '',
+          recommendStutes: '',
+          description: '',
+          releaseStutes: '',
+          releaseTime: '',
+          teacher: '',
+          classHours: ''
         },
         rules: {
           courseName: [{
@@ -404,17 +388,23 @@
         }
       }
     },
+  watch: {
+    theacherDialog() {
+      if (this.theacherDialog) {
+        this.getTeacherList()
+      }
+      }
+  },
     created() {
       this.getProgramList()
       this.getOrganizationList()
-      this.getTeacherList()
+      // this.getTeacherList()
       this.getTypeList()
       this.getThemeList()
-
     },
     methods: {
       test() {
-        console.log("cessssssssssss")
+        console.log('cessssssssssss')
       },
       // 上传成功回调
       handleAvatarSuccess(res, file) {
@@ -425,8 +415,8 @@
         this.twin.groupingName = val.groupingName
       },
       choseOrganization(e) {
-        console.log(this.orgTarget, "22222222")
-        /* orgTarget判断当前是否是发布对象调用*/
+        console.log(this.orgTarget, '22222222')
+        /* orgTarget判断当前是否是发布对象调用 */
         if (this.orgTarget) {
           this.lCourseTarget.courseTarget = e.organizationId
           this.twin.courseCompanyName = e.organizationName
@@ -434,7 +424,6 @@
           this.paperdetail.courseCompany = e.organizationId
           this.paperdetail.courseCompanyName = e.organizationName
         }
-
       },
       modifyDetail() {
         this.modifyorganization()
@@ -442,7 +431,7 @@
       async getProgramList() {
         const {
           data: res
-        } = await this.$http.post("manager/csort/list", {
+        } = await this.$http.post('manager/csort/list', {
           page: 1,
           rows: 100
         })
@@ -454,20 +443,20 @@
       },
       modifyDetail() {
         this.createUser()
-        /* 报名成功后跳转到编辑页面*/
+        /* 报名成功后跳转到编辑页面 */
       },
       async createUser() {
-        /* 如果是专题培训类型则把发布对象添加到lCourseTarget里面*/
+        /* 如果是专题培训类型则把发布对象添加到lCourseTarget里面 */
         /* lCourseTarget对象
               参数名	            必选	    类型	    说明
               courseTarget	    是	    string	发布人
-              courseTargetType	是	    string	发布对象分类 0机构1分组*/
-        if(this.paperdetail.courseType == "2"){
-          this.paperdetail.lCourseTarget = this.lCourseTarget;
+              courseTargetType	是	    string	发布对象分类 0机构1分组 */
+        if (this.paperdetail.courseType == '2') {
+          this.paperdetail.lCourseTarget = this.lCourseTarget
         }
         const {
           data: res
-        } = await this.$http.post("/manager/course/add", this.paperdetail)
+        } = await this.$http.post('/manager/course/add', this.paperdetail)
         if (res.state !== 200) {
           return this.$message.error(res.msg)
         } else {
@@ -478,7 +467,7 @@
               row: res.data
             }
           })
-          //this.$router.go(-1)
+          // this.$router.go(-1)
         }
       },
       async getTeacherList() {
@@ -488,11 +477,12 @@
 
         const {
           data: res
-        } = await this.$http.post("/manager/teacher/list", param)
+        } = await this.$http.post('/manager/teacher/list', param)
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
           this.dtotal = res.count
+          console.log(this.dtotal, 'this.dtotal')
           this.teachers = res.data
         }
       },
@@ -503,7 +493,7 @@
         param.organizationId = 0
         const {
           data: res
-        } = await this.$http.post("/manager/org/list", param)
+        } = await this.$http.post('/manager/org/list', param)
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
@@ -514,7 +504,7 @@
       async getThemeList() {
         const {
           data: res
-        } = await this.$http.post("/manager/theme/list", {
+        } = await this.$http.post('/manager/theme/list', {
           page: this.dpage,
           rows: this.drow
         })
@@ -528,7 +518,7 @@
       async getTypeList() {
         const {
           data: res
-        } = await this.$http.post("/manager/csort/tree", {
+        } = await this.$http.post('/manager/csort/tree', {
           page: this.dpage,
           rows: this.drow
         })
@@ -537,7 +527,6 @@
         } else {
           this.dtotal = res.count
           this.types = res.data
-
         }
       },
       reset() {
@@ -557,21 +546,16 @@
           this.themeDialog = false
           this.paperdetail.courseTheme = row.themeId
         }
-
       },
       handleNodeClick(data) {
-
         this.typeDialog = false
         this.paperdetail.courseSortId = data.courseSortId
-
       },
       // 监听rows改变的事件
       handleSizeChange(newSize) {
         this.drow = newSize
         if (this.theacherDialog) this.getTeacherList()
-        //elseif (this.theacherDisalog) this.getTeacherList()
-
-
+        // elseif (this.theacherDisalog) this.getTeacherList()
       },
       // 监听页码值改变的事件
       handleCurrentChange(newPage) {
@@ -582,6 +566,14 @@
     filters: {
       truncateDate: function(date) {
         return date.split('T')[0]
+      },
+      transfermSex: function(sex) {
+        if (sex == '1') return '男'
+        else return '女'
+      },
+      transfermType: function(type) {
+        if (type == '1') return '内部'
+        else return '外部'
       }
     }
   }

@@ -2,8 +2,8 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/examanalyzation' }">考试统计</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/examanalyzationdetail' }">考试统计详情</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/examanalyzation' }">问卷统计</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/examanalyzationdetail' }">问卷统计详情</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="card_detail">
       <el-card>
@@ -18,18 +18,18 @@
             </el-col>
           </el-row>
         </div>
-        <div class="detail_lines">
+        <div class="detail_lines detail1_lines">
           <el-container>
             <el-main v-if="showExaminfo">
               <el-row>
-                <el-col :span="4">
+                <el-col :span="2">
                   基本信息
                 </el-col>
                 <el-col :span="20">
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="4">
+                <el-col :span="2">
                   问卷名称
                 </el-col>
                 <el-col :span="20">
@@ -37,7 +37,7 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="4">
+                <el-col :span="2">
                   问卷编号
                 </el-col>
                 <el-col :span="20">
@@ -45,7 +45,7 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="4">
+                <el-col :span="2">
                   开始时间
                 </el-col>
                 <el-col :span="20">
@@ -53,7 +53,7 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="4">
+                <el-col :span="2">
                   结束时间
                 </el-col>
                 <el-col :span="20">
@@ -61,7 +61,7 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="4">
+                <el-col :span="2">
                   简介
                 </el-col>
                 <el-col :span="20">
@@ -70,7 +70,6 @@
               </el-row>
 
             </el-main>
-
 
             <el-main v-if="showStatistic">
 
@@ -82,7 +81,6 @@
                   </div>
                 </li>
               </ul>
-
 
             </el-main>
 
@@ -102,7 +100,7 @@
         examInfo: {},
         showExaminfo: true,
         showStatistic: false,
-        datadetail: {},
+        datadetail: {}
 
       }
     },
@@ -112,13 +110,11 @@
     },
     mounted() {
 
-
     },
     methods: {
       basicInfo() {
         this.showStatistic = false
         this.showExaminfo = true
-
       },
       stateInfo() {
         this.showStatistic = true
@@ -127,17 +123,14 @@
       async getQuestionaryInfo() {
         const {
           data: res
-        } = await this.$http.post("/manager/lStatistic/examineInfo", {
-          id:this.datadetail.examineId
+        } = await this.$http.post('/manager/lStatistic/examineInfo', {
+          id: this.datadetail.examineId
         })
         if (res.state !== 200) {
 
         } else {
           this.examInfo = res.data.questionList
-
-
         }
-
       }
     }
   }

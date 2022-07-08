@@ -25,7 +25,7 @@
                 <el-upload :on-success="handleAvatarSuccess" class=" mt15 avatar-uploader" :action="uploadUrl"
                   :show-file-list="false">
                   <img v-if="picturesUrl" :src="picturesUrl" class="avatar">
-                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                  <i v-else class="el-icon-plus avatar-uploader-icon"  style="display:flex;justify-content: center;align-items: center;"></i>
                 </el-upload>
               </el-row>
 							<el-form :model="newsdetail" :rules="rules" ref="newsdetail" label-width="100px"
@@ -99,10 +99,10 @@
 			return {
 				showRp: false,
 				showOp: false,
-        uploadUrl: this.$serverURL + "common/uploadCover",
-        picturesUrl : "",
+        uploadUrl: this.$serverURL + 'common/uploadCover',
+        picturesUrl: '',
 				twin: {
-					organizationName: ""
+					organizationName: ''
 				},
 				newsdetail: {},
 				rules: {
@@ -125,7 +125,7 @@
 						required: true,
 						message: '作者不能为空',
 						trigger: 'blur'
-					}],
+					}]
 				}
 			}
 		},
@@ -142,11 +142,10 @@
 			async modifynews() {
 				const {
 					data: res
-				} = await this.$http.post("/manager/new/edit", this.newsdetail)
+				} = await this.$http.post('/manager/new/edit', this.newsdetail)
 				if (res.state !== 200) {
 					return this.$message.error(res.msg)
 				} else {
-
 					this.$message.success('修改成功')
 					this.$router.go(-1)
 				}
@@ -157,7 +156,7 @@
 			        // 如果上传成功
 			        if (res) {
 			            // 获取光标所在位置
-			            let length = quill.getSelection().index;
+			            let length = quill.getSelection().index
 			            // 插入图片，res为服务器返回的图片链接地址
 			            quill.insertEmbed(length, 'image', res)
 			            // 调整光标到最后
@@ -166,7 +165,7 @@
 			            // 提示信息，需引入Message
 			            Message.error('图片插入失败')
 			        }
-			    },
+			    }
 		},
 		filters: {
 			truncateDate: function(date) {
