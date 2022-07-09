@@ -2,14 +2,14 @@
 	<div id="app">
 		<!-- 面包屑导航 -->
 		<el-breadcrumb separator-class="el-icon-arrow-right">
-			<el-breadcrumb-item :to="{ path: '/carousellist' }">分组管理</el-breadcrumb-item>
-			<el-breadcrumb-item :to="{ path: '/carouselcreate' }">创建分组</el-breadcrumb-item>
+			<el-breadcrumb-item :to="{ path: '/grouptreelist' }">群组管理</el-breadcrumb-item>
+			<el-breadcrumb-item >编辑群组</el-breadcrumb-item>
 		</el-breadcrumb>
 		<div class="card_detail">
 			<el-card>
 				<div slot="header" class="clearfix">
 					<el-row>
-						<el-col :span="20">创建分组</el-col>
+						<el-col :span="20">编辑群组</el-col>
 						<el-col :span="4">
 							<el-button icon="el-icon-arrow-left" @click="$router.go(-1)">返回</el-button>
 						</el-col>
@@ -54,22 +54,21 @@
 			return {
 
 				groupTreeDetail: {
-					groupingExplain: "",
-					groupingName: "",
+					groupingExplain: '',
+					groupingName: ''
 
 				},
 				rules: {
 					groupingName: [{
 						required: true,
-						message: '分组名不能为空',
+						message: '群组名不能为空',
 						trigger: 'blur'
-					}],
+					}]
 
 				}
 			}
 		},
 		created() {
-
       this.groupTreeDetail = this.$route.query.row
     },
 		methods: {
@@ -79,7 +78,7 @@
 			async createcarousel() {
 				const {
 					data: res
-				} = await this.$http.post("/manager/grouping/edit", this.groupTreeDetail)
+				} = await this.$http.post('/manager/grouping/edit', this.groupTreeDetail)
 				if (res.state !== 200) {
 					return this.$message.error(res.msg)
 				} else {

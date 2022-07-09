@@ -2,12 +2,11 @@
   <div id="app">
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/GroupList' }">分组树管理</el-breadcrumb-item>
+      <el-breadcrumb-item >群组管理</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card class="list_card">
       <div slot="header" class="clearfix">
         <!-- 筛选 -->
-
 
         <el-row class="search_form">
           <el-form class="demo-ruleForm login_form" label-width="auto">
@@ -43,8 +42,6 @@
               </el-table-column>
               <el-table-column prop="groupingId" label="分组序号" width="120">
               </el-table-column>
-
-
 
               <el-table-column prop="groupingName" label="分组名称" show-overflow-tooltip>
               </el-table-column>
@@ -85,8 +82,8 @@
 
     <el-dialog title="" :visible.sync="dialogUserList" width="80%">
       <span>查询userid</span>
-      <el-button @click="addUserArray()"  size="medium" icon="el-icon-plus" style="margin-left: 200px;">批量添加</el-button>
-      <el-container>
+      <el-button @click="addUserArray()"  size="medium" icon="el-icon-plus" style="float:right">批量添加</el-button>
+      <el-container style="width:100%">
         <!-- 查询树 -->
         <el-aside class="list_tree" >
           <el-tree :expand-on-click-node="false" :default-expand-all="true" :data="orgTreedata" :props="defaultProps"
@@ -137,7 +134,7 @@
         treedata: [],
         groupTreeDialog: false,
         supposeDelete: {
-          groupingId: ""
+          groupingId: ''
         },
         dialogVisible: false,
         queryInfo: {
@@ -162,8 +159,8 @@
           }
         ],
         groupDetail: {
-          groupingId: "",
-          userList: "",
+          groupingId: '',
+          userList: ''
 
         },
         tableData: [],
@@ -171,20 +168,18 @@
         multipleSelection: [],
         total: 0,
         userTableData: [],
-        userTotal: 0,
+        userTotal: 0
       }
     },
     created() {
       this.getGrouprList()
       this.getOrganizationTree()
       this.getUserList()
-
-
     },
     methods: {
       reset() {
-        this.queryInfo.name = ""
-        this.queryInfo.username = ""
+        this.queryInfo.name = ''
+        this.queryInfo.username = ''
         this.getGrouprList()
       },
       searchGroup() {
@@ -193,19 +188,19 @@
       async getGrouprList() {
         const {
           data: res
-        } = await this.$http.post("/manager/grouping/list", this.queryInfo)
+        } = await this.$http.post('/manager/grouping/list', this.queryInfo)
         if (res.state !== 200) {
-          //return this.$message.error('数据获取失败！')
+          // return this.$message.error('数据获取失败！')
           this.tableData = []
         } else {
           this.tableData = res.data
           this.total = res.count
         }
       },
-      /* 查询userid*/
+      /* 查询userid */
       handleNodeClick(data) {
         this.queryInfo2.organizationId = data.organizationId
-        //this.currentNode = data.organizationId
+        // this.currentNode = data.organizationId
         this.getUserList()
       },
       async getOrganizationTree() {
@@ -225,41 +220,38 @@
           data: res
         } = await this.$http.post('/manager/user/list', this.queryInfo2)
         if (res.state !== 200) {
-          //return this.$message.error('数据获取失败！')
+          // return this.$message.error('数据获取失败！')
           this.userTableData = []
         } else {
           this.userTableData = res.data
           this.userTotal = res.count
         }
       },
-      /* 取出列表的id 放到增添数据中 date ： 1,21,*/
+      /* 取出列表的id 放到增添数据中 date ： 1,21, */
       addUserId(data) {
-
         this.groupDetail.userList = data.userId
-        this.createGroup();
-
+        this.createGroup()
       },
       addUserArray(data) {
-        /* 判断是否有数据*/
-        if(this.multipleSelection){
-          this.createGroup();
+        /* 判断是否有数据 */
+        if (this.multipleSelection) {
+          this.createGroup()
         }
       },
       async createGroup() {
       	const {
       		data: res
-      	} = await this.$http.post("/manager/grouping/addGroupUser", this.groupDetail)
+      	} = await this.$http.post('/manager/grouping/addGroupUser', this.groupDetail)
       	if (res.state !== 200) {
       		return this.$message.error(res.msg)
       	} else {
       		this.$message.success('添加到分组成功')
-
       	}
       },
       async Removegroup() {
         const {
           data: res
-        } = await this.$http.post("/manager/grouping/del", {
+        } = await this.$http.post('/manager/grouping/del', {
           groupingId: this.supposeDelete.groupingId
         })
         if (res.state !== 200) {
@@ -291,7 +283,6 @@
         })
       },
       deleteGroup(row) {
-
         this.supposeDelete = row
         this.dialogVisible = true
       },
@@ -301,13 +292,13 @@
         })
       },
       addGroupUser(row) {
-        this.dialogUserList = true;
-        console.log("row",row)
-        this.groupDetail.groupingId = row.groupingId;
+        this.dialogUserList = true
+        console.log('row', row)
+        this.groupDetail.groupingId = row.groupingId
       },
       groupTreeList(row) {
         this.$router.push({
-          path: '/grouptreelist',
+          path: '/grouptreelist'
 
         })
       },
@@ -321,16 +312,16 @@
       },
 
       handleSelectionChange(val) {
-        this.multipleSelection = val;
-        console.log("批量操作",2222222,val);
-        for (var i=0;i<val.length;i++) {
-            if(i>0){
-              this.groupDetail.userList += ","+val[i].userId
-            }else{
+        this.multipleSelection = val
+        console.log('批量操作', 2222222, val)
+        for (var i = 0; i < val.length; i++) {
+            if (i > 0) {
+              this.groupDetail.userList += ',' + val[i].userId
+            } else {
                this.groupDetail.userList = val[i].userId
             }
         }
-        this.addGroupUser();
+        this.addGroupUser()
       },
       // 监听rows改变的事件
       handleSizeChange(groupize) {
@@ -344,7 +335,7 @@
       },
       // 监听rows改变的事件
       handleSelectionChange2(val) {
-        this.multipleSelection = val;
+        this.multipleSelection = val
       },
       handleSizeChange2(groupize) {
         this.queryInfo2.rows = groupize
@@ -358,11 +349,10 @@
     },
     filters: {
       transfermState: function(state) {
-        if (state == "0") {
-          return "未发布"
-
+        if (state == '0') {
+          return '未发布'
         } else {
-          return "已发布"
+          return '已发布'
         }
       },
       truncateDate: function(date) {
