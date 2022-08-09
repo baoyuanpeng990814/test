@@ -69,7 +69,7 @@
               </el-table-column>
               <el-table-column prop="questionsId" label="序号" width="60">
               </el-table-column>
-              <el-table-column prop="knowledge" label="知识点" width="100">
+              <el-table-column prop="knowledge" label="知识点" width="140" :show-overflow-tooltip="true">
               </el-table-column>
               <el-table-column prop="questionsDifficulty" label="难度" width="80">
                 <template slot-scope="scope">{{ scope.row.questionsDifficulty | transfermDifficulty }}</template>
@@ -297,5 +297,6 @@
 <style scoped>
  .el-table__body, .el-table__footer, .el-table__header{
   width: auto!important;
+  
  }
 </style>

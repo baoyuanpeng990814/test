@@ -31,11 +31,11 @@
               style="width: 100%" >
               <el-table-column prop="coursewareId" label="序号" width="60">
               </el-table-column>
-              <el-table-column prop="coursewareNme" label="课件名称" width="200">
+              <el-table-column prop="coursewareNme" label="课件名称" width="200" :show-overflow-tooltip="true">
               </el-table-column>
               <el-table-column prop="teacherName" label="讲师" width="90">
               </el-table-column>
-              <el-table-column prop="coursewareNme" label="课件路径" width="200">
+              <el-table-column prop="coursewareNme" label="课件路径" width="200" :show-overflow-tooltip="true">
               </el-table-column>
 
               <el-table-column fixed="right" label="操作" width="50">
