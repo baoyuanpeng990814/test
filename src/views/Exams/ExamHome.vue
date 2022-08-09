@@ -15,7 +15,7 @@
 				</v-carousel-item>
 			</v-carousel>
 			<div class="i-column i-align-center" >				
-					<v-img  src="../../images/toexam.png" maxWidth= "8rem" maxHeigh="8rem" class="margint-2" @click = "go('ExamList')"></v-img>
+					<v-img  src="../../images/btn_exam.png" maxWidth= "8rem" maxHeigh="8rem" class="margint-2" @click = "go('ExamList')"></v-img>
 					<v-img  src="../../images/btn_exercise.png" maxWidth= "8rem" maxHeigh="8rem" class="margint-3" @click = "go('ExerciseList')"></v-img>									
 			</div>		
 		</div>

@@ -28,7 +28,7 @@
 				<div class="menu-item" @click="go('examhome')">
 					<img src="../../images/icon/icon_jingsai.png">
 					</img>
-					<span>季赛</span>
+					<span>考试</span>
 				</div>
 				<!-- ContestIndex -->
         <!-- @click="go('contestindex')" -->
