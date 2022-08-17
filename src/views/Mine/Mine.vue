@@ -173,8 +173,10 @@
 	}
 	.btn_user_info{
 		margin-top: 0.625rem;
-		width: 6rem;
-		height: 1.625rem;
+		/* width: 6rem; */
+    padding:0 .25rem;
+    display: inline-block;
+		/* height: 1.625rem; */
 		border: 1px solid #FFFFFF;
 		line-height: 1.625rem;
 		text-align: center;

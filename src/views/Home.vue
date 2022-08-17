@@ -10,13 +10,13 @@
 			</v-btn>
 
 			<v-btn to="MyCourses" value=2 min-width="60px" @click="set(2)">
-				<span :class="index==2? 'font1':'font2'">课程</span>
+				<span :class="index==2? 'font1':'font2'">我的课程</span>
 
 				<v-img src="../images/icon/icon_course2.png" max-height="1.25rem" max-width="1.25rem" contain :class="index==2? 'change1':'change2'"></v-img>
 			</v-btn>
 
 			<v-btn to="MyExams" value=3 min-width="60px" @click="set(3)">
-				<span :class="index==3? 'font1':'font2'">考试</span>
+				<span :class="index==3? 'font1':'font2'">我的考试</span>
 
 				<v-img src="../images/icon/icon_exam2.png" max-height="1.25rem" max-width="1.25rem" contain :class="index==3? 'change1':'change2'"></v-img>
 			</v-btn>

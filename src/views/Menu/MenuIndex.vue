@@ -26,16 +26,17 @@
 					<span>培训</span>
 				</div>
 				<div class="menu-item" @click="go('examhome')">
-					<img src="../../images/icon/icon_jingsai.png">
+					<img src="../../images/icon/icon_kaoshi.png">
 					</img>
 					<span>考试</span>
 				</div>
 				<!-- ContestIndex -->
         <!-- @click="go('contestindex')" -->
-				<div class="menu-item" >
-					<img src="../../images/icon/icon_kaoshi.png">
+				<div class="menu-item"  @click="go('contestindex')">
+					
+          <img src="../../images/icon/icon_jingsai.png">
 					</img>
-					<span>调查</span>
+					<span>竞赛</span>
 				</div>
 				<!-- <div class="menu-item" @click="go('InvestigationHome')">
 					<img src="../../images/icon/icon_questionary.png">
@@ -202,7 +203,7 @@
     overflow:hidden;   
     line-height: 20px;
     
-    height:40px;
+    /* height:40px; */
 display: -webkit-box;
 
 -webkit-line-clamp: 2;

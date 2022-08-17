@@ -10,7 +10,7 @@
 		</v-app-bar>
 		<div class="body_height ofs">
 			<v-card>
-				<v-img :src="datadetail.courseCover" maxHeight="9rem" style="margin: 0 16px; border-radius: 4px;" />
+				<v-img :src="datadetail.courseCover" style="margin: 0 16px; border-radius: 4px;" />
 				<v-card-title style="padding: 16px 16px 0">
 					{{datadetail.name}}
 				</v-card-title>
@@ -111,7 +111,7 @@
 				<v-card-actions class=" " v-if="datadetail.courseState == '0'" style="padding: 16px;">
 					<!-- 0 -->
 					<v-btn @click="enrollCourse" color="#28BBCE " text style="border: #28BBCE 1px solid; ">
-						加入课程
+						开始学习
 					</v-btn>
 					<v-spacer></v-spacer>
 					<v-btn @click="preview" color="#28BBCE" style="color: #FFFFFF;" >

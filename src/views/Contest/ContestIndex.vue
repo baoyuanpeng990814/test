@@ -24,10 +24,12 @@
 					<!-- 循环多一个空白页 -->
 					<swiper :options="swiperOption" ref="mySwiper" @swiper="onSwiper"
 						@slideChange="onSlideChange(swiper)" v-if="rotateDetail.length">
-						<swiper-slide v-for="(slide, i) in rotateDetail" :key = "slide.id" v-if="slide.rotateRemark == 1">							
+						<!-- <swiper-slide v-for="(slide, i) in rotateDetail" :key = "slide.id" v-if="slide.rotateRemark == 1">							
 							<img :src="slide.picturesUrl" style="height: 10rem; object-fit: cover;">
+						</swiper-slide> -->
+						<swiper-slide v-for="(slide, i) in topbanner" :key = "slide" >							
+							<img :src="slide" style="height: 10rem; object-fit: cover;">
 						</swiper-slide>
-						
 					</swiper>
 
 				</div>
@@ -52,8 +54,9 @@
 					<div class="font-40403F-1">赛事报导</div>
 					<div class="font-2CC9C1-0-9">更多> </div>
 				</div>
-				<div class="i-column" v-for="(news, ind) in newsList" :key="news.id">
-					<div class="contest_item" >
+				<!-- <div class="i-column" v-for="(news, ind) in newsList" :key="news.id"> -->
+          <div class="i-column" >
+					<!-- <div class="contest_item" >
 						<div class="i-column marginl-1">
 							<div class="font-303232-1">{{news.userName}}</div>
 							<div class="font-6B6B6B-09 margint-0-5">{{news.organizationName}}</div>
@@ -63,7 +66,7 @@
 							<div class="contest_item_right">58分</div>
 							<div class="contest_item_right_btn" @click="goNewsDetail(news.competitionNewId)">查看详情</div>
 						</div>
-					</div>
+					</div> -->
 					<div class="contest_item">
 						<div class="i-column marginl-1">
 							<div class="font-303232-1">王雅芬</div>
@@ -71,7 +74,29 @@
 							<div class="contest_item_title ">育儿嫂</div>
 						</div>
 						<div class="i-column marginr-1 i-align-center">
-							<div class="contest_item_right">58分</div>
+							<div class="contest_item_right">90分</div>
+							<div class="contest_item_right_btn">查看详情</div>
+						</div>
+					</div>
+          <div class="contest_item">
+						<div class="i-column marginl-1">
+							<div class="font-303232-1">王伟</div>
+							<div class="font-6B6B6B-09 margint-0-5">秦皇岛市家四季家政服务公司</div>
+							<div class="contest_item_title ">月嫂</div>
+						</div>
+						<div class="i-column marginr-1 i-align-center">
+							<div class="contest_item_right">98分</div>
+							<div class="contest_item_right_btn">查看详情</div>
+						</div>
+					</div>
+          <div class="contest_item">
+						<div class="i-column marginl-1">
+							<div class="font-303232-1">张芳</div>
+							<div class="font-6B6B6B-09 margint-0-5">秦皇岛市文安家政公司</div>
+							<div class="contest_item_title ">育儿嫂</div>
+						</div>
+						<div class="i-column marginr-1 i-align-center">
+							<div class="contest_item_right">80分</div>
 							<div class="contest_item_right_btn">查看详情</div>
 						</div>
 					</div>
@@ -122,6 +147,9 @@
 				},
 				rules: {},
 				newsList: [],
+        topbanner:[
+          require("../../images/jingsaibanner.png"),
+        ],
 				pics: [
 					require("../../images/banner1.png"),
 					require("../../images/banner2.png"),
@@ -130,7 +158,7 @@
 				],
 				uploadUrl: this.$serverURL + "common/uploadCover",
 				swiperOption: {
-					loop: true,
+					loop: false,
 					autoplay: true,
 					observer: true, //修改swiper自己或子元素时，自动初始化swiper
 					observeParents: true, //修改swiper的父元素时，自动初始化swiper 
