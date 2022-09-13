@@ -32,7 +32,7 @@
       <div>
         <el-container>
           <el-aside class="list_tree" >
-            <el-tree :expand-on-click-node="false" :default-expand-all="true" :data="treedata" :props="defaultProps"
+            <el-tree :expand-on-click-node="false" :default-expand-all="false" :data="treedata" :props="defaultProps"
               @node-click="handleNodeClick"></el-tree>
           </el-aside>
           <el-main class="list_body">

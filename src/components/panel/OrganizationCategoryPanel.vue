@@ -4,16 +4,15 @@
       <div slot="header" class="clearfix">
       </div>
       <div>
-        <el-tree :default-expand-all="true" :data="treedata" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+        <el-tree :default-expand-all="false" :data="treedata" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
       </div>
     </el-card>
   </el-dialog>
 
-
 </template>
 
 <script>
-  //组织机构分类选择框
+  // 组织机构分类选择框
   export default {
     name: 'OrganizationPanel',
     props: {
@@ -34,16 +33,15 @@
       this.getDataTree()
     },
     methods: {
-     /* 试题分类树  选择试题分类*/
+     /* 试题分类树  选择试题分类 */
       async getDataTree() {
         const {
           data: res
-        } = await this.$http.post("/manager/qsort/tree")
+        } = await this.$http.post('/manager/qsort/tree')
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
           this.treedata = res.data
-          
         }
       },
       handleNodeClick(data) {
@@ -54,7 +52,7 @@
     },
     watch: {
       showDialog: function(val) {
-        //console.log()
+        // console.log()
         if (val == false) this.$emit('turnOff', false)
       },
       show: function(val) {
