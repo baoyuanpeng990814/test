@@ -1,5 +1,5 @@
 <template>
-	<v-main>		
+	<v-main >		
 		<!-- 我的页面 -->
 		<div class="body_no_top ofs">
 			<!-- 头部 -->
@@ -74,7 +74,8 @@
 					</div>
 				</div>
 				<v-icon color="grey">mdi-chevron-right</v-icon>
-			</div>			
+			</div>	
+      <div class="loginout" @click="tologinpot">退出登录</div>
 		</div>
 
 
@@ -135,6 +136,10 @@
 				this.$router.push(url);			
 				
 			},
+      tologinpot(){
+        this.$store.state.index=1
+        this.$router.push('/');	
+      },
 			share(){
 				Android.share();
 			}
@@ -145,6 +150,15 @@
 </script>
 
 <style>
+  .loginout{
+width:50%;
+margin:1rem auto;
+padding:0.3rem;
+text-align: center;
+background: #28BBCE;
+    border-radius: 2.25rem;
+    color:#fff
+  }
 	.mine_top {
 		width: 100%;
 		height: 11rem;

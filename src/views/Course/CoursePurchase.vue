@@ -114,9 +114,9 @@
 						开始学习
 					</v-btn>
 					<v-spacer></v-spacer>
-					<v-btn @click="preview" color="#28BBCE" style="color: #FFFFFF;" >
+					<!-- <v-btn @click="preview" color="#28BBCE" style="color: #FFFFFF;" >
 						预览课程
-					</v-btn>
+					</v-btn> -->
 				</v-card-actions>
 				
 				<span v-else>

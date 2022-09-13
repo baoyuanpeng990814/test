@@ -48,7 +48,7 @@
 					require("../../images/banner2.png")
 				],
 				datas: [],
-				tab: 0
+				tab: 1
 			}
 		},
 		created() {

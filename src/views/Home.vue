@@ -86,7 +86,7 @@
 			 set:function(i){
 				 this.$store.state.index = i,
 				// this.$store.commit("updateIndex", i);
-				 this.index=i;
+				 this.index=this.$store.state.index;
 			 }
 			 
 		},
