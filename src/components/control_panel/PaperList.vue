@@ -96,7 +96,7 @@
               <el-table-column type="selection" width="55"> </el-table-column>
               <el-table-column prop="courseId" label="序号" width="50">
               </el-table-column>
-              <el-table-column prop="courseName" label="课程名称" width="260">
+              <el-table-column prop="courseName" label="课程名称" show-overflow-tooltip width="260">
               </el-table-column>
               <el-table-column prop="classHours" label="学时" width="80">
               </el-table-column>
