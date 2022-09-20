@@ -6,9 +6,9 @@
 			</v-btn>
 			<div class="tool_title">课程</div>
 			<v-spacer></v-spacer>
-			<v-btn @click="showAG = !showAG" class="ag" icon color="black">
+			<!-- <v-btn @click="showAG = !showAG" class="ag" icon color="black">
 				申请结业
-			</v-btn>
+			</v-btn> -->
 		</v-app-bar>
 		<div class="body_height_note ">
 			<transition name="fade">

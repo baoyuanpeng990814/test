@@ -7,16 +7,22 @@
 				<div class="i-row i-align-center">
 					<div class="m0a" v-if="datadetail.userCover!=null">
 						<v-avatar size="4.5rem" color="teal">
-							<v-img width="4.5rem" :src="datadetail.userCover"></v-img>
+							<v-img width="4.5rem" :src="datadetail.userCover"></v-img>           
+						</v-avatar>
+					</div>
+          <div class="m0a" v-else>
+						<v-avatar size="4.5rem" color="teal">
+              <v-img width="4.5rem" src="../../images/head.png"></v-img>
 						</v-avatar>
 					</div>
 					<div class="i-column marginl-1">
 						<div class="fontb-white-1-2 ">
-							{{datadetail.userName}}
+							<!-- {{datadetail.userName}} -->
+              欢迎来到家政学院平台
 						</div>
-						<div class="btn_user_info" @click="go('UserInfo')">
+						<!-- <div class="btn_user_info" @click="go('UserInfo')">
 							修改个人资料
-						</div>
+						</div> -->
 					</div>					
 				</div>				
 			</div>
