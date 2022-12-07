@@ -5,7 +5,8 @@
 			<v-btn @click="goBack" icon>
 				<v-img src="../../images/icon/icon_back.png" height="18px" contain></v-img>
 			</v-btn>
-			<v-toolbar-title>课程详情</v-toolbar-title>
+			<!-- <v-toolbar-title>课程详情</v-toolbar-title> -->
+      <v-toolbar-title>竞赛详情</v-toolbar-title>
 			<v-spacer></v-spacer>
 		</v-app-bar>
 		<div class="body_height ofs">
@@ -19,11 +20,14 @@
 
 
 					<div class="my-4 subtitle-1">
-						<span class="font-3E3D3D-1">主讲人：{{datadetail.teacher}}</span><span
+						<!-- <span class="font-3E3D3D-1">主讲人：{{datadetail.teacher}}</span> -->
+            <span class="font-3E3D3D-1">类型：{{datadetail.teacher}}</span>
+            <span
 							class="font-3E3D3D-1 marginl-2">主办单位：{{datadetail.courseCompany}}</span>
 						<br />
-						<span class="font-858786-1">课时：{{datadetail.classHours}}课时</span><span
-							class="font-858786-1 ml20">报名人数：{{datadetail.enrollCount}}人</span>
+						<span class="font-858786-1">上传实操数：{{datadetail.classHours}}</span>
+            <!-- <span
+							class="font-858786-1 ml20">报名人数：{{datadetail.enrollCount}}人</span> -->
 					</div>
 					<div class="i-row i-align-center"   v-if="!isNaN(datadetail.courseSpeed)">
 						<div style="height: 14px; line-height: 14px; color: #F6B01A;  width: 120px; text-align: start;">
@@ -122,7 +126,7 @@
 				<span v-else>
 					
 					<div class="btn_long" @click="toStudy()" >
-						开始上课
+						开始评审
 					</div>
 					
 					

@@ -18,7 +18,7 @@
 				<div class="i-column">
 					<div class="card_title">{{d.courseName}}</div>
 					<span>课程类型:{{d.courseSortName}}</span>
-					<span>主讲人:{{d.teacherName}}</span>
+					<span>类型:{{d.teacherName}}</span>
 				</div>
 				
 

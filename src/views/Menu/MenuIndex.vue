@@ -23,7 +23,8 @@
 				<div class="menu-item" @click="go('coursehome')">
 					<img src="../../images/icon/icon_peixun.png">
 					</img>
-					<span>培训</span>
+					<!-- <span>培训</span> -->
+          <span>考评</span>
 				</div>
 				<div class="menu-item" @click="go('examhome')">
 					<img src="../../images/icon/icon_kaoshi.png">

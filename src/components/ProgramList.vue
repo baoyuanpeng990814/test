@@ -11,8 +11,9 @@
 							<v-img alt="暂无图片" height="64px" width="64px" max-height="4rem" max-width="4rem"  :src="d.courseCover"></v-img>
 							<div class="i-column marginl-1 i-between">
 								<div class="font-303232-1">{{d.courseName}}</div>
-								<div class="font-AFB3B3-09 ">学时:{{d.classHours}}</div>
-								<div class="font-AFB3B3-09">学习人数:{{d.people}}</div>
+								<!-- <div class="font-AFB3B3-09 ">学时:{{d.classHours}}</div> -->
+                <div class="font-AFB3B3-09 ">实操视频数:{{d.classHours}}</div>
+								<!-- <div class="font-AFB3B3-09">学习人数:{{d.people}}</div> -->
 							</div>
 						</div>
 						<hr />

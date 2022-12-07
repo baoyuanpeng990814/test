@@ -4,7 +4,8 @@
 			<v-btn @click="goBack" icon>
 				<v-img src="../../images/icon/icon_back.png" height="18px" contain></v-img>
 			</v-btn>
-			<div class="tool_title">课程</div>
+			<!-- <div class="tool_title">课程</div> -->
+      <div class="tool_title">竞赛评审</div>
 			<v-spacer></v-spacer>
 			<!-- <v-btn @click="showAG = !showAG" class="ag" icon color="black">
 				申请结业
@@ -24,7 +25,8 @@
 				<v-tabs v-model="tab" color="#28BBCE" centered >
 					<v-tabs-slider color="#28BBCE " ></v-tabs-slider>
 					<v-tab style="background-color: #F1F1F1; " maxWidth="25%" >
-						章节
+						<!-- 章节 -->
+            选手
 					</v-tab>
 					<v-tab style="background-color: #F1F1F1; " maxWidth="25%" >
 						笔记

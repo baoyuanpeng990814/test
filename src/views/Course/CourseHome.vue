@@ -6,8 +6,8 @@
 				<v-img src="../../images/icon/icon_back.png" height="18px" contain></v-img>
 
 			</v-btn>
-			<div class="tool_title">专题培训</div>
-
+			<!-- <div class="tool_title">专题培训</div> -->
+      <div class="tool_title">竞赛评审</div>
 		</v-app-bar>
 		<div class="body_no_top ofs">
 			<div class="i-row">
