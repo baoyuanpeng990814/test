@@ -43,7 +43,7 @@
               </el-table-column>
               <el-table-column prop="courseId" label="序号" width="60">
               </el-table-column>
-              <el-table-column prop="courseName" label="课程名称" width="200">
+              <el-table-column prop="courseName" label="课程名称" show-overflow-tooltip width="200">
               </el-table-column>
               <el-table-column prop="userName" label="申请人" width="120">
               </el-table-column>

@@ -36,7 +36,6 @@
           </el-form>
         </el-row>
 
-
         <el-row class="buttons">
 
           <el-col :span="24" :offset="0">
@@ -63,16 +62,15 @@
               </el-table-column>
               <el-table-column prop="coursewareId" label="序号" width="120">
               </el-table-column>
-              <el-table-column prop="coursewareNme" label="课件名称" width="200">
+              <el-table-column prop="coursewareNme" label="课件名称" show-overflow-tooltip width="200">
               </el-table-column>
               <el-table-column prop="coursewareType" label="课件类型" width="120">
                 <template slot-scope="scope">{{ scope.row.coursewareType |transfermType }}</template>
               </el-table-column>
               <el-table-column prop="teacherName" label="讲师" width="200">
               </el-table-column>
-              <el-table-column prop="coursewareNme" label="课件路径" width="200">
+              <el-table-column prop="coursewareNme" label="课件路径" show-overflow-tooltip width="200">
               </el-table-column>
-
 
               <el-table-column fixed="right" label="操作" width="120">
                 <template slot-scope="scope">
@@ -91,10 +89,7 @@
 
       </div>
 
-
-
     </el-card>
-
 
     <el-dialog title="" :visible.sync="dialogVisible" width="30%">
       <span>确定要删除：{{supposeDelete.coursewareNme}}</span>
@@ -120,7 +115,7 @@
           }
         ],
         supposeDelete: {
-          userName: ""
+          userName: ''
         },
         dialogVisible: false,
         multipleSelection: [],
@@ -131,9 +126,9 @@
         },
         treedata: [],
         filterPara: {
-          coursewareName: "",
-          teacherId: "",
-          state: ""
+          coursewareName: '',
+          teacherId: '',
+          state: ''
         },
         queryInfo: {
           page: 1,
@@ -149,18 +144,17 @@
       this.getTeacherList()
       this.getCourseTree()
       this.getCourseList()
-
     },
     methods: {
       handleNodeClick(data) {
-        //this.queryInfo.parentId = data.parentId
+        // this.queryInfo.parentId = data.parentId
         this.queryInfo.coursewareTypeId = data.coursewareTypeId
         this.getCourseList()
       },
       async getCourseTree() {
         const {
           data: res
-        } = await this.$http.post("/manager/ctyp/tree")
+        } = await this.$http.post('/manager/ctyp/tree')
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
@@ -168,33 +162,32 @@
         }
       },
       queryCourse() {
-        if (this.filterPara.coursewareName != "") this.queryInfo.coursewareName = this.filterPara.coursewareName
-        if (this.filterPara.teacherId != "") {
+        if (this.filterPara.coursewareName != '') this.queryInfo.coursewareName = this.filterPara.coursewareName
+        if (this.filterPara.teacherId != '') {
           for (var i = 0; i < this.teachers.length; i++) {
             if (this.teachers[i].teacherId == this.filterPara.teacherId) {
               this.queryInfo.teacherName = this.teachers[i].teacherName
             }
           }
         }
-        if (this.filterPara.state != "") this.queryInfo.stutes = this.filterPara.state
+        if (this.filterPara.state != '') this.queryInfo.stutes = this.filterPara.state
         this.getCourseList()
       },
       async getCourseList() {
-
         const {
           data: res
-        } = await this.$http.post("/manager/courseware/list", this.queryInfo)
+        } = await this.$http.post('/manager/courseware/list', this.queryInfo)
         if (res.state !== 200) {
           this.tableData = []
-          //return this.$message.error('数据获取失败！')
+          // return this.$message.error('数据获取失败！')
         } else {
           this.total = res.count
           this.tableData = res.data
         }
       },
       reset() {
-        if (this.filterPara.coursewareName != "") this.queryInfo.coursewareName = this.filterPara.coursewareName
-        if (this.filterPara.teacherId != "") {
+        if (this.filterPara.coursewareName != '') this.queryInfo.coursewareName = this.filterPara.coursewareName
+        if (this.filterPara.teacherId != '') {
           for (var i = 0; i < this.teachers.length; i++) {
             if (this.teachers[i].teacherId == this.filterPara.teacherId) {
               this.queryInfo.teacherName = this.teachers[i].teacherName
@@ -202,10 +195,9 @@
           }
         }
 
-
-        this.filterPara.coursewareName = ""
-        this.filterPara.teacherId = ""
-        this.filterPara.state = ""
+        this.filterPara.coursewareName = ''
+        this.filterPara.teacherId = ''
+        this.filterPara.state = ''
         this.queryInfo = {
           page: 1,
           rows: 10
@@ -215,14 +207,13 @@
       async RemoveCourse() {
         const {
           data: res
-        } = await this.$http.post("/manager/courseware/del", {
+        } = await this.$http.post('/manager/courseware/del', {
           coursewareId: this.supposeDelete.coursewareId
         })
 
         if (res.state !== 200) {
           return this.$message.error('操作失败！')
         } else {
-
           this.supposeDelete = {}
           var temp = this.queryInfo
           this.queryInfo = {}
@@ -232,13 +223,11 @@
           this.getCourseTree()
           this.getCourseList()
           return this.$message.success('操作成功！')
-
         }
       },
       confirmDelete() {
         this.dialogVisible = false
         this.RemoveCourse()
-
       },
       editDetail(row) {
         this.$router.push({
@@ -261,13 +250,12 @@
         })
       },
       handleSelectionChange(val) {
-        this.multipleSelection = val;
+        this.multipleSelection = val
       },
       // 监听rows改变的事件
       handleSizeChange(newSize) {
         this.queryInfo.rows = newSize
         this.getCourseList()
-
       },
       // 监听页码值改变的事件
       handleCurrentChange(newPage) {
@@ -277,7 +265,7 @@
       async getTeacherList() {
         const {
           data: res
-        } = await this.$http.post("/manager/teacher/list", {
+        } = await this.$http.post('/manager/teacher/list', {
           page: 1,
           rows: 100
         })
@@ -295,14 +283,14 @@
         }
       },
       transfermState: function(state) {
-        if (state == "1") return "启用"
-        else return "禁用"
+        if (state == '1') return '启用'
+        else return '禁用'
       },
       transfermType: function(type) {
-        if (type == "1") return "讲义"
-        else if (type == "2") return "文档"
-        else if (type == "2") return "视频"
-        else return "标准"
+        if (type == '1') return '讲义'
+        else if (type == '2') return '文档'
+        else if (type == '2') return '视频'
+        else return '标准'
       }
     }
   }

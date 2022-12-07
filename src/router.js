@@ -130,6 +130,9 @@ import GroupList from './components/group/GroupList.vue'
 import GroupTreeCreate from './components/group/GroupTreeCreate.vue'
 import GroupTreeEdit from './components/group/GroupTreeEdit.vue'
 import GroupTreeList from './components/group/GroupTreeList.vue'
+import XuejiTreeList from './components/group/XuejiTreeList.vue'
+import usereditXueji from './components/control_panel/usereditXueji.vue'
+import UserDetailXueji from './components/control_panel/UserDetailXueji.vue'
 
 Vue.use(Router)
 
@@ -250,6 +253,15 @@ const router = new Router({
               component: UserEdit
             },
             {
+              path: '/usereditXueji',
+              component: usereditXueji
+            },
+            {
+              path: '/UserDetailXueji',
+              component: UserDetailXueji
+            },
+            
+            {
               path: '/usercreate',
               component: UserCreate
             },
@@ -270,6 +282,10 @@ const router = new Router({
             {
               path: '/grouptreelist',
               component: GroupTreeList
+            },
+            {
+              path: '/XuejiTreeList',
+              component: XuejiTreeList
             },
             {
               path: '/grouptreecreate',

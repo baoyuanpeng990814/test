@@ -49,6 +49,7 @@
             <el-button icon="el-icon-refresh-right" @click="reset" type="primary">重置</el-button>
 
             <el-button icon="el-icon-plus" @click="addUser" type="primary">添加</el-button>
+            <el-button icon="el-icon-search" @click="tofindxueji" type="primary">查询学籍状态</el-button>
           </el-col>
         </el-row>
       </div>
@@ -82,11 +83,13 @@
               </el-table-column>
               <el-table-column prop="organizationName" label="所属单位" show-overflow-tooltip>
               </el-table-column>
-              <el-table-column fixed="right" label="操作" width="120">
+              <el-table-column fixed="right" label="操作" width="180" class="rightstyle">
                 <template slot-scope="scope">
                   <el-button @click="findDetail(scope.row)" type="text" size="small">查看</el-button>
                   <el-button @click="editDetail(scope.row)" type="text" size="small">编辑</el-button>
-                  <el-button @click="deleteUser(scope.row)" type="text" size="small">删除</el-button>
+                  <el-button @click="editxueji(scope.row)" type="text" size="small">录入学籍</el-button>
+                  <el-button @click="findxueji(scope.row)" type="text" size="small">查看学籍</el-button>
+                  <el-button  @click="deleteUser(scope.row)" type="text" size="small">删除</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -216,9 +219,26 @@
           }
         })
       },
+      findxueji(row) {
+        this.$router.push({
+          path: '/UserDetailXueji',
+          query: {
+            row: row
+          }
+        
+        })
+      },
       editDetail(row) {
         this.$router.push({
           path: '/useredit',
+          query: {
+            row: row
+          }
+        })
+      },
+      editxueji(row) {
+        this.$router.push({
+          path: '/usereditXueji',
           query: {
             row: row
           }
@@ -234,7 +254,11 @@
           path: '/usercreate'
         })
       },
-
+      tofindxueji() {
+        this.$router.push({
+          path: '/XuejiTreeList'
+        })
+      },
       handleSelectionChange(val) {
         this.multipleSelection = val
       },
