@@ -85,7 +85,7 @@
               <el-table-column prop="coursewareId" label="序号" align="center">
               </el-table-column>
               <el-table-column
-                prop="coursewareNme"
+                prop="coursewareName"
                 label="课程名称"
                 width="200"
               >
