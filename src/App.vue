@@ -14,9 +14,7 @@
 			Snackbar
 		},
     created() {
-       document.addEventListener('plusready', function() {
-
-     
+       document.addEventListener('plusready', function() {     
       plus.navigator.setStatusBarStyle('dark')  //字体颜色 仅支持dark和white
      
       var first = null

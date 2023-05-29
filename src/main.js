@@ -9,6 +9,7 @@ import common from './apis/common.js'
 import * as echarts from 'echarts'
 import videojs from 'video.js'
 import '@mdi/font/css/materialdesignicons.css'
+
 Vue.config.productionTip = false
 Vue.prototype.$common = common
 Vue.prototype.$echarts = echarts

@@ -6,8 +6,8 @@
 				<v-img src="../../images/icon/icon_back.png" height="18px" contain></v-img>
 
 			</v-btn>
-			<!-- <div class="tool_title">专题培训</div> -->
-      <div class="tool_title">竞赛评审</div>
+			<div class="tool_title">专题培训</div>
+     
 		</v-app-bar>
 		<div class="body_no_top ofs">
 			<div class="i-row">
@@ -82,7 +82,9 @@
 	.v-toolbar__title {
 		margin: 0 auto;
 	}
-
+  .v-application--is-ltr .v-tabs--centered > .v-tabs-bar .v-tabs-bar__content > *:last-child {
+    margin-right: 0; 
+}
 	.tool_title {
 		font-size: 1.125rem;
 		width: 100%;
@@ -94,10 +96,22 @@
 
 	.left_tab {
 		width: 6rem;
-
+    height: 100vh;
 	}
 
 	.right-tab-items {
 		width: calc(100% - 6rem);
 	}
+  .v-tabs--vertical{
+     height: 100%;
+  }
+  .ofs{
+    overflow-x: hidden;
+  }
+ /*  .theme--light.v-tabs-items {
+    background-color: #FFFFFF;
+    height: 800px;
+    overflow: auto;
+    overflow-x: hidden;
+} */
 </style>

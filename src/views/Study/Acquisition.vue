@@ -4,8 +4,8 @@
 			<v-btn @click="goBack" icon>
 				<v-img src="../../images/icon/icon_back.png" height="18px" contain></v-img>
 			</v-btn>
-			<!-- <div class="tool_title">课程</div> -->
-      <div class="tool_title">竞赛评审</div>
+			<div class="tool_title">课程</div>
+      
 			<v-spacer></v-spacer>
 			<!-- <v-btn @click="showAG = !showAG" class="ag" icon color="black">
 				申请结业
@@ -17,7 +17,7 @@
 			</transition>
 			<video if="currentChapter.lCourseware.resourcesLink!=null" ref="video" class="study_video" id="video"
 				controlsList="nodownload" :src="currentChapter.lCourseware.resourcesLink"
-				:controls="currentChapter.done" autoplay="autoplay">
+				:controls="currentChapter.done" autoplay="autoplay"  x5-video-orientation="portraint">
 				您的浏览器不支持 video 标签。
 			</video>
 
@@ -26,7 +26,7 @@
 					<v-tabs-slider color="#28BBCE " ></v-tabs-slider>
 					<v-tab style="background-color: #F1F1F1; " maxWidth="25%" >
 						<!-- 章节 -->
-            选手
+            课程
 					</v-tab>
 					<v-tab style="background-color: #F1F1F1; " maxWidth="25%" >
 						笔记
@@ -156,6 +156,17 @@
 			}
 		},
 		methods: {
+      /* horizontalBtn(index) {
+      var myVideo = document.getElementById();
+      var w = document.documentElement.clientWidth || document.body.clientWidth;
+      var h = document.documentElement.clientHeight || document.body.clientHeigth;
+      var cha = Math.abs(h - w) / 2;
+      myVideo.style.width = h + 'px';
+      myVideo.style.height = w + 'px';
+      myVideo.style.top = 0;
+      myVideo.style.transform = 'translate(-' + cha + 'px,' + cha + 'px) rotate(90deg)';
+      this.horizontalShow = !this.horizontalShow;
+    }, */
 			changeChapter(val) {
         console.log(val,'点击选视频')
         this.chapterId=val.chapterId
@@ -277,7 +288,7 @@
 		bottom: 0;
 		height: 90px;
 		margin: 0;
-		position: page;
+		position: fixed;
 		width: 100%;
 		
 	}

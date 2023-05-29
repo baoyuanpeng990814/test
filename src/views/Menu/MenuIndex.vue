@@ -16,27 +16,27 @@
 			</div>
 			<div class="menu-all">
 				<div class="menu-item" @click="go('courselist')">
-					<img src="../../images/icon/icon_xuexi.png">
-					</img>
+					<img src="https://zhongfujiazheng.oss-cn-beijing.aliyuncs.com/learn/APK/%E5%B9%B3%E5%8F%B0%E5%9B%BE%E7%89%87/icon_baoming.e0cd1dd4.png">
+					
 					<span>报名</span>
 				</div>
 				<div class="menu-item" @click="go('coursehome')">
-					<img src="../../images/icon/icon_peixun.png">
-					</img>
-					<!-- <span>培训</span> -->
-          <span>考评</span>
+					<img src="https://zhongfujiazheng.oss-cn-beijing.aliyuncs.com/learn/APK/%E5%B9%B3%E5%8F%B0%E5%9B%BE%E7%89%87/icon_peixun.71782936.png">
+					
+					<span>培训</span>
+        
 				</div>
 				<div class="menu-item" @click="go('examhome')">
-					<img src="../../images/icon/icon_kaoshi.png">
-					</img>
+					<img src="https://zhongfujiazheng.oss-cn-beijing.aliyuncs.com/learn/APK/%E5%B9%B3%E5%8F%B0%E5%9B%BE%E7%89%87/icon_kaoshi.f0a072bd.png">
+					
 					<span>考试</span>
 				</div>
 				<!-- ContestIndex -->
         <!-- @click="go('contestindex')" -->
 				<div class="menu-item"  @click="go('contestindex')">
 					
-          <img src="../../images/icon/icon_jingsai.png">
-					</img>
+          <img src="https://zhongfujiazheng.oss-cn-beijing.aliyuncs.com/learn/APK/%E5%B9%B3%E5%8F%B0%E5%9B%BE%E7%89%87/icon_jingsai.2b295d5c.png">
+				
 					<span>竞赛</span>
 				</div>
 				<!-- <div class="menu-item" @click="go('InvestigationHome')">
@@ -263,7 +263,6 @@ text-overflow:ellipsis;
 		position: relative;
 		transition: inherit;
 		transition-property: opacity;
-		background: #;
 	}
 
 	span {

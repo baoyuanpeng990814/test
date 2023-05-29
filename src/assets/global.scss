@@ -164,7 +164,7 @@
 	overflow: scroll;
 	
 	.vc{
-		margin: 1rem 0 1rem  0.5rem ;
+		margin: 1rem ;
 		
 		overflow: hidden;
 		>div:nth-child(1){
@@ -418,14 +418,14 @@
 	width: fit-content;
 }
 
-.gender_info{
+// .gender_info{
 	
-	/* span:nth-child(-n+3){
-		float: left;
-		margin: 5px;
+// 	/* span:nth-child(-n+3){
+// 		float: left;
+// 		margin: 5px;
 		
-	} */
-}
+// 	} */
+// }
 .i-bar {
 		height: 1px;
 		border-bottom: 0.125rem solid #F2F2F2;

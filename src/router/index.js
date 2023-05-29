@@ -11,11 +11,14 @@ import CourseList from '../views/Course/CourseList.vue'
 import CourseCategory from '../views/Course/CourseCategory.vue'
 import CoursePurchase from '../views/Course/CoursePurchase.vue'
 import CoursePreview from '../views/Course/CoursePreview.vue'
+import CourseDetails from '../views/Details/CourseDetails.vue'
 import ExamHome from '../views/Exams/ExamHome.vue'
 import Exam from '../views/Exams/Exam.vue'
 import UserInfo from '../views/Mine/UserInfo.vue'
 import Mine from '../views/Mine/Mine.vue'
 import ChangePassword from '../views/Mine/ChangePassword.vue'
+import MyStudyNotes from '../views/Mine/MyStudyNotes.vue'
+import ComptitionRecord from '../views/Mine/ComptitionRecord.vue'
 import InvestigationHome from '../views/Investigation/InvestigationHome.vue'
 import Questionary from '../views/Investigation/Questionary.vue'
 import MyArchives from '../views/Study/MyArchives.vue'
@@ -50,255 +53,269 @@ import ContestNews from '../views/Contest/NewsDetail.vue'
 Vue.use(VueRouter)
 
 const routes = [{
-		path: '/',
-		name: 'Login',
-		component: Login
-	},
-	{
-		path: '/home',
-		name: 'Home',
-		component: Home,
-		children: [{
-				path: '/mystudy',
-				name: 'MyStudy',
-				component: MyStudy,
-				children: [ ],			
-			}, {
-				path: '/coursecategory',
-				name: 'CourseCategory',
-				component: CourseCategory
-			}, {
-				path: '/coursepurchase',
-				name: 'CoursePurchase',
-				component: CoursePurchase
-			}, {
-				path: '/coursepreview',
-				name: 'CoursePreview',
-				component: CoursePreview
-			}, {
-				path: '/userinfo',
-				name: 'UserInfo',
-				component: UserInfo
-			}, {
-				path: '/mine',
-				name: 'Mine',
-				component: Mine
-			}, {
-				path: '/changepassword',
-				name: 'ChangePassword',
-				component: ChangePassword
-			},
-			{
-				path: '/menuindex',
-				name: 'MenuIndex',
-				component: MenuIndex
-			},
-			{
-				path: '/news',
-				name: 'News',
-				component: News
-			},
-			{
-				path: '/mycourses',
-				name: 'MyCourses',
-				component: MyCourses
-			},
-			{
-				path: '/myexams',
-				name: 'MyExams',
-				component: MyExams
-			},
-			
-		]
-	},
-	{
-		path: '/exam',
-		name: 'Exam',
-		component: Exam
-	},
-	{
-		path: '/messagelist',
-		name: 'MessageList',
-		component: MessageList
-	},
-	{
-		path: '/contestindex',
-		name: 'ContestIndex',
-		component: ContestIndex,
+  path: '/',
+  name: 'Login',
+  component: Login
+},
+{
+  path: '/home',
+  name: 'Home',
+  component: Home,
+  children: [{
+    path: '/mystudy',
+    name: 'MyStudy',
+    component: MyStudy,
+    children: [],
+  }, {
+    path: '/coursecategory',
+    name: 'CourseCategory',
+    component: CourseCategory
+  }, {
+    path: '/coursepurchase',
+    name: 'CoursePurchase',
+    component: CoursePurchase
+  }, {
+    path: '/coursepreview',
+    name: 'CoursePreview',
+    component: CoursePreview
+  }, {
+    path: '/coursedetails',
+    name: 'CourseDetails',
+    component: CourseDetails,
+  }, {
+    path: '/userinfo',
+    name: 'UserInfo',
+    component: UserInfo
+  }, {
+    path: '/mine',
+    name: 'Mine',
+    component: Mine
+  }, {
+    path: '/changepassword',
+    name: 'ChangePassword',
+    component: ChangePassword
+  },
+  {
+    path: '/mystudynotes',
+    name: 'MyStudyNotes',
+    component: MyStudyNotes
+  },
+  {
+    path: '/comptitionrecord',
+    name: 'ComptitionRecord',
+    component: ComptitionRecord
+  },
+  {
+    path: '/menuindex',
+    name: 'MenuIndex',
+    component: MenuIndex
+  },
+  {
+    path: '/news',
+    name: 'News',
+    component: News
+  },
+  {
+    path: '/mycourses',
+    name: 'MyCourses',
+    component: MyCourses
+  },
+  {
+    path: '/myexams',
+    name: 'MyExams',
+    component: MyExams
+  },
 
-	},
-	{
-		path: '/myfiles',
-		name: 'MyFiles',
-		component: MyFiles
-	},
-	{
-		path: '/messagehome',
-		name: 'MessageHome',
-		component: MessageHome,
+  ]
+},
+{
+  path: '/exam',
+  name: 'Exam',
+  component: Exam
+},
+{
+  path: '/messagelist',
+  name: 'MessageList',
+  component: MessageList
+},
+{
+  path: '/contestindex',
+  name: 'ContestIndex',
+  component: ContestIndex,
 
-	},
-	{
-		path: '/studyrecord',
-		name: 'StudyRecord',
-		component: StudyRecord,
+},
+{
+  path: '/myfiles',
+  name: 'MyFiles',
+  component: MyFiles
+},
+{
+  path: '/messagehome',
+  name: 'MessageHome',
+  component: MessageHome,
 
-	},
-	{
-		path: '/coursehome',
-		name: 'CourseHome',
-		component: CourseHome
-	},
-	{
-		path: '/courselist',
-		name: 'CourseList',
-		component: CourseList
-	},
-	{
-		path: '/examhome',
-		name: 'ExamHome',
-		component: ExamHome
-	},
-	{
-		path: '/investigationhome',
-		name: 'InvestigationHome',
-		component: InvestigationHome
-	},
-	
-	{
-		path: '/questionary',
-		name: 'Questionary',
-		component: Questionary
-	},
-	{
-		path: '/acquisition',
-		name: 'Acquisition',
-		component: Acquisition,
-	},
-	{
-		path: '/exerciselist',
-		name: 'ExerciseList',
-		component: ExerciseList,
-	},
-	{
-		path: '/exercise',
-		name: 'Exercise',
-		component: Exercise,
-	},
-	{
-		path: '/examlist',
-		name: 'ExamList',
-		component: ExamList
-	},
-	{
-		path: '/newsdetail',
-		name: 'NewsDetail',
-		component: NewsDetail,
-	},
-	{
-		path: '/myarchives',
-		name: MyArchives,
-		component: MyArchives
-	},
-	{
-		path: '/score',
-		name: 'Score',
-		component: Score
-	},
-	{
-		path: '/video',
-		name: 'Video',
-		component: Video
-	},{
-		path: '/test',
-		name: 'Test',
-		component: Test
-	},
-	{
-		path: '/intrudes',
-		name: 'Intrudes',
-		component: Intrudes
-	},
-	{
-		path: '/videoscorelist',
-		name: 'VideoScoreList',
-		component: VideoScoreList
-	},
-	{
-		path: '/ranklist',
-		name: 'RankList',
-		component: RankList
-	},
-	{
-		path: '/final',
-		name: 'Final',
-		component: Final
-	},
-	{
-		path: '/examresult',
-		name: 'ExamResult',
-		component: ExamResult
-	},
-	{
-		path: '/serviceSort',
-		name: 'ServiceSort',
-		component: ServiceSort
-	},
-	{
-		path: '/rankresult',
-		name: 'RankResult',
-		component: RankResult
-	},
-	{
-		path: '/expertlist',
-		name: 'ExpertList',
-		component: ExpertList
-	},
-	{
-		path: '/chooselevel',
-		name: 'ChooseLevel',
-		component: ChooseLevel
-	},
-	{
-		path: '/preliminariesrank',
-		name: 'PreliminariesRank',
-		component: PreliminariesRank
-	},
-	{
-		path: '/review',
-		name: 'review',
-		component: Review
-	},
-	{
-		path: '/contestlist',
-		name: 'ContestList',
-		component: ContestList
-	},
-	{
-		path: '/contestexam',
-		name: 'ContestExam',
-		component: ContestExam
-	},
-	{
-		path: '/contestNews',
-		name: 'ContestNews',
-		component: ContestNews
-	},
-	
-	
+},
+{
+  path: '/studyrecord',
+  name: 'StudyRecord',
+  component: StudyRecord,
+
+},
+{
+  path: '/coursehome',
+  name: 'CourseHome',
+  component: CourseHome
+},
+{
+  path: '/courselist',
+  name: 'CourseList',
+  component: CourseList
+},
+{
+  path: '/examhome',
+  name: 'ExamHome',
+  component: ExamHome
+},
+{
+  path: '/investigationhome',
+  name: 'InvestigationHome',
+  component: InvestigationHome
+},
+
+{
+  path: '/questionary',
+  name: 'Questionary',
+  component: Questionary
+},
+{
+  path: '/acquisition',
+  name: 'Acquisition',
+  component: Acquisition,
+},
+{
+  path: '/exerciselist',
+  name: 'ExerciseList',
+  component: ExerciseList,
+},
+{
+  path: '/exercise',
+  name: 'Exercise',
+  component: Exercise,
+},
+{
+  path: '/examlist',
+  name: 'ExamList',
+  component: ExamList
+},
+{
+  path: '/newsdetail',
+  name: 'NewsDetail',
+  component: NewsDetail,
+},
+{
+  path: '/myarchives',
+  name: MyArchives,
+  component: MyArchives
+},
+{
+  path: '/score',
+  name: 'Score',
+  component: Score
+},
+{
+  path: '/video',
+  name: 'Video',
+  component: Video
+}, {
+  path: '/test',
+  name: 'Test',
+  component: Test
+},
+{
+  path: '/intrudes',
+  name: 'Intrudes',
+  component: Intrudes
+},
+{
+  path: '/videoscorelist',
+  name: 'VideoScoreList',
+  component: VideoScoreList
+},
+{
+  path: '/ranklist',
+  name: 'RankList',
+  component: RankList
+},
+{
+  path: '/final',
+  name: 'Final',
+  component: Final
+},
+{
+  path: '/examresult',
+  name: 'ExamResult',
+  component: ExamResult
+},
+{
+  path: '/serviceSort',
+  name: 'ServiceSort',
+  component: ServiceSort
+},
+{
+  path: '/rankresult',
+  name: 'RankResult',
+  component: RankResult
+},
+{
+  path: '/expertlist',
+  name: 'ExpertList',
+  component: ExpertList
+},
+{
+  path: '/chooselevel',
+  name: 'ChooseLevel',
+  component: ChooseLevel
+},
+{
+  path: '/preliminariesrank',
+  name: 'PreliminariesRank',
+  component: PreliminariesRank
+},
+{
+  path: '/review',
+  name: 'review',
+  component: Review
+},
+{
+  path: '/contestlist',
+  name: 'ContestList',
+  component: ContestList
+},
+{
+  path: '/contestexam',
+  name: 'ContestExam',
+  component: ContestExam
+},
+{
+  path: '/contestNews',
+  name: 'ContestNews',
+  component: ContestNews
+},
+
+
 ]
 
 const router = new VueRouter({
-	mode: 'history',
-	base: process.env.BASE_URL,
-	routes
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes
 })
 
 router.beforeEach((to, from, next) => {
-	if (to.path === '/') return next()
-	const tokenstr = window.sessionStorage.getItem('token')
-	if (!tokenstr) return next('/')
-	next()
+  if (to.path === '/') return next()
+  const tokenstr = window.sessionStorage.getItem('token')
+  if (!tokenstr) return next('/')
+  next()
 })
 
 export default router

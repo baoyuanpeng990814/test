@@ -29,7 +29,7 @@
 		data() {
 			return {
 				pics: [
-					require("../../images/exambg.png"),
+					require("../../images/banner4.png"),
 					
 				],
 				datas: []

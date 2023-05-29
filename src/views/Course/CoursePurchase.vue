@@ -6,7 +6,7 @@
 				<v-img src="../../images/icon/icon_back.png" height="18px" contain></v-img>
 			</v-btn>
 			<!-- <v-toolbar-title>课程详情</v-toolbar-title> -->
-      <v-toolbar-title>竞赛详情</v-toolbar-title>
+      <v-toolbar-title>培训详情</v-toolbar-title>
 			<v-spacer></v-spacer>
 		</v-app-bar>
 		<div class="body_height ofs">
@@ -126,7 +126,7 @@
 				<span v-else>
 					
 					<div class="btn_long" @click="toStudy()" >
-						开始评审
+						开始上课
 					</div>
 					
 					
