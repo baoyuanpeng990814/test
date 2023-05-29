@@ -23,23 +23,23 @@
   </div>
 </template>
 <script>
-  var token = window.sessionStorage.getItem("token")
+  var token = window.sessionStorage.getItem('token')
   export default {
     data() {
       return {
         files: [],
-        templateUrl: "",
-        uploadUrl: "",
+        templateUrl: '',
+        uploadUrl: '',
         excel: null,
-        excelName: "",
+        excelName: '',
         myheader: {
           token: token
         }
       }
     },
     created() {
-      this.templateUrl = this.$serverURL + "common/download?fileName=Tm"
-      this.uploadUrl = this.$serverURL + "manager/questions/uploadQuestionExcel"
+      this.templateUrl = this.$serverURL + 'common/download?fileName=Tm'
+      this.uploadUrl = this.$serverURL + 'manager/questions/uploadQuestionExcel'
       console.log(this.myheader)
     },
     methods: {
@@ -57,7 +57,7 @@
         reader.readAsDataURL(file)
         reader.onload = function(e) {
           t.excel = new Blob([e.target.result])
-          //t.excel = this.result
+          // t.excel = this.result
         }
       },
       async uploadFile() {
@@ -68,22 +68,22 @@
             data: res
           } = await this.$http.post(this.uploadUrl, fd, {
             headers: {
-              "Content-Type": "multipart/form-data"
+              'Content-Type': 'multipart/form-data'
             }
           })
           if (res.state !== 200) {
             return this.$message.error(res.msg)
           } else {
             this.$message.success('上传成功')
-            //this.$router.go(-1)
+            // this.$router.go(-1)
           }
         }
-      },
+      }
     },
     computed: {
       uploadHeaders() {
         return {
-          'Authorization': window.sessionStorage.getItem("token")
+          'Authorization': window.sessionStorage.getItem('token')
         }
       }
     }

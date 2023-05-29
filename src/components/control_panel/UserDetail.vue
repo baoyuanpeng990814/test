@@ -39,7 +39,7 @@
                   性别
                 </el-col>
                 <el-col :span="20">
-                  {{userdetail.sex | transfermSex}}
+                  {{userdetail.sex | transformSex}}
                 </el-col>
               </el-row>
               <el-row>
@@ -47,7 +47,7 @@
                   出生日
                 </el-col>
                 <el-col :span="20">
-                  {{userdetail.birthTime|truncateDate}}
+                  {{userdetail.birthTime|transformDate}}
                 </el-col>
               </el-row>
               <el-row>
@@ -55,7 +55,7 @@
                   入职时间
                 </el-col>
                 <el-col :span="20">
-                  {{userdetail.entryTime |truncateDate}}
+                  {{userdetail.entryTime |transformDate}}
                 </el-col>
               </el-row>
               <el-row>
@@ -102,16 +102,16 @@
       this.userdetail = this.$route.query.row
     },
     filters: {
-      transfermSex: function(sex) {
-        if (sex == '1') return '男'
+      transformSex: function(sex) {
+        if (sex === '1') return '男'
         else return '女'
       },
-      transfermType: function(type) {
-        if (type == '1') return '内部'
+      transformType: function(type) {
+        if (type === '1') return '内部'
         else return '外部'
       },
-      truncateDate: function(date) {
-        if (date != null) {
+      transformDate: function(date) {
+        if (date !== null) {
           return date.split('T')[0]
         }
       }

@@ -48,7 +48,7 @@
 									发布时间
 								</el-col>
 								<el-col :span="20">
-									{{newsdetail.releaseTime|truncateDate}}
+									{{newsdetail.releaseTime|transformDate}}
 								</el-col>
 							</el-row>
 							<el-row>
@@ -56,7 +56,7 @@
 									发布状态
 								</el-col>
 								<el-col :span="20">
-									{{newsdetail.releaseState|transfermState }}
+									{{newsdetail.releaseState|transformState }}
 								</el-col>
 							</el-row>
 							<el-row>
@@ -93,13 +93,13 @@
 			this.newsdetail = this.$route.query.row
 		},
 		filters: {
-			truncateDate: function(date) {
+			transformDate: function(date) {
 				if (date != null) {
 					return date.split('T')[0]
 				}
 			},
-			transfermState: function(state) {
-				if (state == '1') return '已发布'
+			transformState: function(state) {
+				if (state === '1') return '已发布'
 				else return '未发布'
 			}
 		}

@@ -164,7 +164,6 @@
 
                       <el-input-number :controls="false" :min="0" v-model="datadetail.timingStartTime">
                       </el-input-number>
-                      </el-date-picker>
                     </el-form-item>
                   </el-col>
 
@@ -706,7 +705,7 @@
       }
     },
     filters: {
-      truncateDate: function(date) {
+      transformDate: function(date) {
         return date.split('T')[0]
       }
     }

@@ -42,7 +42,6 @@
 										<el-form-item label="内容" prop="newText">
 
 											<Button icon="ios-cloud-upload-outline"></Button>
-											</Upload>
 											<quill-editor ref="QuillEditor" v-model="newsdetail.newText"
 												class="myQuillEditor" />
 										</el-form-item>
@@ -168,7 +167,7 @@
 			    }
 		},
 		filters: {
-			truncateDate: function(date) {
+			transformDate: function(date) {
 				return date.split('T')[0]
 			}
 		}

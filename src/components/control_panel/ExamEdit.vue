@@ -165,7 +165,7 @@
 
                       <el-input-number :controls="false" :min="0" v-model="examDetail.timingStartTime">
                       </el-input-number>
-                      </el-date-picker>
+
                     </el-form-item>
                   </el-col>
 
@@ -312,7 +312,7 @@
             <!-- 题型类型数量-->
             <!-- 出题策略列表-->
             <div class="question_type_list" v-if="strategydetail.questionsSortId!=0">
-              <el-row v-for="l in strategydetail.lExtractQuestionsList">
+              <el-row v-for="l in strategydetail.lExtractQuestionsList" :key="l.id">
                 <el-col :span="24">
                   <el-form-item :label="l.questionsTypeName" prop="typeNum">
                     <el-input-number :controls="false" :step="1" v-model="l.number" :min="0" :max="l.count">
@@ -556,7 +556,6 @@
         this.lExamTarget = this.examDetail.lExamTarget
         this.twin.courseCompanyName = this.lExamTarget.examTarget
         this.twin.groupingName = this.lExamTarget.examTarget
-        console.log(this.twin, 'twin')
       }
 
       // 出题策略详情id
@@ -677,6 +676,7 @@
       },
       /* 查询对应题型分类下题的数量 questionsSortId : 题库id  ;knowledge: 知识点 ;  difficulty : 	难度 */
       async getQuestionCateNum(old) { // 获取每种题型各有几道题
+        console.log(this.strategydetail.questionsSortId,'2222')
         var url = '/manager/exam/queryNum?questionsSortId=' +
           this.strategydetail.questionsSortId + '&difficulty=' + this.strategydetail.difficulty
         if (this.strategydetail.knowledge != '' && this.strategydetail.knowledge != null) {
@@ -782,7 +782,7 @@
       }
     },
     filters: {
-      truncateDate: function(date) {
+      transformDate: function(date) {
         return date.split('T')[0]
       }
     }

@@ -48,7 +48,7 @@
 									发布时间
 								</el-col>
 								<el-col :span="20">
-									{{carouseldetail.createTime|truncateDate}}
+									{{carouseldetail.createTime|transformDate}}
 								</el-col>
 							</el-row>
 							<el-row>
@@ -56,7 +56,7 @@
 									发布状态
 								</el-col>
 								<el-col :span="20">
-									{{carouseldetail.rotateTop|transfermState }}
+									{{carouseldetail.rotateTop|transformState }}
 								</el-col>
 							</el-row>
 							<el-row>
@@ -94,13 +94,13 @@
 			this.carouseldetail = this.$route.query.row
 		},
 		filters: {
-			truncateDate: function(date) {
-				if (date != null) {
+			transformDate: function(date) {
+				if (date !== null) {
 					return date.split('T')[0]
 				}
 			},
-			transfermState: function(state) {
-				if (state == '1') return '已发布'
+			transformState: function(state) {
+				if (state === '1') return '已发布'
 				else return '未发布'
 			}
 		}

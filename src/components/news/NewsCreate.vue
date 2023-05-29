@@ -156,7 +156,7 @@
       
 		},
 		filters: {
-			truncateDate: function(date) {
+			transformDate: function(date) {
 				return date.split('T')[0]
 			}
 		}

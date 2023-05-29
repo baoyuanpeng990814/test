@@ -45,7 +45,6 @@
       }
     },
     created() {
-	console.log(11)
       this.dataList = this.$store.getters.role
 	  
       if(this.dataList[0]==null){

@@ -55,21 +55,21 @@
               </el-table-column>
               <!-- <el-table-column prop="examId" label="序号">
               </el-table-column> -->
-              <el-table-column prop="examSortName" label="分类名称">
+              <el-table-column prop="examSortName" label="分类名称" align="center">
               </el-table-column>
-              <el-table-column prop="organizationName" label="所属机构">
+              <el-table-column prop="organizationName" label="所属机构" align="center">
               </el-table-column>
-              <el-table-column prop="totalPoints" label="描述">
+              <el-table-column prop="totalPoints" label="描述" align="center">
               </el-table-column>
-              <el-table-column prop="state" label="状态">
+              <el-table-column prop="state" label="状态" align="center">
 
                 <template slot-scope="scope">{{ scope.row. state | transfermUseState }}</template>
               </el-table-column>
 
-              <el-table-column fixed="right" label="操作">
+              <el-table-column fixed="right" label="操作" align="center">
                 <template slot-scope="scope">
                   <el-button @click="editDetail(scope.row)" type="text" size="small">编辑</el-button>
-                  <el-button @click="deleteType(scope.row)" type="text" size="small">删除</el-button>
+                  <el-button @click="deleteType(scope.row)" type="text" size="small" class="red">删除</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -130,7 +130,6 @@
     methods: {
       /* 生成考试习题 */
       publish() {
-        console.log(this.multipleSelection)
         for (var i = 0; i < this.multipleSelection.length; i++) {
           // if (this.multipleSelection[i].releaseState == "0") {
           this.releaseExam(this.multipleSelection[i])
@@ -160,7 +159,6 @@
         }
       },
       editNode() {
-        console.log(this.currentNode)
         this.$router.push({
           path: '/examtypeedit',
           query: {
@@ -191,7 +189,6 @@
           return this.$message.error('数据获取失败！')
         } else {
           this.treedata = res.data
-          console.log(this.treedata)
         }
       },
       async getDataList() {
@@ -268,13 +265,13 @@
       }
     },
     filters: {
-      truncateDate: function(date) {
-        if (date != null) {
+      transformDate: function(date) {
+        if (date !== null) {
           return date.split('T')[0]
         }
       },
       transfermUseState: function(state) {
-        if (state == '1') return '启用'
+        if (state === '1') return '启用'
         else return '未启用'
       }
 

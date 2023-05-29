@@ -92,12 +92,12 @@
               </el-table-column>
               <el-table-column prop="releaseState" label="发布状态">
                 <template slot-scope="scope">{{
-                  scope.row.releaseState | transfermState
+                  scope.row.releaseState | transformState
                 }}</template>
               </el-table-column>
               <el-table-column prop="type" label="考试类型">
                 <template slot-scope="scope">{{
-                  scope.row.type | transfermType
+                  scope.row.type | transformType
                 }}</template>
               </el-table-column>
               <el-table-column prop="releaseState" label="允许查看">
@@ -341,7 +341,6 @@ export default {
         // 创建并加载docxtemplater实例对象
         let doc = new Docxtemplater().loadZip(zip)
         // 设置模板变量的值
-        console.log(_this.exam.examName)
         doc.setData({
           question: _this.transQuestions,
           question2: _this.transQuestions2,
@@ -424,7 +423,6 @@ export default {
     },
     /* 生成考试习题 */
     publish() {
-      console.log(this.multipleSelection)
       for (var i = 0; i < this.multipleSelection.length; i++) {
         // if (this.multipleSelection[i].releaseState == "0") {
         this.releaseExam(this.multipleSelection[i])
@@ -464,7 +462,6 @@ export default {
       }
     },
     editNode() {
-      console.log(this.currentNode)
       this.$router.push({
         path: '/examtypeedit',
         query: {
@@ -582,21 +579,21 @@ export default {
     }
   },
   filters: {
-    truncateDate: function (date) {
-      if (date != null) {
+    transformDate: function (date) {
+      if (date !== null) {
         return date.split('T')[0]
       }
     },
-    transfermState: function (state) {
-      if (state == '1') return '已发布'
+    transformState: function (state) {
+      if (state === '1') return '已发布'
       else return '未发布'
     },
-    transfermType: function (state) {
-      if (state == '1') return '考试'
+    transformType: function (state) {
+      if (state === '1') return '考试'
       else return '练习'
     },
     fransfermView: function (val) {
-      if (val == '1') return '允许'
+      if (val === '1') return '允许'
       else return '不允许'
     },
     htmlReg(val) {

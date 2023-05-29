@@ -95,7 +95,6 @@
     methods: {
       /* 封面路径显示 */
       handleAvatarSuccess(res, file) {
-        console.log('上传')
         this.dataDetail.competitionSortCover = res.url
       },
       getOd(val) {
@@ -131,7 +130,7 @@
       }
     },
     filters: {
-      truncateDate: function(date) {
+      transformDate: function(date) {
         return date.split('T')[0]
       }
     }

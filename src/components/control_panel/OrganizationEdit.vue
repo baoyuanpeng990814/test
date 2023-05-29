@@ -18,12 +18,12 @@
         <div class="edit_lines">
           <el-container>
             <el-main>
-          <el-form :model="organizationdetail" :rules="rules" ref="organizationdetail" label-width="100px"
+          <el-form :model="orgForm" :rules="rules" ref="orgFormRef" label-width="100px"
             class="demo-ruleForm login_form">
             <el-row>
               <el-col :span="24">
                 <el-form-item label="机构编码" prop="organizationCode">
-                  <el-input v-model="organizationdetail.organizationCode"></el-input>
+                  <el-input v-model="orgForm.organizationCode"></el-input>
                 </el-form-item>
               </el-col>
           
@@ -31,29 +31,29 @@
             <el-row>
               <el-col :span="24">
                 <el-form-item label="机构名称" prop="organizationName">
-                  <el-input v-model="organizationdetail.organizationName"></el-input>
+                  <el-input v-model="orgForm.organizationName"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="24">
                 <el-form-item label="机构电话" prop="organizationPhone">
-                  <el-input v-model="organizationdetail.organizationPhone"></el-input>
+                  <el-input v-model="orgForm.organizationPhone"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="24">
                 <el-form-item label="机构简介" prop="description">
-                  <el-input type="textarea" :rows="4" v-model="organizationdetail.description"></el-input>
+                  <el-input type="textarea" :rows="4" v-model="orgForm.description"></el-input>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="24">
                 <el-form-item label="机构状态" prop="organizationType">
-                  <el-radio v-model="organizationdetail.organizationType" label="1">启用</el-radio>
-                  <el-radio v-model="organizationdetail.organizationType" label="0">禁用</el-radio>
+                  <el-radio v-model="orgForm.organizationType" label="1">启用</el-radio>
+                  <el-radio v-model="orgForm.organizationType" label="0">禁用</el-radio>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -78,7 +78,7 @@
   export default {
     data() {
       return {
-        organizationdetail: {},
+        orgForm: {},
         rules: {
           organizationCode: [{
             required: true,
@@ -103,7 +103,7 @@
       }
     },
     created() {
-      this.organizationdetail = this.$route.query.row
+      this.orgForm = this.$route.query.row
     },
     methods: {
       modifyDetail() {
@@ -112,7 +112,7 @@
       async modifyorganization() {
         const {
           data: res
-        } = await this.$http.post('/manager/org/edit', this.organizationdetail)
+        } = await this.$http.post('/manager/org/edit', this.orgForm)
         if (res.state !== 200) {
           return this.$message.error(res.msg)
         } else {
@@ -122,7 +122,7 @@
       }
     },
     filters: {
-      truncateDate: function(date) {
+      transformDate: function(date) {
         return date.split('T')[0]
       }
     }

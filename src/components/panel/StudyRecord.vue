@@ -7,7 +7,7 @@
         <el-table-column prop="courseName" label="课程名称" width="120">
         </el-table-column>
         <el-table-column prop="courseType" label="课程类型" width="120">
-          <template slot-scope="scope">{{ scope.row.courseType |transfermType }}</template>
+          <template slot-scope="scope">{{ scope.row.courseType |transformType }}</template>
         </el-table-column>
         <el-table-column prop="courseSortName" label="分类名称" show-overflow-tooltip>
         </el-table-column>
@@ -65,7 +65,7 @@
       }
     },
     filters:{
-      transfermType(val){
+      transformType(val){
         if (val == "1") return "必修"
         else return  "选修"
       }

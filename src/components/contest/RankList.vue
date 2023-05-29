@@ -11,7 +11,7 @@
             <el-button icon="el-icon-search" @click="getDataList" type="primary">查询</el-button>
 
           </el-col>
-        </el-row>
+
         <div class="space"></div>
         <el-row class="buttons">
           <el-col :span="24" :offset="0">
@@ -35,10 +35,10 @@
               </el-table-column> -->
 
               <el-table-column prop="releaseState" label="发布状态">
-                <template slot-scope="scope">{{ scope.row.releaseState |transfermState }}</template>
+                <template slot-scope="scope">{{ scope.row.releaseState |transformState }}</template>
               </el-table-column>
               <el-table-column prop="competitionType" label="竞赛类型">
-                <template slot-scope="scope">{{ scope.row.competitionType |transfermType }}</template>
+                <template slot-scope="scope">{{ scope.row.competitionType |transformType }}</template>
               </el-table-column>
               <el-table-column fixed="right" label="操作">
                 <template slot-scope="scope">
@@ -90,7 +90,6 @@
     },
     created() {
       this.queryInfo.competitionId = this.$route.query.id
-      console.log(this.queryInfo)
       this.getDataList()
     },
     methods: {
@@ -137,7 +136,6 @@
       deleteRow(row) {
         this.supposeDelete = row
         this.dialogVisible = true
-        console.log(this.supposeDelete)
       },
 
 
@@ -156,16 +154,16 @@
       }
     },
     filters: {
-      truncateDate: function(date) {
+      transformDate: function(date) {
         if (date != null) {
           return date.split('T')[0]
         }
       },
-      transfermState: function(state) {
+      transformState: function(state) {
         if (state == "1") return "已发布"
         else return "未发布"
       },
-      transfermType: function(val) {
+      transformType: function(val) {
         if (val == "1") return "理论"
         if (val == "2") return "实操"
         if (val == "3") return "理论+实操"

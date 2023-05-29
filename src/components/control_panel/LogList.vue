@@ -12,7 +12,7 @@
         <el-row class="search_form">
           <el-form class="demo-ruleForm login_form" label-width="auto">
             <!-- <el-col > -->
-              <!-- <el-form-item label="时间段">
+            <!-- <el-form-item label="时间段">
                 <el-date-picker
                   v-model="queryInfo.startTime"
                   style="margin-right:10px"
@@ -30,36 +30,77 @@
                 </el-date-picker>
               </el-form-item> -->
 
-              <el-form-item label="时间段" :span="5" >
-                <el-col :span="5">
-                  <el-form-item prop="startTime">
-                    <el-date-picker
-                      type="date"
-                      placeholder="开始时间"
-                      v-model="queryInfo.startTime"
-                      style="width: 100%;"
-                    ></el-date-picker>
-                  </el-form-item>
-                </el-col>
-                <!-- <el-col class="line" :span="1">-</el-col> -->
-                <el-col :span="5">
-                  <el-form-item prop="endTime">
-                    <el-date-picker
-                      placeholder="结束时间"
-                      v-model="queryInfo.endTime"
-                      style="width: 100%;"
-                    ></el-date-picker>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="5">
-              <el-form-item label="创建人" style="margin-right:10px">
-                <el-input
-                  v-model="queryInfo.createUser"
-                  placeholder="创建人"
-                ></el-input>
-              </el-form-item>
-            </el-col>
-              </el-form-item>
+            <el-form-item label="时间段:">
+              <el-col :span="3">
+                <el-form-item prop="startTime">
+                  <el-date-picker
+                    type="date"
+                    placeholder="开始时间"
+                    v-model="queryInfo.startTime"
+                    style="width: 100%;"
+                  ></el-date-picker>
+                </el-form-item>
+              </el-col>
+              <!-- <el-col class="line" :span="1">-</el-col> -->
+              <el-col :span="3">
+                <el-form-item prop="endTime">
+                  <el-date-picker
+                    placeholder="结束时间"
+                    v-model="queryInfo.endTime"
+                    style="width: 100%;"
+                  ></el-date-picker>
+                </el-form-item>
+              </el-col>
+              <el-col :span="3">
+                <el-form-item label="创建人" style="margin-right:10px">
+                  <el-input
+                    v-model="queryInfo.createUser"
+                    placeholder="创建人"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="3">
+                <el-form-item label="操作类型">
+                  <el-input
+                    v-model="queryInfo.operationType"
+                    placeholder="操作类型"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="3">
+                <el-form-item label="日志类型">
+                  <el-input
+                    v-model="queryInfo.logType"
+                    placeholder="日志类型"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+
+              <el-col :span="3">
+                <el-form-item label="业务模块">
+                  <el-input
+                    v-model="queryInfo.businessModule"
+                    placeholder="业务模块"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="6" style="text-align: right;">
+                <el-button
+                  icon="el-icon-search"
+                  @click="searchUser"
+                  type="primary"
+                  >查询</el-button
+                >
+
+                <el-button
+                  icon="el-icon-refresh-right"
+                  @click="reset"
+                  type="primary"
+                  >重置</el-button
+                >
+              </el-col>
+            </el-form-item>
             <!-- </el-col> -->
 
             <!-- <el-col :span="5">
@@ -68,50 +109,6 @@
               </el-form-item>
             </el-col> -->
           </el-form>
-        </el-row>
-        <el-row class="search_form">
-          <el-form class="demo-ruleForm login_form" label-width="auto">
-            <el-col :span="5">
-              <el-form-item label="操作类型">
-                <el-input
-                  v-model="queryInfo.operationType"
-                  placeholder="操作类型"
-                ></el-input>
-              </el-form-item>
-            </el-col>
-
-            <el-col :span="5">
-              <el-form-item label="日志类型">
-                <el-input
-                  v-model="queryInfo.logType"
-                  placeholder="日志类型"
-                ></el-input>
-              </el-form-item>
-            </el-col>
-
-            <el-col :span="5">
-              <el-form-item label="业务模块">
-                <el-input
-                  v-model="queryInfo.businessModule"
-                  placeholder="业务模块"
-                ></el-input>
-              </el-form-item>
-            </el-col>
-          </el-form>
-        </el-row>
-        <el-row class="buttons">
-          <el-col :span="24" :offset="0">
-            <el-button icon="el-icon-search" @click="searchUser" type="primary"
-              >查询</el-button
-            >
-
-            <el-button
-              icon="el-icon-refresh-right"
-              @click="reset"
-              type="primary"
-              >重置</el-button
-            >
-          </el-col>
         </el-row>
       </div>
       <div>
@@ -249,8 +246,8 @@ export default {
     }
   },
   filters: {
-    transfermState: function(state) {
-      if (state == '1') return '启用'
+    transformState: function(state) {
+      if (state === '1') return '启用'
       else return '禁用'
     }
   }

@@ -50,6 +50,7 @@ import LogList from './components/control_panel/LogList'
 import DictionaryTypeList from './components/control_panel/DictionaryTypeList.vue'
 import DictionaryTypeEdit from './components/control_panel/DictionaryTypeEdit.vue'
 import DictionaryTypeCreate from './components/control_panel/DictionaryTypeCreate.vue'
+import DictionaryTypePanel from './components/control_panel/DictionaryTypePanel.vue'
 import DictionaryList from './components/control_panel/DictionaryList.vue'
 import DictionaryEdit from './components/control_panel/DictionaryEdit.vue'
 import DictionaryCreate from './components/control_panel/DictionaryCreate.vue'
@@ -66,6 +67,7 @@ import QuestionTypeEdit from './components/control_panel/QuestionTypeEdit.vue'
 import QuestionCategoryList from './components/control_panel/QuestionCategoryList.vue'
 import QuestionCategoryCreate from './components/control_panel/QuestionCategoryCreate.vue'
 import QuestionCategoryEdit from './components/control_panel/QuestionCategoryEdit.vue'
+import QuestionCategoryPanel from './components/control_panel/QuestionCategoryPanel.vue'
 import QuestionList from './components/control_panel/QuestionList.vue'
 import QuestionCreate from './components/control_panel/QuestionCreate.vue'
 import QuestionEdit from './components/control_panel/QuestionEdit.vue'
@@ -100,7 +102,7 @@ import MyInvestigations from './components/investigation/MyInvestigations.vue'
 import Questionary from './components/investigation/Questionary.vue'
 import GraduationList from './components/control_panel/GraduationList.vue'
 import GraduationConfirm from './components/control_panel/GraduationConfirm.vue'
-import NewsManagement from './components/news/NewsManagement.vue'
+/* import NewsManagement from './components/news/NewsManagement.vue' */
 import NewsCreate from './components/news/NewsCreate.vue'
 import NewsDetail from './components/news/NewsDetail.vue'
 import NewsEdit from './components/news/NewsEdit.vue'
@@ -130,6 +132,7 @@ import GroupList from './components/group/GroupList.vue'
 import GroupTreeCreate from './components/group/GroupTreeCreate.vue'
 import GroupTreeEdit from './components/group/GroupTreeEdit.vue'
 import GroupTreeList from './components/group/GroupTreeList.vue'
+import GroupPanel from './components/group/GroupPanel.vue'
 import XuejiTreeList from './components/group/XuejiTreeList.vue'
 import usereditXueji from './components/control_panel/usereditXueji.vue'
 import UserDetailXueji from './components/control_panel/UserDetailXueji.vue'
@@ -157,77 +160,77 @@ const router = new Router({
       component: Home,
       redirect: '/welecome', // 路由重定向！转发列表中发向一台路由的路径改成另外一条路径
       children: [{
-          path: '/mystudy',
-          component: MyStudy,
-          children: [{
-              path: '/welecome',
-              component: Welecome
-            },
-            {
-              path: '/mycourses',
-              component: MyCourses
-            },
-            {
-              path: '/videoplayback',
-              component: Videoplayback
-            },
-            {
-              path: '/myexam',
-              component: MyExam
-            },
-            {
-              path: '/ranslates',
-              component: Ranslates
-            },
-            {
-              path: '/info',
-              component: Info
-            },
-            {
-              path: '/userinfo',
-              component: UserInfo
-            },
-            {
-              path: '/changepwd',
-              component: ChangePWD
-            },
-            {
-              path: '/myrecord',
-              component: MyRecord
-            }
-
-          ]
+        path: '/mystudy',
+        component: MyStudy,
+        children: [{
+          path: '/welecome',
+          component: Welecome
         },
         {
-          path: '/selection',
-          component: Selection
+          path: '/mycourses',
+          component: MyCourses
         },
         {
-          path: '/selectionlist',
-          component: SelectionList
+          path: '/videoplayback',
+          component: Videoplayback
         },
         {
-          path: '/selectionconfirm',
-          component: SelectionConfirm
-        }, {
-          path: '/selectionpreview',
-          component: SelectionPreview
-        }, {
-          path: '/acquisition',
-          component: Acquisition
-        }, {
-          path: '/examfinder',
-          component: ExamFinder
+          path: '/myexam',
+          component: MyExam
         },
         {
-          path: '/myinvestigations',
-          component: MyInvestigations
+          path: '/ranslates',
+          component: Ranslates
         },
         {
-          path: '/questionary',
-          component: Questionary,
-          name: 'questionary'
+          path: '/info',
+          component: Info
+        },
+        {
+          path: '/userinfo',
+          component: UserInfo
+        },
+        {
+          path: '/changepwd',
+          component: ChangePWD
+        },
+        {
+          path: '/myrecord',
+          component: MyRecord
         }
+
+        ]
+      },
+      {
+        path: '/selection',
+        component: Selection
+      },
+      {
+        path: '/selectionlist',
+        component: SelectionList
+      },
+      {
+        path: '/selectionconfirm',
+        component: SelectionConfirm
+      }, {
+        path: '/selectionpreview',
+        component: SelectionPreview
+      }, {
+        path: '/acquisition',
+        component: Acquisition
+      }, {
+        path: '/examfinder',
+        component: ExamFinder
+      },
+      {
+        path: '/myinvestigations',
+        component: MyInvestigations
+      },
+      {
+        path: '/questionary',
+        component: Questionary,
+        name: 'questionary'
+      }
       ]
     },
     {
@@ -241,421 +244,432 @@ const router = new Router({
       component: Control,
       redirect: '/welecome',
       children: [{
-          path: '/usermanagement',
-          component: UserManagement,
-          children: [{
-              path: '/userdetail',
-              component: UserDetail
-            },
-           
-            {
-              path: '/useredit',
-              component: UserEdit
-            },
-            {
-              path: '/usereditXueji',
-              component: usereditXueji
-            },
-            {
-              path: '/UserDetailXueji',
-              component: UserDetailXueji
-            },
-            
-            {
-              path: '/usercreate',
-              component: UserCreate
-            },
-            {
-              path: '/userlist',
-              component: UserList
-            },
-
-            {
-              path: '/groupcreate',
-              component: GroupCreate
-            },
-            {
-              path: '/grouplist',
-              component: GroupList
-            },
-
-            {
-              path: '/grouptreelist',
-              component: GroupTreeList
-            },
-            {
-              path: '/XuejiTreeList',
-              component: XuejiTreeList
-            },
-            {
-              path: '/grouptreecreate',
-              component: GroupTreeCreate
-            }, {
-              path: '/grouptreeedit',
-              component: GroupTreeEdit
-            }
-          ]
+        path: '/usermanagement',
+        component: UserManagement,
+        children: [{
+          path: '/userdetail',
+          component: UserDetail
         },
 
         {
-          path: '/exammanagement',
-          component: ExamManagement,
-          children: [{
-              path: '/examlist',
-              component: ExamList
-            }, {
-              path: '/examcreate',
-              component: ExamCreate
-            }, {
-              path: '/examHistory',
-              component: ExamHistory
-            }, {
-              path: '/examedit',
-              component: ExamEdit
-            },
-            {
-              path: '/examtypecreate',
-              component: ExamTypeCreate
-            },
-            {
-              path: '/examtypeedit',
-              component: ExamTypeEdit
-            },
-            {
-              path: '/examtypelist',
-              component: ExamTypeList
-            },
-            {
-              path: '/contesttypecreate',
-              component: ContestTypeCreate
-            },
-            {
-              path: '/contesttypeedit',
-              component: ContestTypeEdit
-            },
-            {
-              path: '/contesttypelist',
-              component: ContestTypeList
-            },
-            {
-              path: '/contestcreate',
-              component: ContestCreate
-            },
-            {
-              path: '/contestedit',
-              component: ContestEdit
-            },
-            {
-              path: '/contestlist',
-              component: ContestList
-            },
-            {
-              path: '/operationList',
-              component: OperationList
-            },
-            {
-              path: '/rankList',
-              component: RankList
-            }
-          ]
-
-        }, {
-          path: '/coursemanagement',
-          component: CourseManagement,
-          children: [{
-              path: '/graduationlist',
-              component: GraduationList
-            }, {
-              path: '/graduationconfirm',
-              component: GraduationConfirm
-            },
-            {
-              path: '/HistoryList',
-              component: HistoryList
-            },
-            {
-              path: '/courselist',
-              component: CourseList
-            }, {
-              path: '/coursecreate',
-              component: CourseCreate
-            }, {
-              path: '/courseedit',
-              component: CourseEdit
-            }, {
-              path: '/coursetypecreate',
-              component: CourseTypeCreate
-            }, {
-              path: '/coursetypelist',
-              component: CourseTypeList
-            }, {
-              path: '/coursetypeedit',
-              component: CourseTypeEdit
-            }, {
-              path: '/programlist',
-              component: ProgramList
-            }, {
-              path: '/programcreate',
-              component: ProgramCreate
-            }, {
-              path: '/programedit',
-              component: ProgramEdit
-            }, {
-              path: '/paperlist',
-              component: PaperList
-            }, {
-              path: '/paperedit',
-              component: PaperEdit
-            }, {
-              path: '/papercreate',
-              component: PaperCreate
-            }
-
-          ]
-
-        }, {
-          path: '/analyzationmanagement',
-          component: AnalyzationManagement,
-          children: [{
-              path: '/examanalyzation',
-              component: ExamAnalyzation
-            },
-            {
-              path: '/examanalyzationdetail',
-              component: ExamAnalyzationDetail
-            },
-            {
-              path: '/studyanalyzation',
-              component: StudyAnalyzation
-            }, {
-              path: '/studyanalyzationdetail',
-              component: StudyAnalyzationDetail
-            },
-            {
-              path: '/questionaryanalyzationlist',
-              component: QuestionaryAnalyzationList
-            }, {
-              path: '/questionaryanalyzationdetail',
-              component: QuestionaryAnalyzationDetail
-            }
-
-          ]
-        }, {
-          path: './sourcemanagement',
-          component: SourceManagement,
-          children: [{
-              path: '/questioncategorylist',
-              component: QuestionCategoryList
-            },
-            {
-              path: '/questioncategorycreate',
-              component: QuestionCategoryCreate
-            },
-            {
-              path: '/questioncategoryedit',
-              component: QuestionCategoryEdit
-            },
-            {
-              path: '/questionlist',
-              component: QuestionList
-            },
-            {
-              path: '/questioncreate',
-              component: QuestionCreate
-            },
-            {
-              path: '/questionedit',
-              component: QuestionEdit
-            },
-
-            {
-              path: '/teacherlist',
-              component: TeacherList
-            },
-            {
-              path: '/teacheredit',
-              component: TeacherEdit
-            },
-            {
-              path: '/teachercreate',
-              component: TeacherCreate
-            },
-            {
-              path: '/newsdetail',
-              component: NewsDetail
-            },
-            {
-              path: '/newsedit',
-              component: NewsEdit
-            },
-            {
-              path: '/newscreate',
-              component: NewsCreate
-            },
-            {
-              path: '/newslist',
-              component: NewsList
-            },
-            {
-              path: '/contestnewsdetail',
-              component: ContestNewsDetail
-            },
-            {
-              path: '/contestnewsedit',
-              component: ContestNewsEdit
-            },
-            {
-              path: '/contestnewscreate',
-              component: ContestNewsCreate
-            },
-            {
-              path: '/contestnewslist',
-              component: ContestNewsList
-            },
-            {
-              path: '/messagedetail',
-              component: MessageDetail
-            },
-            {
-              path: '/messageedit',
-              component: MessageEdit
-            },
-            {
-              path: '/messagecreate',
-              component: MessageCreate
-            },
-            {
-              path: '/messagelist',
-              component: MessageList
-            },
-            {
-              path: '/carouseldetail',
-              component: CarouselDetail
-            },
-            {
-              path: '/carouseledit',
-              component: CarouselEdit
-            },
-            {
-              path: '/carouselcreate',
-              component: CarouselCreate
-            },
-            {
-              path: '/carousellist',
-              component: CarouselList
-            }
-
-          ]
-        }, {
-          path: 'investigationmanagement',
-          component: InvestigationManagement,
-          children: [{
-            path: '/questionarylist',
-            component: QuestionaryList
-          }, {
-            path: '/questionarysortcreate',
-            component: QuestionarySortCreate
-          }, {
-            path: '/questionarysortedit',
-            component: QuestionarySortEdit
-          }, {
-            path: '/inquirylist',
-            component: InquiryList
-          }, {
-            path: '/questionarycreate',
-            component: QuestionaryCreate
-          }]
+          path: '/useredit',
+          component: UserEdit
         },
         {
-          path: '/systemmanagement',
-          component: SystemManagement,
-          children: [{
-              path: '/organizationList',
-              component: OrganizationList
-            },
-            {
-              path: '/organizationedit',
-              component: OrganizationEdit
-            },
-            {
-              path: '/organizationcreate',
-              component: OrganizationCreate
-            },
-            {
-              path: '/functionlist',
-              component: FunctionList
-            },
-            {
-              path: '/functionedit',
-              component: FunctionEdit
-            },
-            {
-              path: '/functioncreate',
-              component: FunctionCreate
-            },
-            {
-              path: '/rolelist',
-              component: RoleList
-            },
-            {
-              path: '/roleedit',
-              component: RoleEdit
-            },
-            {
-              path: '/rolecreate',
-              component: RoleCreate
-            },
-            {
-              path: '/loglist',
-              component: LogList
-            },
-            {
-              path: '/dictionarytypelist',
-              component: DictionaryTypeList
-            },
-            {
-              path: '/dictionarytypeedit',
-              component: DictionaryTypeEdit
-            },
-            {
-              path: '/dictionarytypecreate',
-              component: DictionaryTypeCreate
-            }, {
-              path: '/dictionarylist',
-              component: DictionaryList
-            }, {
-              path: '/dictionaryedit',
-              component: DictionaryEdit
-            }, {
-              path: '/dictionarycreate',
-              component: DictionaryCreate
-            }, {
-              path: '/questiontypelist',
-              component: QuestionTypeList
-            }, {
-              path: '/questiontypecreate',
-              component: QuestionTypeCreate
-            }, {
-              path: '/questiontypeedit',
-              component: QuestionTypeEdit
-            },
-            {
-              path: '/uploadquestion',
-              component: UploadQuestion
-            }, {
-              path: '/themelist',
-              component: ThemeList
-            }, {
-              path: '/themeedit',
-              component: ThemeEdit
-            }, {
-              path: '/themecreate',
-              component: ThemeCreate
-            }
+          path: '/usereditXueji',
+          component: usereditXueji
+        },
+        {
+          path: '/UserDetailXueji',
+          component: UserDetailXueji
+        },
 
-          ]
+        {
+          path: '/usercreate',
+          component: UserCreate
+        },
+        {
+          path: '/userlist',
+          component: UserList
+        },
 
+        {
+          path: '/groupcreate',
+          component: GroupCreate
+        },
+        {
+          path: '/grouplist',
+          component: GroupList
+        },
+
+        {
+          path: '/grouptreelist',
+          component: GroupTreeList
+        },
+        {
+          path: '/grouppanel',
+          component: GroupPanel
+        },
+        {
+          path: '/XuejiTreeList',
+          component: XuejiTreeList
+        },
+        {
+          path: '/grouptreecreate',
+          component: GroupTreeCreate
+        }, {
+          path: '/grouptreeedit',
+          component: GroupTreeEdit
         }
+        ]
+      },
+
+      {
+        path: '/exammanagement',
+        component: ExamManagement,
+        children: [{
+          path: '/examlist',
+          component: ExamList
+        }, {
+          path: '/examcreate',
+          component: ExamCreate
+        }, {
+          path: '/examHistory',
+          component: ExamHistory
+        }, {
+          path: '/examedit',
+          component: ExamEdit
+        },
+        {
+          path: '/examtypecreate',
+          component: ExamTypeCreate
+        },
+        {
+          path: '/examtypeedit',
+          component: ExamTypeEdit
+        },
+        {
+          path: '/examtypelist',
+          component: ExamTypeList
+        },
+        {
+          path: '/contesttypecreate',
+          component: ContestTypeCreate
+        },
+        {
+          path: '/contesttypeedit',
+          component: ContestTypeEdit
+        },
+        {
+          path: '/contesttypelist',
+          component: ContestTypeList
+        },
+        {
+          path: '/contestcreate',
+          component: ContestCreate
+        },
+        {
+          path: '/contestedit',
+          component: ContestEdit
+        },
+        {
+          path: '/contestlist',
+          component: ContestList
+        },
+        {
+          path: '/operationList',
+          component: OperationList
+        },
+        {
+          path: '/rankList',
+          component: RankList
+        }
+        ]
+
+      }, {
+        path: '/coursemanagement',
+        component: CourseManagement,
+        children: [{
+          path: '/graduationlist',
+          component: GraduationList
+        }, {
+          path: '/graduationconfirm',
+          component: GraduationConfirm
+        },
+        {
+          path: '/HistoryList',
+          component: HistoryList
+        },
+        {
+          path: '/courselist',
+          component: CourseList
+        }, {
+          path: '/coursecreate',
+          component: CourseCreate
+        }, {
+          path: '/courseedit',
+          component: CourseEdit
+        }, {
+          path: '/coursetypecreate',
+          component: CourseTypeCreate
+        }, {
+          path: '/coursetypelist',
+          component: CourseTypeList
+        }, {
+          path: '/coursetypeedit',
+          component: CourseTypeEdit
+        }, {
+          path: '/programlist',
+          component: ProgramList
+        }, {
+          path: '/programcreate',
+          component: ProgramCreate
+        }, {
+          path: '/programedit',
+          component: ProgramEdit
+        }, {
+          path: '/paperlist',
+          component: PaperList
+        }, {
+          path: '/paperedit',
+          component: PaperEdit
+        }, {
+          path: '/papercreate',
+          component: PaperCreate
+        }
+
+        ]
+
+      }, {
+        path: '/analyzationmanagement',
+        component: AnalyzationManagement,
+        children: [{
+          path: '/examanalyzation',
+          component: ExamAnalyzation
+        },
+        {
+          path: '/examanalyzationdetail',
+          component: ExamAnalyzationDetail
+        },
+        {
+          path: '/studyanalyzation',
+          component: StudyAnalyzation
+        }, {
+          path: '/studyanalyzationdetail',
+          component: StudyAnalyzationDetail
+        },
+        {
+          path: '/questionaryanalyzationlist',
+          component: QuestionaryAnalyzationList
+        }, {
+          path: '/questionaryanalyzationdetail',
+          component: QuestionaryAnalyzationDetail
+        }
+
+        ]
+      }, {
+        path: './sourcemanagement',
+        component: SourceManagement,
+        children: [{
+          path: '/questioncategorylist',
+          component: QuestionCategoryList
+        },
+        {
+          path: '/questioncategorycreate',
+          component: QuestionCategoryCreate
+        },
+        {
+          path: '/questioncategoryedit',
+          component: QuestionCategoryEdit
+        },
+        {
+          path: '/questioncategorypanel',
+          component: QuestionCategoryPanel
+        },
+        {
+          path: '/questionlist',
+          component: QuestionList
+        },
+        {
+          path: '/questioncreate',
+          component: QuestionCreate
+        },
+        {
+          path: '/questionedit',
+          component: QuestionEdit
+        },
+        {
+          path: '/teacherlist',
+          component: TeacherList
+        },
+        {
+          path: '/teacheredit',
+          component: TeacherEdit
+        },
+        {
+          path: '/teachercreate',
+          component: TeacherCreate
+        },
+        {
+          path: '/newsdetail',
+          component: NewsDetail
+        },
+        {
+          path: '/newsedit',
+          component: NewsEdit
+        },
+        {
+          path: '/newscreate',
+          component: NewsCreate
+        },
+        {
+          path: '/newslist',
+          component: NewsList
+        },
+        {
+          path: '/contestnewsdetail',
+          component: ContestNewsDetail
+        },
+        {
+          path: '/contestnewsedit',
+          component: ContestNewsEdit
+        },
+        {
+          path: '/contestnewscreate',
+          component: ContestNewsCreate
+        },
+        {
+          path: '/contestnewslist',
+          component: ContestNewsList
+        },
+        {
+          path: '/messagedetail',
+          component: MessageDetail
+        },
+        {
+          path: '/messageedit',
+          component: MessageEdit
+        },
+        {
+          path: '/messagecreate',
+          component: MessageCreate
+        },
+        {
+          path: '/messagelist',
+          component: MessageList
+        },
+        {
+          path: '/carouseldetail',
+          component: CarouselDetail
+        },
+        {
+          path: '/carouseledit',
+          component: CarouselEdit
+        },
+        {
+          path: '/carouselcreate',
+          component: CarouselCreate
+        },
+        {
+          path: '/carousellist',
+          component: CarouselList
+        }
+
+        ]
+      }, {
+        path: 'investigationmanagement',
+        component: InvestigationManagement,
+        children: [{
+          path: '/questionarylist',
+          component: QuestionaryList
+        }, {
+          path: '/questionarysortcreate',
+          component: QuestionarySortCreate
+        }, {
+          path: '/questionarysortedit',
+          component: QuestionarySortEdit
+        }, {
+          path: '/inquirylist',
+          component: InquiryList
+        }, {
+          path: '/questionarycreate',
+          component: QuestionaryCreate
+        }]
+      },
+      {
+        path: '/systemmanagement',
+        component: SystemManagement,
+        children: [{
+          path: '/organizationList',
+          component: OrganizationList
+        },
+        {
+          path: '/organizationedit',
+          component: OrganizationEdit
+        },
+        {
+          path: '/organizationcreate',
+          component: OrganizationCreate
+        },
+        {
+          path: '/functionlist',
+          component: FunctionList
+        },
+        {
+          path: '/functionedit',
+          component: FunctionEdit
+        },
+        {
+          path: '/functioncreate',
+          component: FunctionCreate
+        },
+        {
+          path: '/rolelist',
+          component: RoleList
+        },
+        {
+          path: '/roleedit',
+          component: RoleEdit
+        },
+        {
+          path: '/rolecreate',
+          component: RoleCreate
+        },
+        {
+          path: '/loglist',
+          component: LogList
+        },
+        {
+          path: '/dictionarytypelist',
+          component: DictionaryTypeList
+        },
+        {
+          path: '/dictionarytypeedit',
+          component: DictionaryTypeEdit
+        },
+        {
+          path: '/dictionarytypecreate',
+          component: DictionaryTypeCreate
+        },
+        {
+          path: '/dictionarytypepanel',
+          component: DictionaryTypePanel
+        }, {
+          path: '/dictionarylist',
+          component: DictionaryList
+        }, {
+          path: '/dictionaryedit',
+          component: DictionaryEdit
+        }, {
+          path: '/dictionarycreate',
+          component: DictionaryCreate
+        }, {
+          path: '/questiontypelist',
+          component: QuestionTypeList
+        }, {
+          path: '/questiontypecreate',
+          component: QuestionTypeCreate
+        }, {
+          path: '/questiontypeedit',
+          component: QuestionTypeEdit
+        },
+        {
+          path: '/uploadquestion',
+          component: UploadQuestion
+        }, {
+          path: '/themelist',
+          component: ThemeList
+        }, {
+          path: '/themeedit',
+          component: ThemeEdit
+        }, {
+          path: '/themecreate',
+          component: ThemeCreate
+        }
+
+        ]
+
+      }
 
       ]
     }

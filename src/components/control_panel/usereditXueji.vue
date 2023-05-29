@@ -314,12 +314,12 @@ export default {
     } else {
       this.isedit = false
       this.userdetail = this.$route.query.detailrow
-      if (this.userdetail.flag == 1) {
+      if (this.userdetail.flag === 1) {
         this.userdetail.flag = '1'
-      } else if (this.userdetail.flag == 0) {
+      } else if (this.userdetail.flag === 0) {
         this.userdetail.flag = '0'
       }
-      if (this.userdetail.completeType == '学籍证明') {
+      if (this.userdetail.completeType === '学籍证明') {
         this.userdetail.completeType = 1
       } else {
         this.userdetail.completeType = 2
@@ -387,21 +387,21 @@ this.tobookId()
     // 	this.twin.organizationName = e.organizationName
     // },
     modifyDetail(item) {
-      if (this.userdetail.userCover == undefined) {
+      if (this.userdetail.userCover === undefined) {
         this.$message({
           message: '请先上传头像',
           type: 'warning'
         })
         return
       }
-      if (this.userdetail.completeType == undefined) {
+      if (this.userdetail.completeType === undefined) {
         this.$message({
           message: '请先选择类型',
           type: 'warning'
         })
         return
       } else {
-        if (this.userdetail.completeType == 1) {
+        if (this.userdetail.completeType === 1) {
           this.userdetail.completeType = '学籍证明'
         } else {
           this.userdetail.completeType = '竞赛证书'
@@ -409,7 +409,7 @@ this.tobookId()
       }
 
       // startTime
-      if (this.userdetail.startTime != undefined) {
+      if (this.userdetail.startTime !== undefined) {
         this.userdetail.startTime = this.formatDateTime(this.userdetail.startTime)
       } else {
         this.$message({
@@ -419,21 +419,21 @@ this.tobookId()
         return
       } 
       
-      if (this.userdetail.courseName == undefined || this.userdetail.courseName == '') {
+      if (this.userdetail.courseName === undefined || this.userdetail.courseName === '') {
         this.$message({
           message: '请填写培训项目',
           type: 'warning'
         })
         return
       }
-      if (this.userdetail.bookId == undefined || this.userdetail.bookId == '') {
+      if (this.userdetail.bookId === undefined || this.userdetail.bookId === '') {
         this.$message({
           message: '请先生成编号',
           type: 'warning'
         })
         return
       }
-      if (this.userdetail.flag == undefined) {
+      if (this.userdetail.flag === undefined) {
         this.$message({
           message: '请先选择是否显示',
           type: 'warning'

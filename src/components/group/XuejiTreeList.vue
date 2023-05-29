@@ -12,20 +12,29 @@
             <el-row>
               <el-col :span="5">
                 <el-form-item label="学员名称">
-                  <el-input v-model="queryInfo.name" placeholder="分组名称"></el-input>
-
+                  <el-input
+                    v-model="queryInfo.name"
+                    placeholder="分组名称"
+                  ></el-input>
                 </el-form-item>
-
               </el-col>
               <el-col :span="5">
-              <el-form-item label="是否显示">
-                <el-select v-model="queryInfo.flag" placeholder="请选择">
-                  <el-option v-for="item in flag" :key="item.value" :label="item.label" :value="item.value">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-              <el-button style="float: right;" icon="el-icon-arrow-left" @click="$router.go(-1)"
+                <el-form-item label="是否显示">
+                  <el-select v-model="queryInfo.flag" placeholder="请选择">
+                    <el-option
+                      v-for="item in flag"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    >
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+              <el-button
+                style="float: right;"
+                icon="el-icon-arrow-left"
+                @click="$router.go(-1)"
                 >返回</el-button
               >
             </el-row>
@@ -45,46 +54,99 @@
               type="primary"
               >重置</el-button
             >
-            <el-button @click="searchAll()"
-                >查询全部列表</el-button
-              >
+            <el-button @click="searchAll()">查询全部列表</el-button>
             <el-button @click="exportExcel()"
-                >点击导出当前列表的excel</el-button
-              >
+              >点击导出当前列表的excel</el-button
+            >
           </el-col>
         </el-row>
       </div>
       <div>
         <el-container>
           <el-main class="list_body">
-            <el-table height=" calc(100vh - 350px) " ref="multipleTable" :data="tableData" tooltip-effect="dark" id="out-table"
-              style="width: 100%" @selection-change="handleSelectionChange">
-              <el-table-column type="selection" width="55">
+            <el-table
+              height=" calc(100vh - 350px) "
+              ref="multipleTable"
+              :data="tableData"
+              tooltip-effect="dark"
+              id="out-table"
+              style="width: 100%"
+              @selection-change="handleSelectionChange"
+            >
+              <el-table-column type="selection" width="55" align="center">
               </el-table-column>
-              <el-table-column prop="userId" label="序号" width="120">
+              <el-table-column
+                prop="userId"
+                label="序号"
+                width="120"
+                align="center"
+              >
               </el-table-column>
-              <el-table-column prop="flag" label="状态" width="120">
-                <template slot-scope="scope">{{ scope.row.flag | transfermState }}</template>
+              <el-table-column
+                prop="flag"
+                label="状态"
+                width="120"
+                align="center"
+              >
+                <template slot-scope="scope">{{
+                  scope.row.flag | transformState
+                }}</template>
               </el-table-column>
-              <el-table-column prop="jobNumber" label="工号" width="120">
+              <el-table-column
+                prop="jobNumber"
+                label="工号"
+                width="120"
+                align="center"
+              >
               </el-table-column>
-              
-              <el-table-column prop="name" label="姓名" width="120">
+
+              <el-table-column
+                prop="name"
+                label="姓名"
+                width="140"
+                align="center"
+              >
               </el-table-column>
-             
-              <el-table-column fixed="right" label="操作" width="180" class="rightstyle">
+
+              <el-table-column
+                fixed="right"
+                label="操作"
+                width="180"
+                class="rightstyle"
+                align="center"
+              >
                 <template slot-scope="scope">
                   <!-- <el-button @click="findDetail(scope.row)" type="text" size="small">查看</el-button> -->
                   <!-- <el-button @click="editDetail(scope.row)" type="text" size="small">编辑</el-button>-->
-                  
-                  <el-button @click="toeditXueji(scope.row)" type="text" size="small">修改</el-button>
-                  <el-button  @click="deleteUser(scope.row)" type="text" size="small">删除</el-button> 
+                  <el-button
+                    @click="findLearnFn(scope.row)"
+                    type="text"
+                    size="small"
+                    >学籍查询</el-button
+                  >
+                  <el-button
+                    @click="toeditXueji(scope.row)"
+                    type="text"
+                    size="small"
+                    >修改</el-button
+                  >
+                  <el-button
+                    @click="deleteUser(scope.row)"
+                    type="text"
+                    size="small"
+                    >删除</el-button
+                  >
                 </template>
               </el-table-column>
             </el-table>
 
-            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-              :page-size="queryInfo.rows" layout="total, prev, pager, next, jumper" :total="total">
+            <el-pagination
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange"
+              :page-size="queryInfo.rows"
+              layout="total, prev, pager, next, jumper"
+              :total="total"
+            >
             </el-pagination>
           </el-main>
         </el-container>
@@ -110,15 +172,16 @@ export default {
       },
       total: 0,
       tableData: [],
-      flag: [{
-            value: '1',
-            label: '显示'
-          },
-          {
-            value: '0',
-            label: '隐藏'
-          }
-        ]
+      flag: [
+        {
+          value: '1',
+          label: '显示'
+        },
+        {
+          value: '0',
+          label: '隐藏'
+        }
+      ]
     }
   },
   created() {},
@@ -126,19 +189,27 @@ export default {
     this.getdata()
   },
   filters: {
-      transfermState: function(state) {
-        if (state === 1) return '显示'
-        else return '隐藏'
-      }
-    
-    },
+    transformState: function(state) {
+      if (state === 1) return '显示'
+      else return '隐藏'
+    }
+  },
   methods: {
+    //查询学籍
+    findLearnFn(row) {
+      this.$router.push({
+        path: '/UserDetailXueji',
+        query: {
+          row: row
+        }
+      })
+    },
     searchAll() {
-        this.queryInfo.rows = this.total
-        this.getdata()
-      },
-     // 定义导出Excel表格事件
-     exportExcel() {
+      this.queryInfo.rows = this.total
+      this.getdata()
+    },
+    // 定义导出Excel表格事件
+    exportExcel() {
       /* 从表生成工作簿对象 */
       let wb = XLSX.utils.table_to_book(document.querySelector('#out-table'))
       /* 获取二进制字符串作为输出 */
@@ -169,7 +240,7 @@ export default {
         page: 1,
         rows: 10
       }
-this.getdata()
+      this.getdata()
     },
     async searchGroup() {
       const { data: res } = await this.$http.post(
@@ -207,41 +278,38 @@ this.getdata()
         this.total = res.count
       }
     },
-     // 编辑
-     toeditXueji(item) {
+    // 编辑
+    toeditXueji(item) {
       this.$router.push({
-          path: '/usereditXueji',
-          query: {
-            detailrow: item
-          }
-        })
+        path: '/usereditXueji',
+        query: {
+          detailrow: item
+        }
+      })
     },
     // 删除
-   
+
     deleteUser(item) {
       let uId = { uId: item.uId }
-      const { data: res } = this.$http.post(
-        '/learn/complete/del',
-        uId
-      )
+      const { data: res } = this.$http.post('/learn/complete/del', uId)
       this.$forceUpdate()
-      this.getdata() 
-      
+      this.getdata()
+
       console.log(res)
     },
     handleSelectionChange(val) {
-        this.multipleSelection = val
-      },
-      // 监听rows改变的事件
-      handleSizeChange(newSize) {
-        this.queryInfo.rows = newSize
-        this.getdata()
-      },
-      // 监听页码值改变的事件
-      handleCurrentChange(newPage) {
-        this.queryInfo.page = newPage
-        this.getdata()
-      }
+      this.multipleSelection = val
+    },
+    // 监听rows改变的事件
+    handleSizeChange(newSize) {
+      this.queryInfo.rows = newSize
+      this.getdata()
+    },
+    // 监听页码值改变的事件
+    handleCurrentChange(newPage) {
+      this.queryInfo.page = newPage
+      this.getdata()
+    }
   }
 }
 </script>

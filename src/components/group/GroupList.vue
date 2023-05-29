@@ -232,15 +232,15 @@
 			}
 		},
 		filters: {
-			transfermState: function(state) {
-				if (state == '0') {
+			transformState: function(state) {
+				if (state === '0') {
 					return '未发布'
 				} else {
 					return '已发布'
 				}
 			},
-			truncateDate: function(date) {
-				if (date != null) {
+			transformDate: function(date) {
+				if (date !== null) {
 					return date.split('T')[0]
 				}
 			}

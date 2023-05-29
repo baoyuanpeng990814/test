@@ -1,10 +1,6 @@
 <template>
   <div class="full_screen mt15">
-
-
-
     <el-card class="box-card">
-
       <div class="text item">
         <div class="finish_item">
           <span class="orange_bar">结业条件</span>
@@ -21,52 +17,47 @@
               <div>100%</div>
               <div>恭喜你已经完成</div>
             </div>
-
           </div>
-
         </div>
       </div>
     </el-card>
-
-
   </div>
 </template>
 
-<script> //结业申请框
-  export default {
-    name: "ApplyFinish",
-    props: {
-      courseId: "",
-      once : Boolean
-    },
-    data(){
-      return{
-
-      }
+<script>
+// 结业申请框
+export default {
+  name: 'ApplyFinish',
+  props: {
+    courseId: String,
+    once: Boolean
+  },
+  data() {
+    return {
+      courId: ''
     }
-    ,
-    mounted() {
+  },
+  created() {
+    this.courId = this.courseId
+    if (!this.once) {
+      this.graduation()
+    }
+  },
 
-      if(!this.once){
-        this.graduation()
-      }
-
-    },
-    methods: {
-      async graduation() {
-        const {
-          data: res
-        } = await this.$http.get("/learn/myLearn/graduation?courseId="+this.courseId)
-        if (res.state !== 200) {
-          return this.$message.error(res.msg)
-        } else {
-          this.$message.success("结业申请已发送")
-          this.$emit("getOnce",true)
-        }
+  methods: {
+    async graduation() {
+      const { data: res } = await this.$http.get(
+        '/learn/myLearn/graduation?courseId=' + this.courId
+      )
+      if (res.state !== 200) {
+        return this.$message.error(res.msg)
+      } else {
+        this.$message.success('结业申请已发送')
+        this.$emit('getOnce', true)
       }
     }
   }
+}
 </script>
 
-<style>
-</style>
+<style></style>

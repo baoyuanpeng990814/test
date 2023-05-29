@@ -1,12 +1,10 @@
 <template>
   <div id="login_container">
-    <div class="login_top">
-      <img src="../images/banner.png" alt="" />
-    </div>
     <div class="login_body">
       <div class="login_middle">
         <!-- <img src="../images/bg.png" alt=""> -->
         <div class="login_box">
+          <img src="../images/banner.png" alt="" />
           <p class="login">
             <el-tabs v-model="activeName" @tab-click="handleClick">
               <el-tab-pane label="登录" name="first">
@@ -27,8 +25,13 @@
                       type="password"
                     ></el-input
                   ></el-form-item>
-                  <el-form-item>
-                    <el-button type="primary" @click="login">登录</el-button>
+                  <el-form-item style="margin-left: 70px;">
+                    <el-button
+                      type="primary"
+                      @click="login('loginFormRef')"
+                      @keyup.enter.native="handleLoginFn('loginFormRef')"
+                      >登录</el-button
+                    >
                     <el-button @click="resetForm('loginFormRef')"
                       >重置</el-button
                     >
@@ -61,39 +64,52 @@ export default {
         password: '' // 123456
       },
       showControlPanel: false,
-      loginFromRules: { // 验证规则对象
+      loginFromRules: {
+        // 验证规则对象
         // 验证用户名是否合法
-        userName: [// 必填项       提示消息                鼠标失去焦点触发trigger
+        userName: [
+          // 必填项       提示消息                鼠标失去焦点触发trigger
           { required: true, message: '请输入正确的账号', trigger: 'blur' },
-          { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }
+          { min: 2, max: 16, message: '长度在 2 到 16 个字符', trigger: 'blur' }
           // 长度 2~5的区间   提示消息               鼠标失去焦点
         ],
         // 验证密码是否合法
-        password: [ // 鼠标失去焦点触发trigger
+        password: [
+          // 鼠标失去焦点触发trigger
           { required: true, message: '请输入正确的密码', trigger: 'blur' },
           { min: 6, max: 12, message: '长度在 6 到 12 个字符', trigger: 'blur' }
         ]
       },
-      handleClick(tab, event) { },
+      handleClick(tab, event) {},
       activeName: 'first',
       userinfo: {}
     }
   },
   created() {
+    const that = this
+    document.addEventListener('keydown', that.handleLoginFn)
   },
   methods: {
-    login() {
+    handleLoginFn(e) {
+      let key = window.event ? e.keyCode : e.which
+      if (key === 13) {
+        this.login('loginFormRef')
+      }
+    },
+    login(formName) {
       // 先通过ref来获取 账号密码，通过validate属性进行校验如果 ！valid取反没有值就不发起请求直接return出来，否则 通过常量来保存通过axios从后台获取的请求，conslole之后返回的值是一个promise，就可以通过async await来执行异步操作，得出来的Data值为真实的值，通过data.meta.status来进行判断，如果状态码 ！==200 的话 弹出登录失败，否则登录成功
-      this.$refs.loginFormRef.validate(async valid => {
+      this.$refs[formName].validate(async valid => {
         if (!valid) {
-          return valid
-        } else { // this直接访问到http           //地址    形参
-          const reasut = await this.$http.post('/learn/user/login', this.loginForm)
-          //  console.log(reasut)
+          return false
+        } else {
+          // this直接访问到http           //地址    形参
+          const reasut = await this.$http.post(
+            '/learn/user/login',
+            this.loginForm
+          )
           if (reasut.data.state !== 200) {
             return this.$message.error('登录失败')
           } else {
-            this.$message.success('登录成功')
             // 1.将登录成功之后的 token,保存到客户端的 sessionStorage中
             // 1.1项目中除了登录之外的其他API接口，必须在登录之后才能访问
             // 1.2 token 值应在当前网站打开期间生效，所以将 token保存在 sessionStorage中
@@ -107,7 +123,10 @@ export default {
             // document.cookie = 'UserInfo=' + JSON.stringify(res.luser)
             this.setCookie('UserInfo', JSON.stringify(res.luser))
             // console.log(this.$store.getters.userinfo)
-            this.$store.commit('updateUserInfo', JSON.parse(this.getCookie('UserInfo')))
+            this.$store.commit(
+              'updateUserInfo',
+              JSON.parse(this.getCookie('UserInfo'))
+            )
             this.userinfo = this.$store.getters.userinfo
             this.getMenu()
           }
@@ -119,31 +138,39 @@ export default {
       var Days = 30
       var exp = new Date()
       exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 30)
-      document.cookie = name + '=' + escape(value) + ';expires=' + exp.toGMTString()
+      document.cookie =
+        name + '=' + escape(value) + ';expires=' + exp.toGMTString()
     },
 
     getCookie(name) {
       var arr = []
       var reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)')
       // eslint-disable-next-line no-cond-assign
-      if (arr = document.cookie.match(reg)) { return unescape(arr[2]) } else { return null }
+      if ((arr = document.cookie.match(reg))) {
+        return unescape(arr[2])
+      } else {
+        return null
+      }
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()
     },
     async getMenu() {
-      const {
-        data: res
-      } = await this.$http.get('/manager/item/tree?roleId=' + this.userinfo.roleId)
+      const { data: res } = await this.$http.get(
+        '/manager/item/tree?roleId=' + this.userinfo.roleId
+      )
       if (res.state !== 200) {
         return this.$message.error('没有权限！')
       } else {
+        let arr = res.data
+        this.$store.commit('updateRole', arr)
+        this.$message.success('登录成功')
         this.showControlPanel = res.data.length > 0
+
         this.$router.push('/userlist')
         this.$forceUpdate()
       }
     }
-
   }
 }
 </script>
@@ -151,32 +178,23 @@ export default {
 <style lang="less" scoped>
 //控制生效的区间 组件内/全局
 #login_container {
+  position: relative;
   //最大DIV
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
 }
-.login_top {
-  width: 100%;
-  height: 11%;
-  text-align: center;
-}
-.login_top > img {
-  padding: 25px;
-  width: 320px;
-}
 .login_body {
-  background-image: url(../images/bg.jpg);
+  background-image: url(../images/loginbg.png);
   background-repeat: no-repeat;
-  background-size: 100% 565px;
-  min-height: 540px;
+  background-size: 100% 100%;
+  min-height: 96.9vh;
   padding-top: 30px;
 }
 .login_middle {
   width: 100%;
   height: 78%;
-
   display: flex;
 }
 .login_lower {
@@ -184,6 +202,7 @@ export default {
   height: 11%;
 }
 .login_box {
+  position: relative;
   //登录注册框
   width: 470px;
   //height: 330px;
@@ -193,10 +212,15 @@ export default {
   border: 1px solid rgba(0, 0, 0, 0.04);
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.04);
   align-self: center; //页面居中
-  margin: 0 auto;
+  margin: 235px auto;
   align-items: center;
   font-size: 20px;
   // display: flex;
+}
+.login_box img {
+  position: absolute;
+  top: -73px;
+  left: 90px;
 }
 .login {
   width: 400px;

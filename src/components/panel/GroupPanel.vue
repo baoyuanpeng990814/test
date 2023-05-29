@@ -80,7 +80,7 @@ export default {
   },
   watch: {
     showDialog: function(val) {
-      if (val == false) this.$emit('turnOff', false)
+      if (val === false) this.$emit('turnOff', false)
     },
     show: function(val) {
       this.showDialog = val

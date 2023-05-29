@@ -70,16 +70,12 @@
       this.userinfo = this.$store.getters.userinfo      
       this.getMenu()
     },
-    beforeDestroy() {
-
-    },
     methods: {
       async getMenu() {
         const {
           data: res
         } = await this.$http.get('/manager/item/tree?roleId=' + this.userinfo.roleId)
         if (res.state !== 200) {
-          // return this.$message.error('数据获取失败！')
         } else {
           this.showControlPanel = res.data.length > 0
           this.$forceUpdate()
@@ -89,10 +85,10 @@
         document.cookie = "{'state':false}"
       },
       chooseSection(e) {
-        if (e == 'exit') {
+        if (e === 'exit') {
           this.touch()
         } else {
-          if (e == 'userlist') {
+          if (e === 'userlist') {
             // this.$router.push('/userlist')
             let {
               href

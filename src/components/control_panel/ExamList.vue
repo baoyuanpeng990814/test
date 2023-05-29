@@ -14,6 +14,7 @@
             <el-col :span="5">
               <el-form-item label="考次名称">
                 <el-input
+                  style="width: 100%"
                   v-model="queryInfo.examName"
                   placeholder="考次名称"
                 ></el-input>
@@ -22,6 +23,7 @@
             <el-col :span="5">
               <el-form-item label="发布状态">
                 <el-select
+                  style="width: 80%"
                   v-model="queryInfo.releaseState"
                   placeholder="请选择"
                 >
@@ -30,33 +32,31 @@
                 </el-select>
               </el-form-item>
             </el-col>
+            <el-col :span="14">
+              <el-button
+                icon="el-icon-search"
+                @click="getDataList"
+                type="primary"
+                >查询</el-button
+              >
+              <el-button
+                icon="el-icon-refresh-right"
+                @click="reset"
+                type="primary"
+                >重置</el-button
+              >
+              <el-button icon="el-icon-plus" @click="addData" type="primary"
+                >添加考次</el-button
+              >
+              <el-button icon="el-icon-plus" @click="publish" type="primary"
+                >发布考次</el-button
+              >
+            </el-col>
           </el-form>
-          <el-col :span="11">
-            <el-button icon="el-icon-search" @click="getDataList" type="primary"
-              >查询</el-button
-            >
-            <el-button
-              icon="el-icon-refresh-right"
-              @click="reset"
-              type="primary"
-              >重置</el-button
-            >
-            <el-button icon="el-icon-plus" @click="addData" type="primary"
-              >添加考次</el-button
-            >
-            <el-button icon="el-icon-plus" @click="publish" type="primary"
-              >发布考次</el-button
-            >
-          </el-col>
         </el-row>
-        <div class="space"></div>
-        <el-row class="buttons">
-          <el-col :span="24" :offset="0">
-            <!--  <el-button icon="el-icon-plus" @click="addNode" type="primary">添加子分类</el-button>
+        <!--  <el-button icon="el-icon-plus" @click="addNode" type="primary">添加子分类</el-button>
            <el-button icon="el-icon-edit-outline" @click="editNode" type="primary">修改分类</el-button>
             <el-button icon="el-icon-delete" @click="delNode = true" type="primary">删除分类</el-button> -->
-          </el-col>
-        </el-row>
       </div>
       <div>
         <el-container>
@@ -81,31 +81,48 @@
               @selection-change="handleSelectionChange"
             >
               <el-table-column type="selection" width="55"> </el-table-column>
-              <el-table-column prop="examId" label="序号"> </el-table-column>
-              <el-table-column prop="examName" label="考次名称">
+              <el-table-column prop="examId" label="序号" align="center">
               </el-table-column>
-              <el-table-column prop="examCode" label="考次编号">
+              <el-table-column prop="examName" label="考次名称" align="center">
               </el-table-column>
-              <el-table-column prop="totalPoints" label="试卷总分">
+              <el-table-column prop="examCode" label="考次编号" align="center">
               </el-table-column>
-              <el-table-column prop="passingMark" label="及格分数">
+              <el-table-column
+                prop="totalPoints"
+                label="试卷总分"
+                align="center"
+              >
               </el-table-column>
-              <el-table-column prop="releaseState" label="发布状态">
+              <el-table-column
+                prop="passingMark"
+                label="及格分数"
+                align="center"
+              >
+              </el-table-column>
+              <el-table-column
+                prop="releaseState"
+                label="发布状态"
+                align="center"
+              >
                 <template slot-scope="scope">{{
-                  scope.row.releaseState | transfermState
+                  scope.row.releaseState | transformState
                 }}</template>
               </el-table-column>
-              <el-table-column prop="type" label="考试类型">
+              <el-table-column prop="type" label="考试类型" align="center">
                 <template slot-scope="scope">{{
-                  scope.row.type | transfermType
+                  scope.row.type | transformType
                 }}</template>
               </el-table-column>
-              <el-table-column prop="releaseState" label="允许查看">
+              <el-table-column
+                prop="releaseState"
+                label="允许查看"
+                align="center"
+              >
                 <template slot-scope="scope">{{
                   scope.row.isExaminee | fransfermView
                 }}</template>
               </el-table-column>
-              <el-table-column fixed="right" label="操作">
+              <el-table-column fixed="right" label="操作" align="center">
                 <template slot-scope="scope">
                   <el-button
                     @click="editDetail(scope.row)"
@@ -114,6 +131,7 @@
                     >编辑</el-button
                   >
                   <el-button
+                    class="red"
                     @click="deleteOrganization(scope.row)"
                     type="text"
                     size="small"
@@ -136,6 +154,7 @@
               :page-size="queryInfo.rows"
               layout="total, prev, pager, next, jumper"
               :total="total"
+              :current-page="+queryInfo.page"
             >
             </el-pagination>
           </el-main>
@@ -162,36 +181,49 @@
         <el-container>
           <el-aside width="200px">
             <div class="question-num">
-              <div v-if="radionQuestions">
+              <div v-if="radioQuestions">
                 <div class="page-title">一、单选题</div>
                 <a
-                  v-for="(list, index) in radionQuestions"
+                  v-for="(list, index) in radioQuestions"
                   :key="index"
                   @click="Submitid('qid' + list.questionsId)"
                   >{{ index + 1 }}</a
                 >
                 <div class="clearfix"></div>
               </div>
-              <div v-if="judgeQuestions"></div>
-              <div class="page-title">二、判断题</div>
-              <a
-                v-for="(list, index) in judgeQuestions"
-                :key="index"
-                @click="Submitid('qid' + list.questionsId)"
-                >{{ index + 1 }}</a
-              >
-              <div class="clearfix"></div>
+              <div v-if="judgeQuestions">
+                <div class="page-title">二、判断题</div>
+                <a
+                  v-for="(list, index) in judgeQuestions"
+                  :key="index"
+                  @click="Submitid('qid' + list.questionsId)"
+                  >{{ index + 1 }}</a
+                >
+                <div class="clearfix"></div>
+              </div>
+              <div v-if="mulChoQuestions.length !== 0">
+                <!-- 多选题 -->
+                <div class="page-title">三、多选题</div>
+                <a
+                  v-for="(list, index) in mulChoQuestions"
+                  :key="index"
+                  @click="Submitid('qid' + list.questionsId)"
+                  >{{ index + 1 }}</a
+                >
+                <div class="clearfix"></div>
+              </div>
             </div>
           </el-aside>
           <el-main>
             <vuescroll :ops="ops" ref="vs">
               <div class="question-lists" ref="qlist">
-                <div v-if="radionQuestions">
+                <!-- 单选题 -->
+                <div v-if="radioQuestions">
                   <div class="question-list">
                     <div class="title">第一部分： 单选题</div>
                     <div class="questions">
                       <div
-                        v-for="(list, index) in radionQuestions"
+                        v-for="(list, index) in radioQuestions"
                         :key="index"
                         :id="'qid' + list.questionsId"
                         class="questionsDetails"
@@ -219,6 +251,7 @@
                     </div>
                   </div>
                 </div>
+                <!-- 判断题 -->
                 <div v-if="judgeQuestions">
                   <div class="question-list">
                     <div class="title">第二部分： 判断题</div>
@@ -243,6 +276,40 @@
                               >{{ val.optionContent | htmlReg }}
                             </el-radio>
                           </el-radio-group>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- 多选题 -->
+                <div v-if="mulChoQuestions.length !== 0">
+                  <div class="question-list">
+                    <div class="title">第三部分： 多选题</div>
+                    <div class="questions">
+                      <div
+                        v-for="(list, index) in mulChoQuestions"
+                        :key="index"
+                        :id="'qid' + list.questionsId"
+                        class="questionsDetails"
+                      >
+                        <div class="tit">
+                          第{{ index + 1 }}题、{{
+                            list.questionsContent | htmlReg
+                          }}
+                        </div>
+                        <div class="options">
+                          <el-checkbox-group v-model="list.questionsAnswer">
+                            <el-checkbox
+                              v-for="(val, idx) in list.lOptionList"
+                              :key="idx"
+                              :label="val.optionNum"
+                              ><span
+                                >{{ val.optionNum }}、{{
+                                  val.optionContent | htmlReg
+                                }}</span
+                              >
+                            </el-checkbox>
+                          </el-checkbox-group>
                         </div>
                       </div>
                     </div>
@@ -293,10 +360,12 @@ export default {
       },
       idx: 0,
       exam: [],
-      radionQuestions: [],
+      radioQuestions: [],
       judgeQuestions: [],
+      mulChoQuestions: [],
       transQuestions: {},
       transQuestions2: {},
+      transQuestions3: {},
       delNode: false,
       supposeDelete: {},
       dialogVisible: false,
@@ -322,6 +391,10 @@ export default {
     vuescroll
   },
   created() {
+    let currentExamPage = sessionStorage.getItem('currentExamPage')
+    if (currentExamPage != null) {
+      this.queryInfo.page = Number(currentExamPage)
+    }
     this.getDataTree()
     this.getDataList()
   },
@@ -331,7 +404,7 @@ export default {
       const _this = this
       _this.integration()
       _this.idx = 0
-      JSZipUtils.getBinaryContent('tempa.docx', function (error, content) {
+      JSZipUtils.getBinaryContent('tempa.docx', function(error, content) {
         // 抛出异常
         if (error) {
           throw error
@@ -341,7 +414,6 @@ export default {
         // 创建并加载docxtemplater实例对象
         let doc = new Docxtemplater().loadZip(zip)
         // 设置模板变量的值
-        console.log(_this.exam.examName)
         doc.setData({
           question: _this.transQuestions,
           question2: _this.transQuestions2,
@@ -376,27 +448,39 @@ export default {
     integration() {
       const that = this
       that.transQuestions2 = that.judgeQuestions
-      that.transQuestions = that.radionQuestions
+      that.transQuestions = that.radioQuestions
       for (const key in that.transQuestions) {
         that.idx++
         that.transQuestions[key].index = Number(key) + 1
         that.transQuestions[key].questionsContent = that.transQuestions[key].questionsContent.replace(/<[^>]+>/g, '')
-        that.transQuestions[key].questionsContent = that.transQuestions[key].questionsContent.replace(/&nbsp;/ig, '')
+        that.transQuestions[key].questionsContent = that.transQuestions[key].questionsContent.replace(/&nbsp;/gi, '')
         let tempA = that.transQuestions[key].lOptionList
         for (const i in tempA) {
-          tempA[i].optionContent = tempA[i].optionContent.replace(/<[^>]+>/g, '')
-          tempA[i].optionContent = tempA[i].optionContent.replace(/&nbsp;/ig, '')
+          tempA[i].optionContent = tempA[i].optionContent.replace(
+            /<[^>]+>/g,
+            ''
+          )
+          tempA[i].optionContent = tempA[i].optionContent.replace(
+            /&nbsp;/gi,
+            ''
+          )
         }
       }
       for (const key in that.transQuestions2) {
         that.transQuestions2[key].index = that.idx + Number(key) + 1
         // that.transQuestions2[key].questionsAnswer === 'A' ? that.transQuestions2[key].questionsAnswer = '对' : that.transQuestions2[key].questionsAnswer = '错'
         that.transQuestions2[key].questionsContent = that.transQuestions2[key].questionsContent.replace(/<[^>]+>/g, '')
-        that.transQuestions2[key].questionsContent = that.transQuestions2[key].questionsContent.replace(/&nbsp;/ig, '')
+        that.transQuestions2[key].questionsContent = that.transQuestions2[key].questionsContent.replace(/&nbsp;/gi, '')
         let tempA = that.transQuestions2[key].lOptionList
         for (const i in tempA) {
-          tempA[i].optionContent = tempA[i].optionContent.replace(/<[^>]+>/g, '')
-          tempA[i].optionContent = tempA[i].optionContent.replace(/&nbsp;/ig, '')
+          tempA[i].optionContent = tempA[i].optionContent.replace(
+            /<[^>]+>/g,
+            ''
+          )
+          tempA[i].optionContent = tempA[i].optionContent.replace(
+            /&nbsp;/gi,
+            ''
+          )
           // tempA[i].optionNum === 'A' ? tempA[i].optionNum = '对' : tempA[i].optionNum = '错'
         }
       }
@@ -406,11 +490,7 @@ export default {
       // 获取点击的按钮对应页面的id
       // console.log(key)
       const vs = this.$refs['vs']
-      vs.scrollIntoView(
-        '#' + key,
-        500,
-        'easeInQuad'
-      )
+      vs.scrollIntoView('#' + key, 500, 'easeInQuad')
     },
     // 显示试卷
     showPapers(row) {
@@ -418,13 +498,11 @@ export default {
         this.showPaper = !this.showPaper
       } else {
         this.showPaper = !this.showPaper
-        // console.log(row)
         this.getPaper(row.examId)
       }
     },
     /* 生成考试习题 */
     publish() {
-      console.log(this.multipleSelection)
       for (var i = 0; i < this.multipleSelection.length; i++) {
         // if (this.multipleSelection[i].releaseState == "0") {
         this.releaseExam(this.multipleSelection[i])
@@ -433,10 +511,9 @@ export default {
       // this.releaseExam(this.multipleSelection[0])
     },
     async releaseExam(e) {
-      const {
-        data: res
-      } = await this.$http.get('/manager/exam/release?id=' + e.examId +
-        '&releaseState=1&examFile=1')
+      const { data: res } = await this.$http.get(
+        '/manager/exam/release?id=' + e.examId + '&releaseState=1&examFile=1'
+      )
       if (res.state !== 200) {
         return this.$message.error('操作失败！')
       } else {
@@ -444,9 +521,7 @@ export default {
       }
     },
     async confirmDeleteNode() {
-      const {
-        data: res
-      } = await this.$http.post('/manager/esort/del', {
+      const { data: res } = await this.$http.post('/manager/esort/del', {
         examSortId: this.currentNode.examSortId
       })
 
@@ -464,7 +539,6 @@ export default {
       }
     },
     editNode() {
-      console.log(this.currentNode)
       this.$router.push({
         path: '/examtypeedit',
         query: {
@@ -488,20 +562,18 @@ export default {
       this.getDataList()
     },
     async getDataTree() {
-      const {
-        data: res
-      } = await this.$http.get('/manager/esort/tree?id=' + 0)
+      const { data: res } = await this.$http.get('/manager/esort/tree?id=' + 0)
       if (res.state !== 200) {
         return this.$message.error('数据获取失败！')
       } else {
         this.treedata = res.data
-        console.log(this.treedata)
       }
     },
     async getDataList() {
-      const {
-        data: res
-      } = await this.$http.post('/manager/exam/list', this.queryInfo)
+      const { data: res } = await this.$http.post(
+        '/manager/exam/list',
+        this.queryInfo
+      )
       if (res.state !== 200) {
         this.total = 0
         this.tableData = []
@@ -510,12 +582,23 @@ export default {
         this.tableData = res.data
       }
     },
-    async getPaper(row) { // 获取试卷
-      const {
-        data: res
-      } = await this.$http.get('/learn/myexam/getExamPaper?examId=' + row)
-      this.radionQuestions = res.data.examQuestions.radio
+    async getPaper(row) {
+      this.mulChoQuestions = []
+      // 获取试卷
+      const { data: res } = await this.$http.get(
+        '/learn/myexam/getExamPaper?examId=' + row
+      )
+      this.radioQuestions = res.data.examQuestions.radio
       this.judgeQuestions = res.data.examQuestions.judge
+      // 当试题类型为多选题时
+      if (res.data.examQuestions.check) {
+        let arr = res.data.examQuestions.check
+        arr.forEach(
+          item => (item.questionsAnswer = item.questionsAnswer.split(','))
+        )
+        this.mulChoQuestions = arr
+      }
+
       this.exam = res.data.exam
       // console.log(res)
     },
@@ -527,9 +610,7 @@ export default {
       this.getDataList()
     },
     async RemoveData() {
-      const {
-        data: res
-      } = await this.$http.post('/manager/exam/del', {
+      const { data: res } = await this.$http.post('/manager/exam/del', {
         examId: this.supposeDelete.examId
       })
 
@@ -577,31 +658,32 @@ export default {
     },
     // 监听页码值改变的事件
     handleCurrentChange(newPage) {
+      sessionStorage.setItem('currentExamPage', newPage)
       this.queryInfo.page = newPage
       this.getDataList()
     }
   },
   filters: {
-    truncateDate: function (date) {
+    transformDate: function(date) {
       if (date != null) {
         return date.split('T')[0]
       }
     },
-    transfermState: function (state) {
-      if (state == '1') return '已发布'
+    transformState: function(state) {
+      if (state === '1') return '已发布'
       else return '未发布'
     },
-    transfermType: function (state) {
-      if (state == '1') return '考试'
+    transformType: function(state) {
+      if (state === '1') return '考试'
       else return '练习'
     },
-    fransfermView: function (val) {
-      if (val == '1') return '允许'
+    fransfermView: function(val) {
+      if (val === '1') return '允许'
       else return '不允许'
     },
     htmlReg(val) {
       const amsg = val.replace(/<[^>]+>/g, '') // 去除HTML Tag
-      const msg = amsg.replace(/&nbsp;/ig, '')
+      const msg = amsg.replace(/&nbsp;/gi, '')
       return msg
     },
     transformTf(val) {
@@ -696,6 +778,11 @@ export default {
   position: relative;
 }
 .question-list .el-radio {
+  display: block;
+  font-size: 16px;
+  line-height: 24px;
+}
+.question-list .el-checkbox {
   display: block;
   font-size: 16px;
   line-height: 24px;

@@ -15,7 +15,7 @@
     <el-form-item label="邮箱" prop="email">
       <el-input v-model="ruleForm.email"></el-input>
     </el-form-item>
-    <el-form-item>
+    <el-form-item style="margin-left: 70px;">
       <el-button type="primary" @click="submitForm('ruleForm')">注册</el-button>
       <el-button @click="resetForm('ruleForm')">重置</el-button>
     </el-form-item>

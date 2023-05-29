@@ -11,5 +11,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
+h2 {
+  color: #fff;
+}
 </style>

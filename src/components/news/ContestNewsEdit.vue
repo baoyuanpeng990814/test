@@ -310,10 +310,10 @@
       }
     },
     filters: {
-			truncateDate: function(date) {
+			transformDate: function(date) {
 				return date.split('T')[0]
 			},
-      transfermState: function(state) {
+      transformState: function(state) {
         if (state === '1') return '启用'
         else return '禁用'
       },

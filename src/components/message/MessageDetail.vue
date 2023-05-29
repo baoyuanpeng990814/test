@@ -40,7 +40,7 @@
 									消息时间
 								</el-col>
 								<el-col :span="20">
-									{{messagedetail.createTime|truncateDate}}
+									{{messagedetail.createTime|transformDate}}
 								</el-col>
 							</el-row>
 							<el-row>
@@ -48,7 +48,7 @@
 									消息状态
 								</el-col>
 								<el-col :span="20">
-									{{messagedetail.messageState|transfermState }}
+									{{messagedetail.messageState|transformState }}
 								</el-col>
 							</el-row>
 							<el-row>
@@ -80,13 +80,13 @@
 			console.log(this.$route.query.row)
 		},
 		filters: {
-			truncateDate: function(date) {
+			transformDate: function(date) {
 				if (date != null) {
 					return date.split('T')[0]
 				}
 			},
-			transfermState: function(state) {
-				if (state == '1') return '已发布'
+			transformState: function(state) {
+				if (state === '1') return '已发布'
 				else return '未发布'
 			}
 		}

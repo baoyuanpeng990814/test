@@ -9,7 +9,6 @@
     </el-card>
   </el-dialog>
 
-
 </template>
 
 <script>
@@ -34,16 +33,15 @@
       this.getDataTree()
     },
     methods: {
-      /* 获取菜单树*/
+      // 获取菜单树
       async getDataTree() {
         const {
           data: res
-        } = await this.$http.post("/manager/competitionSort/tree")
+        } = await this.$http.post('/manager/competitionSort/tree')
         if (res.state !== 200) {
           return this.$message.error('数据获取失败！')
         } else {
           this.treedata = res.data
-
         }
       },
       handleNodeClick(data) {

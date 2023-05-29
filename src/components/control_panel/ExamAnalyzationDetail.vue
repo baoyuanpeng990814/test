@@ -28,14 +28,14 @@
         </div>
         <div class="detail_lines detail1_lines">
           <el-container>
-            <el-main v-if="showExaminfo" >
-              <el-row   label-position="left" >
+            <el-main v-if="showExaminfo">
+              <el-row label-position="left">
                 <el-col :span="2"> 基本信息 </el-col>
-                <el-col :span="20"   label-position="left" > </el-col>
+                <el-col :span="20" label-position="left"> </el-col>
               </el-row>
-              <el-row >
+              <el-row>
                 <el-col :span="2"> 试卷名称 </el-col>
-                <el-col :span="20"   label-position="left" >
+                <el-col :span="20" label-position="left">
                   {{ examInfo.examName }}
                 </el-col>
               </el-row>
@@ -54,13 +54,13 @@
               <el-row>
                 <el-col :span="2"> 发布时间 </el-col>
                 <el-col :span="20">
-                  {{ examInfo.createTime | transfermDate }}
+                  {{ examInfo.createTime | transformDate }}
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="2"> 失效时间 </el-col>
                 <el-col :span="20">
-                  {{ examInfo.failureTime | transfermDate }}
+                  {{ examInfo.failureTime | transformDate }}
                 </el-col>
               </el-row>
               <el-row>
@@ -105,20 +105,18 @@
 
             <el-main v-if="showStatistic" class="table-tongji">
               <div class="table-left ">
-            
-                  <el-table
-                    height=" calc(100vh - 350px) "
-                    ref="multipleTable"
-                    :data="datatable"
-                    tooltip-effect="dark"
-                    style="width: 100%"
-                  >
-                    <el-table-column prop="score" label="分数段" width="70">
-                    </el-table-column>
-                    <el-table-column prop="num" label="人数" width="60">
-                    </el-table-column>
-                  </el-table>
-                
+                <el-table
+                  height=" calc(100vh - 350px) "
+                  ref="multipleTable"
+                  :data="datatable"
+                  tooltip-effect="dark"
+                  style="width: 100%"
+                >
+                  <el-table-column prop="score" label="分数段" width="70">
+                  </el-table-column>
+                  <el-table-column prop="num" label="人数" width="60">
+                  </el-table-column>
+                </el-table>
               </div>
 
               <div class="statistic_table">
@@ -140,6 +138,7 @@
                     <td>{{ this.chartData.minScores }}</td>
                   </tr>
                 </table>
+
                 <div>
                   <ExamState :data="option"></ExamState>
                 </div>
@@ -162,16 +161,21 @@
                 id="out-table"
               >
                 <!-- @selection-change="handleSelectionChange" -->
-                <el-table-column type="selection" width="55"> </el-table-column>
-                <el-table-column prop="userId" label="序号" width="50">
+                <el-table-column type="selection" align="center">
                 </el-table-column>
-                <el-table-column prop="gonghao" label="工号" width="200">
+                <el-table-column prop="userId" label="序号" align="center">
                 </el-table-column>
-                <el-table-column prop="userName" label="用户名" width="200">
+                <el-table-column prop="gonghao" label="工号" align="center">
                 </el-table-column>
-                <el-table-column prop="userScore" label="用户成绩" width="200">
+                <el-table-column prop="userName" label="用户名" align="center">
                 </el-table-column>
-                <el-table-column label="操作" width="100">
+                <el-table-column
+                  prop="userScore"
+                  label="用户成绩"
+                  align="center"
+                >
+                </el-table-column>
+                <el-table-column label="操作" align="center">
                   <template slot-scope="scope">
                     <el-button
                       @click="showPapers(scope.row)"
@@ -207,44 +211,74 @@
             <el-container>
               <el-aside width="200px">
                 <div class="question-num">
-                  <div v-if="radionQuestions">
+                  <!-- 单选题 -->
+                  <div v-if="radioQuestions">
                     <div class="page-title">一、单选题</div>
                     <a
-                      v-for="(list, index) in radionQuestions"
+                      v-for="(list, index) in radioQuestions"
                       :key="index"
                       @click="Submitid('qid' + list.questionsId)"
                       >{{ index + 1 }}</a
                     >
                     <div class="clearfix"></div>
                   </div>
-                  <div v-if="judgeQuestions"></div>
-                  <div class="page-title">二、判断题</div>
-                  <a
-                    v-for="(list, index) in judgeQuestions"
-                    :key="index"
-                    @click="Submitid('qid' + list.questionsId)"
-                    >{{ index + 1 }}</a
-                  >
-                  <div class="clearfix"></div>
+                  <!-- 判断题 -->
+                  <div v-if="judgeQuestions">
+                    <div class="page-title">二、判断题</div>
+                    <a
+                      v-for="(list, index) in judgeQuestions"
+                      :key="index"
+                      @click="Submitid('qid' + list.questionsId)"
+                      >{{ index + 1 }}</a
+                    >
+                    <div class="clearfix"></div>
+                  </div>
+                  <div v-if="mulChoQuestions">
+                    <!-- 多选题 -->
+                    <div class="page-title">三、多选题</div>
+                    <a
+                      v-for="(list, index) in mulChoQuestions"
+                      :key="index"
+                      @click="Submitid('qid' + list.questionsId)"
+                      >{{ index + 1 }}</a
+                    >
+                    <div class="clearfix"></div>
+                  </div>
                 </div>
               </el-aside>
               <el-main>
                 <vuescroll :ops="ops" ref="vs">
                   <div class="question-lists" ref="qlist">
-                    <div v-if="radionQuestions">
+                    <div v-if="radioQuestions">
                       <div class="question-list">
                         <div class="title">第一部分： 单选题</div>
                         <div class="questions">
                           <div
-                            v-for="(list, index) in radionQuestions"
+                            v-for="(list, index) in radioQuestions"
                             :key="index"
                             :id="'qid' + list.questionsId"
                             class="questionsDetails"
                           >
                             <div class="tit">
-                              第{{ index + 1 }}题、{{
-                                list.questionsContent | htmlReg
-                              }}
+                              <span
+                                >第{{ index + 1 }}题、{{
+                                  list.questionsContent | htmlReg
+                                }}</span
+                              >
+
+                              <span
+                                v-if="
+                                  list.examineAnswer.length === 0 ||
+                                    (list.examineAnswer.length !== 0 &&
+                                      list.examineAnswer[0].userAnswer !==
+                                        list.questionsAnswer)
+                                "
+                                style="color: red;margin-left: 20px;"
+                                >×</span
+                              >
+                              <div class="correct" style="color:green">
+                                正确答案：{{ list.questionsAnswer }}
+                              </div>
                             </div>
                             <div v-if="list.examineAnswer[0]" class="options">
                               <el-radio-group
@@ -291,9 +325,24 @@
                             class="questionsDetails"
                           >
                             <div class="tit">
-                              第{{ index + 1 }}题、{{
-                                list.questionsContent | htmlReg
-                              }}
+                              <span
+                                >第{{ index + 1 }}题、{{
+                                  list.questionsContent | htmlReg
+                                }}</span
+                              >
+                              <span
+                                v-if="
+                                  list.examineAnswer.length === 0 ||
+                                    (list.examineAnswer.length !== 0 &&
+                                      list.examineAnswer[0].userAnswer !==
+                                        list.questionsAnswer)
+                                "
+                                style="color: red;margin-left: 20px;"
+                                >×</span
+                              >
+                              <div class="correct" style="color:green">
+                                正确答案：{{ list.questionsAnswer }}
+                              </div>
                             </div>
                             <div v-if="list.examineAnswer[0]" class="options">
                               <el-radio-group
@@ -314,6 +363,72 @@
                                   :key="idx"
                                   :label="val.optionNum"
                                   >{{ val.optionContent | htmlReg }}
+                                </el-radio>
+                              </el-radio-group>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- 多选题 -->
+                    <div v-if="mulChoQuestions">
+                      <div class="question-list">
+                        <div class="title">第三部分： 多选题</div>
+                        <div class="questions">
+                          <div
+                            v-for="(list, index) in mulChoQuestions"
+                            :key="index"
+                            :id="'qid' + list.questionsId"
+                            class="questionsDetails"
+                          >
+                            <div class="tit">
+                              <span
+                                >第{{ index + 1 }}题、{{
+                                  list.questionsContent | htmlReg
+                                }}</span
+                              >
+                              <span
+                                v-if="
+                                  list.examineAnswer.length === 0 ||
+                                    (list.examineAnswer.length !== 0 &&
+                                      list.examineAnswer[0].userAnswer.toString() !==
+                                        list.questionsAnswer)
+                                "
+                                style="color: red;margin-left: 20px;"
+                                >×</span
+                              >
+                              <div class="correct" style="color:green">
+                                正确答案：{{ list.questionsAnswer }}
+                              </div>
+                            </div>
+                            <div v-if="list.examineAnswer[0]" class="options">
+                              {{ list.examineAnswer[0].userAnswer.toString() }}
+                              <el-checkbox-group
+                                v-model="list.examineAnswer[0].userAnswer"
+                              >
+                                <el-checkbox
+                                  v-for="(val, idx) in list.lOptionList"
+                                  :key="idx"
+                                  :label="val.optionNum"
+                                  ><span
+                                    >{{ val.optionNum }}、{{
+                                      val.optionContent | htmlReg
+                                    }}</span
+                                  >
+                                </el-checkbox>
+                              </el-checkbox-group>
+                            </div>
+                            <div v-else class="options">
+                              <el-radio-group>
+                                <el-radio
+                                  v-for="(val, idx) in list.lOptionList"
+                                  :key="idx"
+                                  :label="val.optionNum"
+                                  ><span
+                                    >{{ val.optionNum }}、{{
+                                      val.optionContent | htmlReg
+                                    }}</span
+                                  >
                                 </el-radio>
                               </el-radio-group>
                             </div>
@@ -363,10 +478,12 @@ export default {
       },
       idx: 0,
       exam: [],
-      radionQuestions: [],
+      radioQuestions: [],
       judgeQuestions: [],
+      mulChoQuestions: [],
       transQuestions: {},
       transQuestions2: {},
+      transQuestions3: {},
       userInfo: [],
       showPaper: false,
       examInfo: {},
@@ -385,11 +502,12 @@ export default {
         yAxis: {
           type: 'value'
         },
-        series: [{
-          type: 'bar',
-          data: []
-        }]
-
+        series: [
+          {
+            type: 'bar',
+            data: []
+          }
+        ]
       },
       datatable: [],
       option2: {
@@ -400,11 +518,13 @@ export default {
         xAxis: {
           type: 'value'
         },
-        series: [{
-          data: [],
-          type: 'bar',
-          name: '分数'
-        }],
+        series: [
+          {
+            data: [],
+            type: 'bar',
+            name: '分数'
+          }
+        ],
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -413,7 +533,6 @@ export default {
         },
         grid: {
           containLabel: true
-
         }
       },
       barchart: {}
@@ -425,21 +544,15 @@ export default {
     this.getExamInfo()
     this.getExamReport()
   },
-  mounted() {
-
-  },
-  computed: {
-    check(val) {
-
-    }
-  },
+  mounted() {},
+  computed: {},
   methods: {
     // 点击导出word
     exportWord() {
       const _this = this
       _this.integration()
       _this.idx = 0
-      JSZipUtils.getBinaryContent('tempb.docx', function (error, content) {
+      JSZipUtils.getBinaryContent('tempb.docx', function(error, content) {
         // 抛出异常
         if (error) {
           throw error
@@ -452,6 +565,7 @@ export default {
         doc.setData({
           question: _this.transQuestions,
           question2: _this.transQuestions2,
+          question3: _this.transQuestions3,
           examName: _this.exam.examName,
           userName: _this.userInfo.userName,
           userScore: _this.userInfo.userScore
@@ -484,15 +598,15 @@ export default {
     // 整合试卷重新生成数组
     integration() {
       const that = this
-
       that.transQuestions2 = JSON.parse(JSON.stringify(that.judgeQuestions)) // 解决赋值修改原变量问题
-      that.transQuestions = JSON.parse(JSON.stringify(that.radionQuestions)) // 解决赋值修改原变量问题
+      that.transQuestions3 = JSON.parse(JSON.stringify(that.mulChoQuestions)) // 解决赋值修改原变量问题
+      that.transQuestions = JSON.parse(JSON.stringify(that.radioQuestions)) // 解决赋值修改原变量问题
 
       for (const key in that.transQuestions) {
         that.idx++
         that.transQuestions[key].index = Number(key) + 1
         that.transQuestions[key].questionsContent = that.transQuestions[key].questionsContent.replace(/<[^>]+>/g, ' ')
-        that.transQuestions[key].questionsContent = that.transQuestions[key].questionsContent.replace(/&nbsp;/ig, '')
+        that.transQuestions[key].questionsContent = that.transQuestions[key].questionsContent.replace(/&nbsp;/gi, '')
         if (that.transQuestions[key].examineAnswer[0]) {
           that.transQuestions[key].examineAnswer = that.transQuestions[key].examineAnswer[0].userAnswer
         } else {
@@ -502,38 +616,49 @@ export default {
         let tempA = that.transQuestions[key].lOptionList
         for (const i in tempA) {
           tempA[i].optionContent = tempA[i].optionContent.replace(/<[^>]+>/g, ' ')
-          tempA[i].optionContent = tempA[i].optionContent.replace(/&nbsp;/ig, '')
+          tempA[i].optionContent = tempA[i].optionContent.replace(/&nbsp;/gi, '')
         }
       }
       for (const key in that.transQuestions2) {
         that.transQuestions2[key].index = that.idx + Number(key) + 1
         // that.transQuestions2[key].examineAnswer[0].userAnswer === 'A' ? that.transQuestions2[key].examineAnswer[0].userAnswer = '对' : that.transQuestions2[key].examineAnswer[0].userAnswer = '错'
         that.transQuestions2[key].questionsContent = that.transQuestions2[key].questionsContent.replace(/<[^>]+>/g, ' ')
-        that.transQuestions2[key].questionsContent = that.transQuestions2[key].questionsContent.replace(/&nbsp;/ig, '')
+        that.transQuestions2[key].questionsContent = that.transQuestions2[key].questionsContent.replace(/&nbsp;/gi, '')
         if (that.transQuestions2[key].examineAnswer[0]) {
           that.transQuestions2[key].examineAnswer = that.transQuestions2[key].examineAnswer[0].userAnswer
         } else {
           that.transQuestions2[key].examineAnswer = ''
         }
-
         let tempA = that.transQuestions2[key].lOptionList
         for (const i in tempA) {
           tempA[i].optionContent = tempA[i].optionContent.replace(/<[^>]+>/g, ' ')
-          tempA[i].optionContent = tempA[i].optionContent.replace(/&nbsp;/ig, '')
+          tempA[i].optionContent = tempA[i].optionContent.replace(/&nbsp;/gi, '')
           // tempA[i].optionNum === 'A' ? tempA[i].optionNum = '对' : tempA[i].optionNum = '错'
         }
-        console.log(that.transQuestions[key].examineAnswer, 'that.transQuestions[key].examineAnswer')
+      }
+      for (const key in that.transQuestions3) {
+        that.idx++
+        that.transQuestions3[key].index = Number(key) + 1
+        that.transQuestions3[key].questionsContent = that.transQuestions3[key].questionsContent.replace(/<[^>]+>/g, ' ')
+        that.transQuestions3[key].questionsContent = that.transQuestions3[key].questionsContent.replace(/&nbsp;/gi, '')
+        if (that.transQuestions3[key].examineAnswer[0]) {
+          that.transQuestions3[key].examineAnswer = that.transQuestions3[key].examineAnswer[0].userAnswer
+        } else {
+          that.transQuestions3[key].examineAnswer = ''
+        }
+        let tempA = that.transQuestions3[key].lOptionList
+        console.log(tempA, '22222')
+        for (const i in tempA) {
+          tempA[i].optionContent = tempA[i].optionContent.replace(/<[^>]+>/g, ' ')
+          tempA[i].optionContent = tempA[i].optionContent.replace(/&nbsp;/gi, '')
+        }
       }
     },
     // 试卷跳转
     Submitid(key) {
       // 获取点击的按钮对应页面的id
       const vs = this.$refs['vs']
-      vs.scrollIntoView(
-        '#' + key,
-        500,
-        'easeInQuad'
-      )
+      vs.scrollIntoView('#' + key, 500, 'easeInQuad')
     },
     // 显示试卷
     showPapers(row) {
@@ -541,12 +666,8 @@ export default {
         this.showPaper = !this.showPaper
       } else {
         this.showPaper = !this.showPaper
-        // console.log(row)
         this.getPaper(row)
       }
-    },
-    handleClick(row) {
-      console.log(row)
     },
     basicInfo() {
       this.showScore = false
@@ -573,31 +694,43 @@ export default {
       this.showTable = true
     },
     async getExamReport() {
-      const {
-        data: res
-      } = await this.$http.post('/manager/lStatistic/examReport', {
-        id: this.datadetail.examId,
-        num: 1
-      })
+      const { data: res } = await this.$http.post(
+        '/manager/lStatistic/examReport',
+        {
+          id: this.datadetail.examId,
+          num: 1
+        }
+      )
       if (res.state !== 200) {
         this.chartData = []
         return this.$message.error('操作失败！')
       } else {
         this.chartData = res.data
-         res.data.examUserList.forEach(res => {
-            res.gonghao = 'QG22' + res.userId
-          })
+        res.data.examUserList.forEach(res => {
+          res.gonghao = 'QG22' + res.userId
+        })
         this.examUserList = res.data.examUserList
         for (var i = 0; i < res.data.examUserList.length; i++) {
           this.option2.series[0].data.push(res.data.examUserList[i].userScore)
           this.option2.yAxis.data.push(res.data.examUserList[i].userName)
         }
 
-        this.option.xAxis.data = ['0-9', '10-19', '20-29', '30-39', '40-49', '50-59',
-          '60-69', '70-79', '80-89', '90-100'
+        this.option.xAxis.data = [
+          '0-9',
+          '10-19',
+          '20-29',
+          '30-39',
+          '40-49',
+          '50-59',
+          '60-69',
+          '70-79',
+          '80-89',
+          '90-100'
         ]
-        for (var i = 0; i < this.option.xAxis.data.length; i++) {
-          this.option.series[0].data.push(this.chartData.reportList[0][this.option.xAxis.data[i]])
+        for (let i = 0; i < this.option.xAxis.data.length; i++) {
+          this.option.series[0].data.push(
+            this.chartData.reportList[0][this.option.xAxis.data[i]]
+          )
         }
         this.datatable.push({
           score: '0-9',
@@ -641,29 +774,46 @@ export default {
         })
       }
     },
-    async getPaper(row) { // 获取试卷
+    async getPaper(row) {
+      // 获取试卷
       this.userInfo = row
-      const {
-        data: res
-      } = await this.$http.get('/learn/myexam/myExamDetail?userId=' + row.userId + '&examId=' + row.examId)
-      this.radionQuestions = res.data.examQuestions.radio
-      this.judgeQuestions = res.data.examQuestions.judge
+      const { data: res } = await this.$http.get(
+        '/learn/myexam/myExamDetail?userId=' +
+          row.userId +
+          '&examId=' +
+          row.examId
+      )
+      if (res.data.examQuestions.radio) {
+        this.radioQuestions = res.data.examQuestions.radio
+      }
+      if (res.data.examQuestions.check) {
+        let arr = res.data.examQuestions.check
+        arr.forEach(item => {
+          if (item.examineAnswer.length !== 0) {
+            item.examineAnswer[0].userAnswer = item.examineAnswer[0].userAnswer.split(
+              ','
+            )
+          }
+        })
+        this.mulChoQuestions = arr
+      }
+      if (res.data.examQuestions.judge) {
+        this.judgeQuestions = res.data.examQuestions.judge
+      }
       this.exam = res.data.exam
     },
     async getExamInfo() {
-      const {
-        data: res
-      } = await this.$http.post('/manager/lStatistic/examInfo', {
-        id: this.datadetail.examId
-      })
+      const { data: res } = await this.$http.post(
+        '/manager/lStatistic/examInfo',
+        {
+          id: this.datadetail.examId
+        }
+      )
       if (res.state !== 200) {
         this.tableData = []
         return this.$message.error('操作失败！')
       } else {
         this.examInfo = res.data
-        console.log(this.examInfo)
-        // console.log(res)
-        // return this.$message.success('操作成功！')
       }
     },
     // 定义导出Excel表格事件
@@ -693,37 +843,36 @@ export default {
       }
       return wbout
     }
-
   },
   filters: {
-    transfermDate(val) {
-      if (val == null) return val
+    transformDate(val) {
+      if (val === undefined) return val
       return val.split('T')[0]
     },
     transfermExamFile(val) {
-      if (val == null) return val
-      if (val == '0') return '手动归档'
+      if (val === null) return val
+      if (val === '0') return '手动归档'
       else return '自动归档'
     },
     transfermAssignTopic(val) {
-      if (val == null) return val
-      if (val == '1') return '固定'
+      if (val === null) return val
+      if (val === '1') return '固定'
       else return '随机'
     },
     transfermFractionType(val) {
-      if (val == null) return val
-      if (val == '1') return '使用题库试题分数'
+      if (val === null) return val
+      if (val === '1') return '使用题库试题分数'
       else return '指定题型分数'
     },
     transfermAchievementType(val) {
-      if (val == null) return val
-      if (val == '1') return '考试结束后'
-      if (val == '2') return '指定时间'
+      if (val === null) return val
+      if (val === '1') return '考试结束后'
+      if (val === '2') return '指定时间'
       else return '不公示'
     },
     htmlReg(val) {
       const amsg = val.replace(/<[^>]+>/g, '') // 去除HTML Tag
-      const msg = amsg.replace(/&nbsp;/ig, '')
+      const msg = amsg.replace(/&nbsp;/gi, '')
       return msg
     },
     transformTf(val) {
@@ -734,7 +883,6 @@ export default {
       }
     }
   }
-
 }
 </script>
 <style scoped>
@@ -762,7 +910,8 @@ export default {
   color: #333;
   text-align: center;
 }
-.showPaper .el-main,.el-aside {
+.showPaper .el-main,
+.el-aside {
   color: #333;
   text-align: center;
   height: calc(100% - 60px);
@@ -822,6 +971,11 @@ export default {
   font-size: 16px;
   line-height: 24px;
 }
+.question-list .el-checkbox {
+  display: block;
+  font-size: 16px;
+  line-height: 24px;
+}
 .question-list .el-radio .el-radio__label span {
   display: inline-block;
 }
@@ -836,11 +990,10 @@ export default {
   height: 100%;
 }
 
-.table-tongji{
-display: flex;
-
+.table-tongji {
+  display: flex;
 }
 .table-tongji .table-left {
-width:20%
+  width: 20%;
 }
 </style>
